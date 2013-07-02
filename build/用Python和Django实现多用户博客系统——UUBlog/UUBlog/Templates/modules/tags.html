@@ -1,0 +1,15 @@
+<div id="module_Tags" class="border tbox">
+    <div class="hd">
+        <h2>Tags</h2>
+    </div>
+    <div class="bd">
+        <ul>
+        {% if moduleList.tags %}
+        {% for articleInfo in moduleList.tags %}
+        <li><a href="{% url 'articleshow' uid=articleInfo.user_id aid=articleInfo.id%}">{{articleInfo.title}}</a>({{articleInfo.views}})</li>
+        {% endfor %}
+        {% endif %}
+            </ul>
+    </div>
+    <div class="ft"></div>
+</div>

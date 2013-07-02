@@ -1,0 +1,79 @@
+{% extends "Skins/default/basepage.html" %}
+
+{% block title %}{{ articleInfo.title }}{% endblock %}
+
+{% block content %}
+
+<div class="article">
+            
+    {% if message%}
+    <b>{{message}}</b>
+    {% endif %}
+
+
+    <div class="artTitle"><h1>{{articleInfo.title}}</h1></div>
+
+    <div class="artCon">{{articleInfo.content|safe}}
+        <div>支持({{articleInfo.goods}})&nbsp;&nbsp;┆&nbsp;&nbsp;反对({{articleInfo.bads}})</div>
+    </div>
+
+    <div class="artMeta">
+        <span><a href="{% url 'userhome' uid=articleInfo.user_id%}">{{articleInfo.username}}</a>&nbsp;&nbsp;┆&nbsp;&nbsp;{{articleInfo.createtime}}&nbsp;&nbsp;┆&nbsp;&nbsp;阅读({{articleInfo.views}})&nbsp;&nbsp;┆&nbsp;&nbsp;评论({{articleInfo.comments}})
+            {% if userInfos.isme%}
+            &nbsp;&nbsp;┆&nbsp;&nbsp;<a href="{% url 'articleedit' uid=articleInfo.user_id aid=articleInfo.id%}">编辑</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+<div id="commentList" class="commentList">
+
+    {% if commentList %}
+    {% for commentInfo in commentList %}
+    <div class="border comment">
+        
+        <span class="username">#{{ forloop.counter }}楼&nbsp;<a href="{% url 'userhome' uid=commentInfo.user_id%}"> {{commentInfo.username}}</a></span>
+        <span class="createtime">{{commentInfo.createtime|date:"Y-m-d H:i:s"}} 发表</span>
+        <div class="clear"></div>
+        <div class="content">{{commentInfo.content}}</div>
+        <div class="clear"></div>
+        <div class="meta">
+            <span>反对</span>
+            <span>支持</span>
+            <span>回复</span>
+
+        </div>
+        
+    </div>
+<div class="clear"></div>
+    {% endfor %}
+    {% endif %}
+    <div id="newComment" class="newComment">
+        {% if articleInfo.cancomment %}
+        <form name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>昵称：</td>
+                    <td><input name="username" type="text" size="60" value="{{userInfos.currentuser.username}}"/></td>
+                </tr>
+                <tr>
+                    <td>评论内容</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><textarea name="content" type="text" rows="5" cols="50" ></textarea></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="ok" value="--修改--"/></td>
+                </tr>
+
+            </table>
+        </form>
+        {% else %}
+        <p>作者已禁止评论</p>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock%}

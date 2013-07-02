@@ -1,0 +1,73 @@
+{% extends "pub/basepage.html"%}
+
+{% block title%} 文章管理 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <ul class="bd">
+        <table width="100%">
+            <th>
+                <tr>
+                    <td>标题</td>
+                    <td width="60">状态</td>
+                    <td width="60">评论</td>
+                    <td width="60">浏览</td>
+                    <td width="120">操作</td>
+                </tr>
+                
+            </th>
+            <tbody>
+                {% if articleList %}
+
+                {% for articleInfo in articleList%}
+                <tr>
+                    <td><a href="{% url 'articleshow' uid=articleInfo.user_id aid=articleInfo.id%}">{{articleInfo.title}}</a></td>
+                    <td>
+                        {% ifequal articleInfo.status 1%}
+                        发布
+                        {% else %}
+                        草稿
+                        {% endifequal %}                        
+                    </td>   
+                    <td>{{articleInfo.comments}}</td> 
+                    <td>{{articleInfo.views}}</td>                  
+                    <td><a href="{% url 'articleedit' uid=articleInfo.user_id aid=articleInfo.id%}">编辑</a>&nbsp&nbsp|&nbsp&nbsp<a href="{% url 'articledelete' uid=articleInfo.user_id aid=articleInfo.id%}">删除</a></td>
+                </tr>
+
+        
+                {% endfor %}
+                {% endif %}
+            </tbody>
+
+        </table>
+
+    </ul>
+</div>
+
+
+        
+{% endblock %}
+
+
+{% block sidebar%}
+<div class="tbox">
+    <div class="hd">文章管理</div>
+    <ul class="bd">
+        <li><a href="{% url 'articleadd' uid=userInfos.currentuser.id%}">添加新文章</a></li>
+        <li><a href="{% url 'articlelistdraft' uid=userInfos.currentuser.id%}">草稿箱</a></li>
+    </ul>
+</div>
+<div class="tbox">
+    <div class="hd">分类管理</div>
+    <ul class="bd">
+        <li><a href="{% url 'category' uid=userInfos.currentuser.id%}">编辑分类</a></li>
+        <li><a href="{% url 'articlelist' uid=userInfos.currentuser.id %}">所有文章</a></li>
+        <li><a href="{% url 'articlelistcategory' uid=userInfos.currentuser.id cid=1%}">未分类</a></li>
+        {% if categoryList %}
+        {% for categoryInfo in categoryList %}
+<li><a href="{% url 'articlelistcategory' uid=userInfos.currentuser.id cid=categoryInfo.id%}">{{categoryInfo.name}}</a></li>
+        {% endfor %}
+{% endif %}
+    </ul>
+</div>
+{% endblock %}

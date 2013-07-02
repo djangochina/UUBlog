@@ -1,0 +1,35 @@
+{% extends "blog/pub/basepage.html"%}
+
+{% block title%} 首页 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>域名</td>
+                    <td><input name="domain" type="text" size="60" value="{{currentBlog.domain}}"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="ok" onclick="getModules('myModules');" value="--修改--"/></td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block sidebar%}
+
+{% include 'blog/pub/sidebar.html' %}
+
+{% endblock %}

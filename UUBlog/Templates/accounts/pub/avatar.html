@@ -1,0 +1,49 @@
+{% extends "accounts/pub/basepage.html"%}
+
+{% block title%} 首页 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form  enctype="multipart/form-data"  name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td></td>
+                    <td>
+                        <img src="/media/{{currentUserProfile.avatar}}" width="120px" height="120px"/><br/>
+                        <input name="avatar" type="file" size="60" />
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="ok" value="--修改--"/></td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block sidebar%}
+
+<div class="tbox">
+    <div class="hd">管理</div>
+    <ul class="bd">
+        <li><a href="{% url 'accountsbase' uid=userInfos.currentuser.id%}">基本资料</a></li>
+        <li><a href="{% url 'accountsavatar' uid=userInfos.currentuser.id%}">设定头像</a></li>
+        <li><a href="{% url 'accountsinfo' uid=userInfos.currentuser.id%}">个人信息</a></li>
+        <li><a href="{% url 'accountscontact' uid=userInfos.currentuser.id%}">联系方式</a></li>
+        <li><a href="{% url 'accountssecurity' uid=userInfos.currentuser.id%}">安全设置</a></li>
+    </ul>
+</div>
+
+{% endblock %}

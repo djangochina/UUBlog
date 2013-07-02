@@ -1,0 +1,23 @@
+{% extends "basepage.html" %}
+
+{% block title %}{{ articleInfo.title }}{% endblock %}
+
+{% block container %}
+<div class="tbox">
+    <div class="bd article">
+
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <div class="artTitle"><h1>{{title}}</h1></div>
+        <div class="artCon">{{content}}
+            <div>支持({{articleInfo.goods}})&nbsp;&nbsp;┆&nbsp;&nbsp;反对({{articleInfo.bads}})</div>
+        </div>
+        <div class="artMeta">
+            <span>{{articleInfo.createtime}}&nbsp;&nbsp;┆&nbsp;&nbsp;阅读({{articleInfo.views}})&nbsp;&nbsp;┆&nbsp;&nbsp;评论({{articleInfo.comments}})&nbsp;&nbsp;┆&nbsp;&nbsp;<a href="{% url 'edit' articleInfo.id%}">编辑</a></span>
+        </div>
+    </div>
+</div>
+
+{% endblock%}
+

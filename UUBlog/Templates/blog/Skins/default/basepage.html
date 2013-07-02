@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="/static/styles/common.css" />
+<link rel="stylesheet" type="text/css" href="/static/blog/skins/default/style.css" />
+
+<script type="text/javascript" charset="utf-8" src="/static/scripts/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript">
+            function FollowBlog(obj) {
+                blog_id = $(obj).attr("id");
+                dot = blog_id.indexOf("_");
+                blogid = blog_id.substring(dot + 1);
+                ajaxurl = "{% url 'blogajaxfollowblog' %}";
+                postData = {"blogid":blogid};
+
+                $.ajax({
+                    type: "GET",
+                    data: postData,
+                    url: ajaxurl,
+                    cache: false,
+                    dataType: "json",
+                    success: function(data, textStatus) {
+                        var follows = parseInt($("#follow_"+blogid).html());
+                        follows += 1;
+                        $("#follow_"+blogid).html(follows);
+                        
+                        $(obj).attr("value", "已关注");
+                        $(obj).attr("disabled", "disabled");
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                
+                    }
+                });
+        
+                return false;
+            }
+            function SuggestBlog(obj) {
+                blog_id = $(obj).attr("id");
+                dot = blog_id.indexOf("_");
+                blogid = blog_id.substring(dot + 1);
+                ajaxurl = "{% url 'blogajaxsuggestblog' %}";
+                postData = {"blogid":blogid};
+
+                $.ajax({
+                    type: "GET",
+                    data: postData,
+                    url: ajaxurl,
+                    cache: false,
+                    dataType: "json",
+                    success: function(data, textStatus) {
+                        var suggestes = parseInt($("#suggest_"+blogid).html());
+                        suggestes += 1;
+                        $("#suggest_"+blogid).html(suggestes);
+                        $(obj).attr("value", "已推荐");
+                        $(obj).attr("disabled", "disabled");
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                
+                    }
+                });
+        
+                return false;
+            }
+            
+        </script>
+
+    </head>
+
+    <body>
+        {% include 'common/topbar.html'%}
+        <div id="header">
+            <div>
+                <a href="/{{userInfos.guestblog.id}}">
+                    <h1>{{userInfos.guestblog.title}}</h1>
+                </a>
+            </div>
+        </div>
+
+        <div class="clear">
+        </div>
+        <div id="container">
+            <div id="wrap_content">
+                {% block content %}{% endblock %}
+            </div>
+            <div id="wrap_sidebar">
+                {% if myModules %}
+                {% for module in myModules %}
+                {% ifnotequal module ''%}
+                {% with "blog/modules/"|add:module|add:".html" as template%}
+                {% include template %}
+                {% endwith %}
+                {% endifnotequal %}
+                {% endfor %}
+                
+                {% else %}
+                {% endif %}
+                
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <div id="footer">
+            footer
+        </div>
+
+    </body>
+</html>

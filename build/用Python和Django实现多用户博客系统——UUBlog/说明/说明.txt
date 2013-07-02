@@ -1,0 +1,9 @@
+博客地址：http://www.django.org.cn
+博客地址：http://www.cnblogs.com/djangochina/
+推荐学习django、python的论坛 www.djangochina.cnblogs
+python、django学习交流1000人超级群：109674169
+
+用的是mysql
+uublog.sql是sql语句，包括我在开发的时候一些测试的数据，
+用户名、密码为 admin
+更多请参考以上连接

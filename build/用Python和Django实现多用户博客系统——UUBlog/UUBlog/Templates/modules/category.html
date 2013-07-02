@@ -1,0 +1,16 @@
+<div id="module_Category" class="border tbox">
+    <div class="hd">
+        <h2>分类</h2>
+    </div>
+    <div class="bd">
+        <ul>
+        {% if moduleList.category %}
+        {% for categoryInfo in moduleList.category %}
+        <li><a href="{% url 'articlecategory' uid=categoryInfo.user_id cid=categoryInfo.id%}">{{categoryInfo.name}}</a>({{categoryInfo.articles}})</li>
+        {% endfor %}
+        {% endif %}
+            </ul>
+    </div>
+    <div class="ft"></div>
+</div>
+

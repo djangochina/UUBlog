@@ -1,0 +1,21 @@
+<div id="module_Profile" class="border tbox">
+    <div class="hd">
+        <h2>个人资料</h2>
+    </div>
+    <div class="bd">
+        <ul>
+        <li>
+            <img src="/media/{{userInfos.guestuserprofile.avatar}}" width="120px" height="120px"/><br/>
+{{userInfos.guestuserprofile.nickname}}
+        </li>
+        
+        <li>今日访问：{{userInfos.guestblog.todayviews}}</li>
+        <li>总访问量：{{userInfos.guestblog.totalviews}}</li>
+        <li>文章：{{userInfos.guestblog.articles}}</li>
+        <li>评论：{{userInfos.guestblog.comments}}</li>
+        <li>园龄：{{userInfos.guestuser.date_joined|date:"Y-m-d"}}</li>
+
+            </ul>
+    </div>
+    <div class="ft"></div>
+</div>

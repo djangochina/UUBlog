@@ -1,0 +1,76 @@
+{% extends "pub/basepage.html"%}
+
+{% block title%} 首页 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>用户名</td>
+                    <td>{{userInfos.currentuser.username}}</td>
+                </tr>
+                <tr>
+                    <td>昵称</td>
+                    <td><input name="nickname" type="text" size="60" value="{{currentUserProfile.nickname}}"/></td>
+                </tr>
+                <tr>
+                    <td>真实姓名</td>
+                    <td><input name="realname" type="text" size="60" value="{{currentUserProfile.realname}}"/></td>
+                </tr>
+                <tr>
+                    <td>性别</td>
+                    <td>
+                        <select name="gender">
+                            <option value="0" {% ifequal currentUserProfile.gender 0%} selected="selected"{% endifequal %}>保密</option>
+                            <option value="1" {% ifequal currentUserProfile.gender 1%} selected="selected"{% endifequal %}>男</option> 
+                            <option value="2" {% ifequal currentUserProfile.gender 2%} selected="selected"{% endifequal %}>女</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>生日</td>
+                    <td><input name="birthday" type="text" size="60" value="{{currentUserProfile.birthday|date:"Y-m-d H:i:s"}}"/></td>
+                </tr>
+                <tr>
+                    <td>出生地</td>
+                    <td><input name="birthcity" type="text" size="60" value="{{currentUserProfile.birthcity}}"/></td>
+                </tr>
+                <tr>
+                    <td>居住地</td>
+                    <td><input name="residecity" type="text" size="60" value="{{currentUserProfile.residecity}}"/></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="ok" value="--修改--"/></td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block sidebar%}
+
+<div class="tbox">
+    <div class="hd">管理</div>
+    <ul class="bd">
+        <li><a href="{% url 'profilebase' uid=userInfos.currentuser.id%}">基本资料</a></li>
+        <li><a href="{% url 'profileavatar' uid=userInfos.currentuser.id%}">设定头像</a></li>
+        <li><a href="{% url 'profileinfo' uid=userInfos.currentuser.id%}">个人信息</a></li>
+        <li><a href="{% url 'profilecontact' uid=userInfos.currentuser.id%}">联系方式</a></li>
+        <li><a href="{% url 'profilesecurity' uid=userInfos.currentuser.id%}">安全设置</a></li>
+        <li><a href="{% url 'configblog' uid=userInfos.currentuser.id%}">博客设置</a></li>
+    </ul>
+</div>
+
+{% endblock %}

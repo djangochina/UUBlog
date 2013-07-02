@@ -1,0 +1,74 @@
+{% extends "pub/basepage.html"%}
+
+{% block title%} 分类管理 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        
+
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>名称</td>
+                    <td><textarea name="name" id="name">{{categoryInfo.name}}</textarea></td>
+                </tr>
+                <tr>
+                    <td>排序</td>
+                    <td><input name="sortnum" type="text" size="60" value="{{categoryInfo.sortnum}}"/></td>
+                </tr>
+               
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="ok" value="--修改--"/></td>
+                </tr>
+
+            </table>
+        </form>
+        <table>
+            {% if categoryList %}
+            {% for categoryInfo in categoryList%}
+            <tr>
+                <td>{{categoryInfo.name}}</td>
+                <td>{{categoryInfo.sort_num}}</td>
+                <td><a href="{% url 'categoryedit' uid=categoryInfo.user_id  cid=categoryInfo.id %}">编辑</a>
+&nbsp;
+<a href="{% url 'categorydelete' uid=categoryInfo.user_id cid=categoryInfo.id %}">删除</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+            {% endif %}
+
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebar%}
+<div class="tbox">
+    <div class="hd">文章管理</div>
+    <ul class="bd">
+        <li><a href="{% url 'articleadd' uid=userInfos.currentuser.id%}">添加新文章</a></li>
+        <li><a href="{% url 'articlelistdraft' uid=userInfos.currentuser.id%}">草稿箱</a></li>
+    </ul>
+</div>
+<div class="tbox">
+    <div class="hd">分类管理</div>
+    <ul class="bd">
+        <li><a href="{% url 'category' uid=userInfos.currentuser.id%}">编辑分类</a></li>
+        <li><a href="{% url 'articlelist' uid=userInfos.currentuser.id %}">所有文章</a></li>
+        <li><a href="{% url 'articlelistcategory' uid=userInfos.currentuser.id cid=1%}">未分类</a></li>
+        {% if categoryList %}
+        {% for categoryInfo in categoryList %}
+        <li><a href="{% url 'articlelistcategory' uid=userInfos.currentuser.id cid=categoryInfo.id%}">{{categoryInfo.name}}</a></li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+
+</div>
+{% endblock %}

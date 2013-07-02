@@ -1,0 +1,35 @@
+{% extends "basepage.html" %}
+
+{% block title %}{{ articleInfo.title }}{% endblock %}
+
+{% block container %}
+<div class="tbox">
+    <div class="bd">
+    <form name="form1" method="POST" action="">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>用户名</td>
+                <td><input name="username" id="username" type="text" size="60" value=""/></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input name="email" id="email" type="text" size="60" value=""/></td>
+            </tr>
+            <tr>
+                <td>密码</td>
+                <td><input name="password" id="password" type="text" size="60" value=""/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" name="ok" value="--添加--"/></td>
+            </tr>
+
+        </table>
+    </form>
+      
+    </div>
+</div>
+
+{% endblock%}
+

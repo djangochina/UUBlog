@@ -1,0 +1,15 @@
+<div id="module_HotArticleList" class="border tbox">
+    <div class="hd">
+        <h2>热门文章</h2>
+    </div>
+    <div class="bd">
+        <ul>
+        {% if moduleList.hotarticlelist %}
+        {% for articleInfo in moduleList.hotarticlelist %}
+        <li><a href="{% url 'articleshow' uid=articleInfo.user_id aid=articleInfo.id%}">{{articleInfo.title}}</a>({{articleInfo.views}})</li>
+        {% endfor %}
+        {% endif %}
+            </ul>
+    </div>
+    <div class="ft"></div>
+</div>

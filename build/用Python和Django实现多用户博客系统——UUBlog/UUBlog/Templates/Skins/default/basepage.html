@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+        <style type="text/css">
+            * { margin: 0px; padding: 0px; }
+            body { color: #666; font: 12px/18px "微软雅黑E\8F6F\96C5\9ED1",Arial,sans-serif,"新宋体B0\5B8B\4F53"; background: #F2F2F2; }
+body{
+background: transparent url(/static/skins/default/images/bg.jpg) no-repeat center top;
+width: 100%;
+clear: both;background-color: #BCD3E5;}
+            p, ul, ol, li, form { list-style: none; }
+            img { border: none; text-align: center; vertical-align: middle; }
+            p { word-wrap: break-word; display: block; }
+            a { text-decoration: none; }
+
+            .clear { clear: both; height: 0; line-height: 0; font-size: 0; visibility: hidden; overflow: hidden; }
+            .clearfix { clear: both; zoom: 1; }
+            .clearfix:after { content: ""; display: block; clear: both; }
+            
+.border{border: 1px solid #a9bdce; box-shadow: 0 3px 3px #BCD3E5;}
+
+                     #topbar{
+
+background: transparent url(/static/images/top_bg2.png) repeat-x top left;
+height: 40px;
+_height: 38px;
+position: fixed;
+_position: absolute;
+top: 0;
+left: 0;
+right: 0;
+z-index: 1023;
+padding-bottom: 0;
+
+}
+
+#topbar .wrapbox{width: 980px;margin: 0 auto;position: relative;height: 40px;}
+#topbar .wrapbox ul li{float: left;font-size: 16px;text-align: center;height: 100%;line-height: 40px;}
+
+#topbar .wrapbox .leftinfo{ float: left;height: 35px;}
+#topbar .wrapbox .leftinfo ul{}
+#topbar .wrapbox .leftinfo ul li{}
+
+#topbar .wrapbox .centerinfo{float: left;
+margin-left: 50px;
+height: 35px;}
+#topbar .wrapbox .centerinfo ul{}
+#topbar .wrapbox .centerinfo ul li{}
+
+#topbar .wrapbox .centerinfo ul li.selected{}
+#topbar .wrapbox .centerinfo ul li a{
+color: #454545;
+display: block;
+float: left;
+padding: 0 15px;
+height: 34px;
+border-bottom: none;
+}
+
+#topbar .wrapbox .rightinfo{ float: right;height: 35px;}
+#topbar .wrapbox .rightinfo ul{}
+#topbar .wrapbox .rightinfo ul li{float: left;
+font-size: 12px;
+text-align: center;
+height: 100%;
+line-height: 35px;}
+#topbar .wrapbox .rightinfo ul li a{color: #454545;
+display: block;
+float: left;
+padding: 0 10px;
+height: 35px;
+border-bottom: none;}
+
+
+            #header { width: 990px; margin: 0px auto; height: 80px; margin-bottom: 8px;margin-top: 40px; }
+
+            #container { width: 990px; margin: 0 auto;}
+            #container #wrap_content { width: 670px; float: right; }
+            #container #wrap_sidebar { width: 300px; float: left; }
+
+            #footer { width: 990px; margin: 8px auto; height: 60px; }
+        
+            #navigate { }
+
+
+            .tbox { margin-bottom: 20px;  background: white; overflow: hidden; vertical-align: top; }
+            .tbox .hd { padding: 19px 17px 0; position: relative; height: 29px; padding-top: 17px; }
+            .tbox .hd h2 { font-size: 14px; line-height: 15px; color: #518900; float: left; }
+            .tbox .hd h2 a { color: #316301; }
+            .tbox .hd h2 a:hover { color: #596F37; text-decoration: none; }
+            .tbox .hd span.more { float: right; position: relative; line-height: 25px; padding-right: 8px; color: #596F37; }
+            .tbox .hd span.more a { color: #596F37; text-decoration: none; }
+            .tbox .hd span.more a:hover { color: #ff3333; text-decoration: underline; }
+
+            .tbox .bd { padding: 0 19px 11px; }
+            .tbox .bd li { margin-left: 10px; line-height: 24px; }
+
+            .tbox .ft { padding: 0 19px 11px; }
+
+            .articleList { }
+            .articleList .article{margin-bottom: 20px; background: white;  overflow: hidden; vertical-align: top;padding: 10px;}
+            .articleList .article .artTitle { padding: 19px 17px 0; position: relative; height: 29px; padding-top: 17px; }
+            .articleList .article .artMeta { }
+            .articleList .article .artMeta span { float: right; }
+            .articleList .article .artCon { }
+
+            .article {margin-bottom: 20px;  background: white; overflow: hidden; vertical-align: top;padding: 20px; }
+            .article .artTitle { margin: 10px; }
+            .article .artMeta { margin: 5px; }
+            .article .artMeta span { float: right; }
+            .article .artCon { }
+
+            #panel_Profile{}
+            #panel_Search{}
+            #panel_Tags{}
+            #panel_Category{}
+            #panel_Archive{}
+            #panel_ViewTopArticle{}
+            #panel_ViewTopComment{}
+            #panel_NewTopArticle{}
+            #panel_NewTopComment{}
+
+            #commentList{}
+#commentList .newComment{}
+#commentList .comment{margin-bottom: 20px;padding: 10px;  background: white; overflow: hidden; vertical-align: top;}
+#commentList .comment .username{ float: left;}
+#commentList .comment .createtime{ float: right;}
+#commentList .comment .content{word-wrap: break-word;
+word-break: break-all;line-height: 24px;}
+#commentList .comment .meta{}
+#commentList .comment .meta span{ float: right;margin-right: 10px;}
+        </style>
+    </head>
+
+    <body>
+        <div id="topbar">
+            <div class="wrapbox">
+                <div class="leftinfo">
+                    <ul>
+                        <li><a href="/">
+                        <h1>UUBlog</h1>
+                    </a></li>
+                    </ul>
+                    
+                </div>
+                <div class="centerinfo">
+                    <ul>
+                        <li class="selected"><a href="/">主页</a></li>
+                        <li><a href="/">主页</a></li>
+                        <li><a href="/">主页</a></li>
+                        <li><a href="/">主页</a></li>
+                    </ul>
+                </div>
+                <div class="rightinfo">
+                    <ul>
+                        {% if userInfos.currentuser %}
+                    <li><a href="{% url 'userhome' uid=userInfos.currentuser.id%}">我的博客</a></li>
+                    <li><a href="{% url 'articleadd' uid=userInfos.currentuser.id %}">发布文章</a></li>
+                    <li><a href="{% url 'profilebase' uid=userInfos.currentuser.id%}">设置</a></li>
+                    <li><a href="{% url 'logout'%}">退出</a></li>
+                    {% else %}
+                    <li><a href="{% url 'register'%}">注册</a></li>
+                    <li><a href="{% url 'login'%}">登录</a></li>
+                        {% endif %}
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+        <div id="header">
+            <div>
+                <a href="/{{userInfos.guestblog.user_id}}">
+                    <h1>{{userInfos.guestblog.title}}</h1>
+                </a>
+            </div>
+        </div>
+
+        <div class="clear">
+        </div>
+        <div id="container">
+            <div id="wrap_content">
+                {% block content %}{% endblock %}
+            </div>
+            <div id="wrap_sidebar">
+                {% if myModules %}
+                    {% for module in myModules %}
+                    {% ifnotequal module ''%}
+                        {% with "modules/"|add:module|add:".html" as template%}
+                        {% include template %}
+                        {% endwith %}
+                    {% endifnotequal %}
+                    {% endfor %}
+                
+                {% else %}
+                {% endif %}
+                
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <div id="footer">
+            footer
+        </div>
+
+    </body>
+</html>

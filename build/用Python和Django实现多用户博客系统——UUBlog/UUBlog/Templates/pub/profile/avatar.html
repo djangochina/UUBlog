@@ -1,0 +1,51 @@
+{% extends "pub/basepage.html"%}
+
+{% block title%} 首页 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form  enctype="multipart/form-data"  name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td></td>
+                    <td>
+                        <img src="/media/{{currentUserProfile.avatar}}" width="120px" height="120px"/><br/>
+                        <input name="avatar" type="file" size="60" />
+                        
+                    </td>
+                </tr>
+               
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="ok" value="--修改--"/></td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block sidebar%}
+
+<div class="tbox">
+    <div class="hd">管理</div>
+    <ul class="bd">
+        <li><a href="{% url 'profilebase' uid=userInfos.currentuser.id%}">基本资料</a></li>
+        <li><a href="{% url 'profileavatar' uid=userInfos.currentuser.id%}">设定头像</a></li>
+        <li><a href="{% url 'profileinfo' uid=userInfos.currentuser.id%}">个人信息</a></li>
+        <li><a href="{% url 'profilecontact' uid=userInfos.currentuser.id%}">联系方式</a></li>
+        <li><a href="{% url 'profilesecurity' uid=userInfos.currentuser.id%}">安全设置</a></li>
+        <li><a href="{% url 'configblog' uid=userInfos.currentuser.id%}">博客设置</a></li>
+    </ul>
+</div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+<div id="module_GoodArticleList" class="border tbox">
+    <div class="hd">
+        <h2>推荐文章</h2>
+    </div>
+    <div class="bd">
+        <ul>
+        {% if moduleList.goodarticlelist %}
+        {% for articleInfo in moduleList.goodarticlelist %}
+        <li><a href="{% url 'articleshow' uid=articleInfo.user_id aid=articleInfo.id%}">{{articleInfo.title}}</a>({{articleInfo.comments}})</li>
+        {% endfor %}
+        {% endif %}
+            </ul>
+    </div>
+    <div class="ft"></div>
+</div>

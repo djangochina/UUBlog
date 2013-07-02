@@ -1,0 +1,59 @@
+﻿{% extends 'basepage.html'%}
+
+{% block container %}
+<div id="wrap_content">
+    <div class="articleList">
+        <div id="channelNavigate" class="border tbox">
+            <dir class="hd">
+                <h2>{{currentChannel.name}}</h2>
+            </dir>
+        </div>
+        {% if articleList %}
+        {% for articleInfo in articleList%}
+        <div class="article">
+            <div class="artTitle"><h2><a href="{% url 'articleshow' uid=articleInfo.user_id aid=articleInfo.id%}">{{articleInfo.title}}</a></h2></div>
+            <div class="artCon">
+                    
+                {{articleInfo.summary}}       
+            </div>
+
+            <div class="artMeta">
+                <span><a href="{% url 'userhome' uid=articleInfo.user_id%}">{{articleInfo.username}}</a>&nbsp;&nbsp;┆&nbsp;&nbsp;{{articleInfo.createtime}}&nbsp;&nbsp;┆&nbsp;&nbsp;阅读({{articleInfo.views}})&nbsp;&nbsp;┆&nbsp;&nbsp;评论({{articleInfo.comments}})&nbsp;&nbsp;┆&nbsp;&nbsp;支持({{articleInfo.goods}})&nbsp;&nbsp;┆&nbsp;&nbsp;反对({{articleInfo.bads}})</span>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<div id="wrap_sidebar">
+
+    <div id="module_Channel" class="border tbox">
+        <div class="hd">
+            <h2>频道</h2>
+        </div>
+        <div id="channelList" class="bd">
+            <ul>
+                {% if channelList %}
+                {% for channelInfo in channelList %}
+                <li><a href="{% url 'channel' cid=channelInfo.id%}">{{channelInfo.name}}</a></li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        <div class="ft"></div>
+    </div>
+    {% if myModules %}
+            {% for module in myModules %}
+                {% with "modules/"|add:module|add:".html" as template%}
+                {% include template %}
+                {% endwith %}
+
+            {% endfor %}
+                
+        {% else %}
+    {% endif %}
+</div>
+
+
+{% endblock %}

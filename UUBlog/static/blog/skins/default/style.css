@@ -1,0 +1,98 @@
+/*
+[name]默认风格[/name]
+Powered by Discuz! X
+*/
+
+body { background: #F8F8F8; }
+a { color: #069; }
+#hd { margin-top: 30px; width: 948px; height: 133px; border: 1px solid #D3DFDF; background: #FAFAFA url(images/header.jpg) no-repeat 100% 0; color: #069; }
+	#hd h2 { padding: 20px 0 0 30px; line-height: 115%; }
+	#nv { bottom: 10px; }
+		#nv li { background: none; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr = #00FFFFFF, endColorstr = #00FFFFFF); font-size: 14px; }
+		#nv li a, #nv li a:visited { color: #069; }
+		#nv li a:hover { background-image: none !important; }
+.block { border: 1px solid #DDD; background: #FFF; }
+	.block .title { border-bottom: 1px solid #DDD; background: #EAF1F2 url(images/title.png) repeat-x 0 0; }
+.tl .th { background: none; }
+#ft { border-top: 1px solid #CCC; _margin-top: 10px; }
+
+            * { margin: 0px; padding: 0px; }
+            body { color: #666; font: 12px/18px "微软雅黑E\8F6F\96C5\9ED1",Arial,sans-serif,"新宋体B0\5B8B\4F53"; background: #F2F2F2; }
+body{
+background: transparent url(/static/blog/skins/default/images/bg.jpg) no-repeat center top;
+width: 100%;
+clear: both;background-color: #BCD3E5;}
+            p, ul, ol, li, form { list-style: none; }
+            img { border: none; text-align: center; vertical-align: middle; }
+            p { word-wrap: break-word; display: block; }
+            a { text-decoration: none; }
+
+            
+            
+.border{border: 1px solid #a9bdce; box-shadow: 0 3px 3px #BCD3E5;}
+
+
+
+            #header { width: 990px; margin: 0px auto; height: 80px; margin-bottom: 8px;margin-top: 40px; }
+
+            #container { width: 990px; margin: 0 auto;}
+            #container #wrap_content { width: 720px; float: right; }
+            #container #wrap_sidebar { width: 250px; float: left; }
+
+            #footer { width: 990px; margin: 8px auto; height: 60px; }
+        
+            #navigate { }
+
+
+            .tbox { margin-bottom: 20px;  background: white; overflow: hidden; vertical-align: top; }
+            .tbox .hd { padding: 19px 17px 0; position: relative; height: 29px; padding-top: 17px; }
+            .tbox .hd h2 { font-size: 14px; line-height: 15px; color: #518900; float: left; }
+            .tbox .hd h2 a { color: #316301; }
+            .tbox .hd h2 a:hover { color: #596F37; text-decoration: none; }
+            .tbox .hd span.more { float: right; position: relative; line-height: 25px; padding-right: 8px; color: #596F37; }
+            .tbox .hd span.more a { color: #596F37; text-decoration: none; }
+            .tbox .hd span.more a:hover { color: #ff3333; text-decoration: underline; }
+
+            .tbox .bd { padding: 0 19px 11px; }
+            .tbox .bd li { margin-left: 10px; line-height: 24px; }
+
+            .tbox .ft { padding: 0 19px 11px; }
+
+            .articleList { }
+            .articleList .article{margin-bottom: 20px; background: white;  overflow: hidden; vertical-align: top;padding: 10px;}
+            .articleList .article .artTitle { padding: 19px 17px 0; position: relative; height: 29px; padding-top: 17px; }
+            .articleList .article .artMeta { }
+            .articleList .article .artMeta span { float: right; }
+            .articleList .article .artCon { }
+
+            .article {margin-bottom: 20px;  background: white; overflow: hidden; vertical-align: top;padding: 20px; }
+            .article .artTitle { margin: 10px; }
+            .article .artMeta { margin: 5px; }
+            .article .artMeta span { float: right; }
+            .article .artCon { }
+
+            #module_Profile{}
+            #module_Search{}
+            #module_Tags{}
+            #module_Category{}
+            #module_Archive{}
+            #module_ViewTopArticle{}
+            #module_ViewTopComment{}
+            #module_NewTopArticle{}
+            #module_NewTopComment{}
+            #module_FollowBlogList{}
+            #module_FollowBlogList .bd li{ float: left;margin-bottom: 5px;}
+            #module_BeFollowBlogList{}
+            #module_BeFollowBlogList .bd li{ float: left;margin-bottom: 5px;}
+            #module_BeVisitBlogList{}
+            #module_BeVisitBlogList .bd li{ float: left;margin-bottom: 5px;}
+
+            #commentList{}
+#commentList .newComment{}
+#commentList .comment{margin-bottom: 20px;padding: 10px;  background: white; overflow: hidden; vertical-align: top;}
+#commentList .comment .username{ float: left;}
+#commentList .comment .createtime{ float: right;}
+#commentList .comment .content{word-wrap: break-word;
+word-break: break-all;line-height: 24px;}
+#commentList .comment .meta{}
+#commentList .comment .meta span{ float: right;margin-right: 10px;}

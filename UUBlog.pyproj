@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>UUBlog</Name>
+    <RootNamespace>UUBlog</RootNamespace>
+    <UseIISExpress>true</UseIISExpress>
+    <IsWindowsApplication>False</IsWindowsApplication>
+    <InterpreterId>2af0f10d-7135-4994-9156-5d01c9c11b7e</InterpreterId>
+    <InterpreterVersion>2.7</InterpreterVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>c43a49fd-f524-466f-b1db-c1edd92f9e1f</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectTypeGuids>{5F0BE9CA-D677-4A4D-8806-6076C0FAAD37};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <StartupFile>manage.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <LaunchProvider>Django launcher</LaunchProvider>
+    <OutputPath>.</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="manage.py" />
+    <Compile Include="UUBlog\admin.py" />
+    <Compile Include="UUBlog\apps\accounts\accountsurls.py" />
+    <Compile Include="UUBlog\apps\accounts\models.py" />
+    <Compile Include="UUBlog\apps\accounts\views\viewaccounts.py" />
+    <Compile Include="UUBlog\apps\accounts\views\__init__.py" />
+    <Compile Include="UUBlog\apps\accounts\__init__.py" />
+    <Compile Include="UUBlog\apps\blog\models.py" />
+    <Compile Include="UUBlog\apps\blog\modules.py" />
+    <Compile Include="UUBlog\apps\blog\blogurls.py" />
+    <Compile Include="UUBlog\apps\blog\views\index.py" />
+    <Compile Include="UUBlog\apps\blog\views\viewarticle.py" />
+    <Compile Include="UUBlog\apps\blog\views\viewblog.py" />
+    <Compile Include="UUBlog\apps\blog\views\viewcategory.py" />
+    <Compile Include="UUBlog\apps\blog\views\viewajax.py" />
+    <Compile Include="UUBlog\apps\blog\views\viewspace.py" />
+    <Compile Include="UUBlog\apps\blog\views\viewchannel.py" />
+    <Compile Include="UUBlog\apps\blog\views\viewindex.py" />
+    <Compile Include="UUBlog\apps\blog\views\__init__.py" />
+    <Compile Include="UUBlog\apps\blog\__init__.py" />
+    <Compile Include="UUBlog\apps\test\models.py" />
+    <Compile Include="UUBlog\apps\test\tests.py" />
+    <Compile Include="UUBlog\apps\test\views.py" />
+    <Compile Include="UUBlog\apps\test\__init__.py" />
+    <Compile Include="UUBlog\apps\__init__.py" />
+    <Compile Include="UUBlog\common\pub.py" />
+    <Compile Include="UUBlog\common\utility.py" />
+    <Compile Include="UUBlog\common\__init__.py" />
+    <Compile Include="UUBlog\core\ubasemodel.py" />
+    <Compile Include="UUBlog\core\__init__.py" />
+    <Compile Include="UUBlog\views\index.py" />
+    <Compile Include="UUBlog\views\__init__.py" />
+    <Compile Include="UUBlog\__init__.py" />
+    <Compile Include="UUBlog\settings.py" />
+    <Compile Include="UUBlog\urls.py" />
+    <Compile Include="UUBlog\wsgi.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebPiReference Include="https://www.microsoft.com/web/webpi/3.0/toolsproductlist.xml%3fDjango">
+      <Feed>https://www.microsoft.com/web/webpi/3.0/toolsproductlist.xml</Feed>
+      <ProductId>Django</ProductId>
+      <FriendlyName>Django 1.4</FriendlyName>
+    </WebPiReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UUBlog\apps\accounts\views\" />
+    <Folder Include="UUBlog\apps\blog\" />
+    <Folder Include="UUBlog\apps\blog\views\" />
+    <Folder Include="UUBlog\apps\accounts" />
+    <Folder Include="UUBlog\apps\test\" />
+    <Folder Include="UUBlog\apps\test\Templates\" />
+    <Folder Include="UUBlog\media\" />
+    <Folder Include="UUBlog\media\avatar\" />
+    <Folder Include="UUBlog\media\blog\avatar\" />
+    <Folder Include="UUBlog\media\data\" />
+    <Folder Include="UUBlog\core\" />
+    <Folder Include="UUBlog\common\" />
+    <Folder Include="UUBlog\apps\" />
+    <Folder Include="UUBlog\media\blog\" />
+    <Folder Include="UUBlog\static\blog\" />
+    <Folder Include="UUBlog\static\blog\images\" />
+    <Folder Include="UUBlog\static\blog\skins\t1\" />
+    <Folder Include="UUBlog\static\blog\skins\t1\images\" />
+    <Folder Include="UUBlog\static\blog\skins\t2\" />
+    <Folder Include="UUBlog\static\blog\skins\t2\images\" />
+    <Folder Include="UUBlog\static\blog\styles\" />
+    <Folder Include="UUBlog\static\blog\scripts\" />
+    <Folder Include="UUBlog\static\blog\skins\" />
+    <Folder Include="UUBlog\static\blog\skins\default\" />
+    <Folder Include="UUBlog\static\blog\skins\default\images\" />
+    <Folder Include="UUBlog\static\group\" />
+    <Folder Include="UUBlog\static\styles" />
+    <Folder Include="UUBlog\Templates\accounts\pub\" />
+    <Folder Include="UUBlog\Templates\blog\modules\" />
+    <Folder Include="UUBlog\Templates\blog\pub\" />
+    <Folder Include="UUBlog\Templates\blog\Skins\" />
+    <Folder Include="UUBlog\Templates\blog\Skins\default\" />
+    <Folder Include="UUBlog\Templates\group\" />
+    <Folder Include="UUBlog\Templates\blog\" />
+    <Folder Include="UUBlog\Templates\accounts\" />
+    <Folder Include="UUBlog\Templates\common\" />
+    <Folder Include="UUBlog\views\" />
+    <Folder Include="UUBlog\static" />
+    <Folder Include="UUBlog\static\images" />
+    <Folder Include="UUBlog\static\scripts\" />
+    <Folder Include="UUBlog\static\ueditor" />
+    <Folder Include="UUBlog\static\ueditor\dialogs" />
+    <Folder Include="UUBlog\static\ueditor\dialogs\anchor" />
+    <Folder Include="UUBlog\Templates\" />
+    <Folder Include="Templates\" />
+    <Folder Include="UUBlog\" />
+    <Folder Include="Templates\Admin\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="UUBlog\static\blog\skins\default\images\bg.jpg" />
+    <Content Include="UUBlog\static\blog\skins\default\images\top_bg.png" />
+    <Content Include="UUBlog\static\blog\skins\default\index.htm" />
+    <Content Include="UUBlog\static\blog\skins\default\preview.jpg" />
+    <Content Include="UUBlog\static\blog\skins\default\style.css" />
+    <Content Include="UUBlog\static\blog\skins\t1\images\header.jpg" />
+    <Content Include="UUBlog\static\blog\skins\t1\images\index.htm" />
+    <Content Include="UUBlog\static\blog\skins\t1\images\title.png" />
+    <Content Include="UUBlog\static\blog\skins\t1\index.htm" />
+    <Content Include="UUBlog\static\blog\skins\t1\preview.jpg" />
+    <Content Include="UUBlog\static\blog\skins\t1\style.css" />
+    <Content Include="UUBlog\static\blog\skins\t2\images\body_bg.png" />
+    <Content Include="UUBlog\static\blog\skins\t2\images\ct-bottom.png" />
+    <Content Include="UUBlog\static\blog\skins\t2\images\ct-top.png" />
+    <Content Include="UUBlog\static\blog\skins\t2\images\header.png" />
+    <Content Include="UUBlog\static\blog\skins\t2\images\index.htm" />
+    <Content Include="UUBlog\static\blog\skins\t2\images\title.png" />
+    <Content Include="UUBlog\static\blog\skins\t2\index.htm" />
+    <Content Include="UUBlog\static\blog\skins\t2\preview.jpg" />
+    <Content Include="UUBlog\static\blog\skins\t2\style.css" />
+    <Content Include="UUBlog\static\images\10.jpg" />
+    <Content Include="UUBlog\static\images\top_bg.png" />
+    <Content Include="UUBlog\static\scripts\jquery-1.10.1.min.js" />
+    <Content Include="UUBlog\static\styles\common.css" />
+    <Content Include="UUBlog\static\ueditor\dialogs\anchor\anchor.html" />
+    <Content Include="UUBlog\static\ueditor\dialogs\internal.js" />
+    <Content Include="UUBlog\static\ueditor\dialogs\tangram.js" />
+    <Content Include="UUBlog\Templates\accounts\login.html" />
+    <Content Include="UUBlog\Templates\accounts\logout.html" />
+    <Content Include="UUBlog\Templates\accounts\pub\avatar.html" />
+    <Content Include="UUBlog\Templates\accounts\pub\base.html" />
+    <Content Include="UUBlog\Templates\accounts\pub\basepage.html" />
+    <Content Include="UUBlog\Templates\accounts\pub\contact.html" />
+    <Content Include="UUBlog\Templates\accounts\pub\info.html" />
+    <Content Include="UUBlog\Templates\accounts\pub\security.html" />
+    <Content Include="UUBlog\Templates\accounts\register.html" />
+    <Content Include="UUBlog\Templates\blog\basepage.html" />
+    <Content Include="UUBlog\Templates\blog\channelpopular.html" />
+    <Content Include="UUBlog\Templates\blog\modules\bevisitbloglist.html" />
+    <Content Include="UUBlog\Templates\blog\modules\befollowbloglist.html" />
+    <Content Include="UUBlog\Templates\blog\modules\category - Copy.html" />
+    <Content Include="UUBlog\Templates\blog\modules\newuserlist - Copy (2).html" />
+    <Content Include="UUBlog\Templates\blog\modules\followbloglist.html" />
+    <Content Include="UUBlog\Templates\blog\pub\sidebar.html" />
+    <Content Include="UUBlog\Templates\blog\pub\avatar.html" />
+    <Content Include="UUBlog\Templates\blog\space - Copy.html" />
+    <Content Include="UUBlog\Templates\blog\blog.html" />
+    <Content Include="UUBlog\Templates\blog\channel.html" />
+    <Content Include="UUBlog\Templates\blog\index.html" />
+    <Content Include="UUBlog\Templates\blog\modules\archive.html" />
+    <Content Include="UUBlog\Templates\blog\modules\badarticlelist.html" />
+    <Content Include="UUBlog\Templates\blog\modules\badcommentlist.html" />
+    <Content Include="UUBlog\Templates\blog\modules\category.html" />
+    <Content Include="UUBlog\Templates\blog\modules\goodarticlelist.html" />
+    <Content Include="UUBlog\Templates\blog\modules\goodcommentlist.html" />
+    <Content Include="UUBlog\Templates\blog\modules\hotarticlelist.html" />
+    <Content Include="UUBlog\Templates\blog\modules\hotcommentlist.html" />
+    <Content Include="UUBlog\Templates\blog\modules\hotuserlist.html" />
+    <Content Include="UUBlog\Templates\blog\modules\newarticlelist.html" />
+    <Content Include="UUBlog\Templates\blog\modules\newcommentlist.html" />
+    <Content Include="UUBlog\Templates\blog\modules\newuserlist.html" />
+    <Content Include="UUBlog\Templates\blog\modules\profile.html" />
+    <Content Include="UUBlog\Templates\blog\modules\search.html" />
+    <Content Include="UUBlog\Templates\blog\modules\tags.html" />
+    <Content Include="UUBlog\Templates\blog\pub\articleedit.html" />
+    <Content Include="UUBlog\Templates\blog\pub\articlelist.html" />
+    <Content Include="UUBlog\Templates\blog\pub\module.html" />
+    <Content Include="UUBlog\Templates\blog\pub\base.html" />
+    <Content Include="UUBlog\Templates\blog\pub\basepage.html" />
+    <Content Include="UUBlog\Templates\blog\pub\category.html" />
+    <Content Include="UUBlog\Templates\blog\pub\column.html" />
+    <Content Include="UUBlog\Templates\blog\pub\domain.html" />
+    <Content Include="UUBlog\Templates\blog\pub\style.html" />
+    <Content Include="UUBlog\Templates\blog\pub\template.html" />
+    <Content Include="UUBlog\Templates\blog\Skins\default\basepage.html" />
+    <Content Include="UUBlog\Templates\blog\Skins\default\home.html" />
+    <Content Include="UUBlog\Templates\blog\Skins\default\other.html" />
+    <Content Include="UUBlog\Templates\blog\Skins\default\show.html" />
+    <Content Include="UUBlog\Templates\common\topbar.html" />
+    <Content Include="UUBlog\Templates\test.html" />
+    <Content Include="UUBlog\Templates\basepage.html" />
+    <Content Include="UUBlog\Templates\index.html" />
+    <Content Include="Templates\Admin\base_site.html" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\Python Tools\Microsoft.PythonTools.Django.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:56091/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

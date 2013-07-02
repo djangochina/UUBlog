@@ -1,0 +1,33 @@
+{% extends "Skins/default/basepage.html"%}
+
+{% block title%} 首页 {% endblock %}
+
+{% block content %}
+<div class="articleList">
+    {% if articleList %}
+    {% for articleInfo in articleList%}
+    <div class="tbox">
+        <div class="bd">
+    
+            <div class="artTitle"><h2><a href="{% url 'articleshow' uid=articleInfo.user_id aid=articleInfo.id%}">{{articleInfo.title}}</a></h2></div>
+            <div class="artCon">
+                {{articleInfo.content}}       
+            </div>
+            <div class="artMeta">
+                <span><a href="{% url 'userhome' uid=articleInfo.user_id%}">{{articleInfo.username}}</a>&nbsp;&nbsp;┆&nbsp;&nbsp;{{articleInfo.createtime}}&nbsp;&nbsp;┆&nbsp;&nbsp;阅读({{articleInfo.views}})&nbsp;&nbsp;┆&nbsp;&nbsp;评论({{articleInfo.comments}})&nbsp;&nbsp;┆&nbsp;&nbsp;支持({{articleInfo.goods}})&nbsp;&nbsp;┆&nbsp;&nbsp;反对({{articleInfo.bads}})
+                    {% if isMe%}
+
+&nbsp;&nbsp;┆&nbsp;&nbsp;<a href="{% url 'articleedit' uid=articleInfo.user_id aid=articleInfo.id%}">编辑</a>
+
+{% endif %}
+                    </span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% endif %}
+</div>
+{% endblock %}
+
+

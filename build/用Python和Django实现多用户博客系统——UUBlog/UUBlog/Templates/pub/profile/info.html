@@ -1,0 +1,118 @@
+{% extends "pub/basepage.html"%}
+
+{% block title%} 首页 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>用户名</td>
+                    <td>{{userInfos.currentuser.username}}</td>
+                </tr>
+                <tr>
+                    <td>情感状态</td>
+                    <td>
+                        <select name="affectivestatus">
+                            <option value="0" {% ifequal currentUserProfile.affectivestatus 0%} selected="selected"{% endifequal %}>-请选择-</option>
+                            <option value="1" {% ifequal currentUserProfile.affectivestatus 1%} selected="selected"{% endifequal %}>单身</option>
+                            <option value="2" {% ifequal currentUserProfile.affectivestatus 2%} selected="selected"{% endifequal %}>已婚</option>
+                            <option value="3" {% ifequal currentUserProfile.affectivestatus 3%} selected="selected"{% endifequal %}>离异</option>
+                            <option value="4" {% ifequal currentUserProfile.affectivestatus 4%} selected="selected"{% endifequal %}>长期恋爱中</option>
+                            <option value="5" {% ifequal currentUserProfile.affectivestatus 5%} selected="selected"{% endifequal %}>单身 想找朋友</option>
+                            <option value="6" {% ifequal currentUserProfile.affectivestatus 6%} selected="selected"{% endifequal %}>单身 不想找朋友</option>
+                            <option value="7" {% ifequal currentUserProfile.affectivestatus 7%} selected="selected"{% endifequal %}>分居</option>
+                            <option value="8" {% ifequal currentUserProfile.affectivestatus 8%} selected="selected"{% endifequal %}>丧偶</option>
+                            <option value="9" {% ifequal currentUserProfile.affectivestatus 9%} selected="selected"{% endifequal %}>其它</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>交友目的</td>
+                    <td>
+                        <select name="lookingfor">
+                            <option value="0" {% ifequal currentUserProfile.lookingfor 0%} selected="selected"{% endifequal %}>-请选择-</option>
+                            <option value="1" {% ifequal currentUserProfile.lookingfor 1%} selected="selected"{% endifequal %}>结交朋友</option>
+                            <option value="2" {% ifequal currentUserProfile.lookingfor 2%} selected="selected"{% endifequal %}>谈恋爱</option>
+                            <option value="3" {% ifequal currentUserProfile.lookingfor 3%} selected="selected"{% endifequal %}>正式征婚</option>
+                            <option value="4" {% ifequal currentUserProfile.lookingfor 4%} selected="selected"{% endifequal %}>玩伴</option>
+                            <option value="5" {% ifequal currentUserProfile.lookingfor 5%} selected="selected"{% endifequal %}>事业伙伴</option>
+                            <option value="6" {% ifequal currentUserProfile.lookingfor 6%} selected="selected"{% endifequal %}>思想交流</option>
+                            <option value="7" {% ifequal currentUserProfile.lookingfor 7%} selected="selected"{% endifequal %}>其它</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>血型</td>
+                    <td>
+                        <select name="bloodtype" id="bloodtype">
+                            <option value="0" {% ifequal currentUserProfile.bloodtype 0%} selected="selected"{% endifequal %}>-请选择-</option>
+                            <option value="1" {% ifequal currentUserProfile.bloodtype 1%} selected="selected"{% endifequal %}>A</option>
+                            <option value="2" {% ifequal currentUserProfile.bloodtype 2%} selected="selected"{% endifequal %}>B</option>
+                            <option value="3" {% ifequal currentUserProfile.bloodtype 3%} selected="selected"{% endifequal %}>AB</option>
+                            <option value="4" {% ifequal currentUserProfile.bloodtype 4%} selected="selected"{% endifequal %}>O</option>
+                            <option value="5" {% ifequal currentUserProfile.bloodtype 5%} selected="selected"{% endifequal %}>其它</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>个人主页</td>
+                    <td><input name="site" type="text" size="60" value="{{currentUserProfile.site}}"/></td>
+                </tr>
+                <tr>
+                    <td>自我介绍</td>
+                    <td>
+                        <textarea name="bio" cols="50" rows="5">{{currentUserProfile.bio}}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>兴趣爱好</td>
+                    <td>
+                        <textarea name="interest" cols="50" rows="5">{{currentUserProfile.interest}}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>个人签名</td>
+                    <td>
+                        <textarea name="sightml" cols="50" rows="5">{{currentUserProfile.sightml}}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>时区</td>
+                    <td><input name="timeoffset" type="text" size="60" value="{{currentUserProfile.timeoffset}}"/></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="ok" value="--修改--"/></td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+
+
+{% block sidebar%}
+
+<div class="tbox">
+    <div class="hd">管理</div>
+    <ul class="bd">
+        <li><a href="{% url 'profilebase' uid=userInfos.currentuser.id%}">基本资料</a></li>
+        <li><a href="{% url 'profileavatar' uid=userInfos.currentuser.id%}">设定头像</a></li>
+        <li><a href="{% url 'profileinfo' uid=userInfos.currentuser.id%}">个人信息</a></li>
+        <li><a href="{% url 'profilecontact' uid=userInfos.currentuser.id%}">联系方式</a></li>
+        <li><a href="{% url 'profilesecurity' uid=userInfos.currentuser.id%}">安全设置</a></li>
+        <li><a href="{% url 'configblog' uid=userInfos.currentuser.id%}">博客设置</a></li>
+    </ul>
+</div>
+
+{% endblock %}

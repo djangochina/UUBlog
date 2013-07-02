@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+              <title>{% block title %}{% endblock %}</title>
+        <style type="text/css">
+            * { margin: 0px; padding: 0px; }
+            body { color: #666; font: 12px/18px "微软雅黑E\8F6F\96C5\9ED1",Arial,sans-serif,"新宋体B0\5B8B\4F53"; background: #F2F2F2; }
+            p, ul, ol, li, form { list-style: none; }
+            img { border: none; text-align: center; vertical-align: middle; }
+            p { word-wrap: break-word; display: block; }
+            a { text-decoration: none; }
+
+            .border_gray {
+                border: 1px solid #D9D9D9;
+                background: white;
+                box-shadow: 0 3px 3px #e6e6e6;
+            }
+            .margin_b20 {
+                margin-bottom: 20px;
+            }
+           
+
+          
+
+            .header{width: 1150px; margin: 0px auto;height: 80px;margin-bottom: 8px;}
+            .footer{width: 1150px; margin: 8px auto;height: 60px;}
+            .container{width: 1150px; margin: 0 auto;}
+            .wrap_content{ width: 930px;float: right;}
+            .wrap_sidebar{ width: 200px;float: left;}
+
+
+
+            a{text-decoration:none;}
+
+
+            .tbox{
+                margin-bottom: 20px;
+                border: 1px solid #D9D9D9;
+                background: white;
+                box-shadow: 0 3px 3px #e6e6e6; 
+
+                overflow:hidden;
+                vertical-align:top;
+
+            }
+            .tbox .hd{
+                padding: 19px 17px 0;
+                position: relative;
+                height: 29px;
+                padding-top: 17px;
+            }
+            .tbox .hd h2{
+                font-size: 14px;
+                line-height: 15px;
+                color: #518900;
+                float: left;
+
+            }
+            .tbox .hd h2 a{
+                color:#316301;
+            }
+            .tbox .hd h2 a:hover{
+                color:#596F37;
+                text-decoration:none;
+            }
+            .tbox .hd span.more{
+                float:right;
+                position:relative;
+                line-height:25px;
+                padding-right:8px;
+                color:#596F37;
+            }
+            .tbox .hd span.more a{
+                color:#596F37;
+                text-decoration:none;
+            }
+            .tbox .hd span.more a:hover{
+                color:#ff3333;
+                text-decoration:underline;
+            }
+            .tbox .bd{padding: 0 19px 11px;}
+            .tbox .bd li {
+                margin-left: 10px;
+                line-height: 24px;
+            }
+            .tbox .ft{padding: 0 19px 11px;}
+
+            .article{}
+            .article .artTitle{ margin: 10px;}
+            .article .artMeta{ margin: 5px;}
+            .article .artCon{}
+
+            .articleList{}
+            .articleList .artTitle{padding: 19px 17px 0;position: relative;height: 29px;padding-top: 17px;}
+            .articleList .artCon{}
+            .articleList .artMeta{}
+            .articleList .artMeta span{ float: right;}
+
+
+.managernavigate{}
+.managernavigate ul{}
+.managernavigate ul li{ float: left;margin-left: 10px;}
+
+        </style>
+
+          <script type="text/javascript" charset="utf-8">
+            
+            window.UEDITOR_HOME_URL = "/static/ueditor/";  //UEDITOR_HOME_URL、config、all这三个顺序不能改变
+            
+        </script>
+
+        <script type="text/javascript" charset="utf-8" src="/static/ueditor/ueditor.config.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/static/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/scripts/jquery-1.10.1.min.js"></script>
+        <style type="text/css">
+            
+            .clear {
+                clear: both;
+            }
+        </style>
+
+
+    </head>
+
+    <body>
+        <div class="border_gray header">
+            {% if userInfos.currentuser %}
+
+            <div style="float: right; clear: both;">
+                <a href="{% url 'userhome' uid=userInfos.currentuser.id%}">我的博客</a>
+                <a href="{% url 'articleadd' uid=userInfos.currentuser.id %}">发布文章</a>
+<a href="{% url 'profilebase' uid=userInfos.currentuser.id%}">设置</a>
+                <a href="{% url 'logout'%}">退出</a>
+            </div>
+
+            {% else %}
+
+            <div style="float: right; clear: both;">
+                <a href="{% url 'register'%}">注册</a>
+                <a href="{% url 'login'%}">登录</a>
+            </div>
+
+            {% endif %}
+
+
+            <div>
+                <a href="/"> <h1>UUBlog</h1></a>
+            </div>
+            <div>
+                <a href="/{{userInfos.2.user_id}}"> <h1>{{userInfos.2.blog_title}}</h1></a>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+        <div class="clear"></div>
+        <div class="container">
+            <div class="wrap_content">
+                <div class="managernavigate">
+                    <ul>
+                        <li><a href="{% url 'articlelist' uid=userInfos.currentuser.id %}">文章管理</a></li>
+                        <li><a href="{% url 'category' uid=userInfos.currentuser.id%}">分类管理</a></li>
+                        <li><a href="{% url 'configblog' uid=userInfos.currentuser.id%}">博客设置</a></li>
+                        <li><a href="{% url 'profilebase' uid=userInfos.currentuser.id%}">个人资料</a></li>
+                        <li>asfd</li>
+                        <li>asfd</li>
+
+                    </ul>
+                   
+
+                </div>
+<div class="clear"></div>
+                {% block content %}{% endblock %}
+            </div>
+            <div class="wrap_sidebar">
+                {% block sidebar %}{% endblock %}
+            </div>
+
+        </div>
+
+        <div class="clear"></div>
+        <div class="border_gray footer">footer</div>
+    </body>
+
+</html>

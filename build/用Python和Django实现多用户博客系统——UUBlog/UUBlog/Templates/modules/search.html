@@ -1,0 +1,15 @@
+<div id="module_Search" class="border tbox">
+    <div class="hd">
+        <h2>文章搜索</h2>
+    </div>
+    <div class="bd">
+        <ul>
+        {% if moduleList.search %}
+        {% for articleInfo in moduleList.search %}
+        <li><a href="{% url 'articleshow' uid=articleInfo.user_id aid=articleInfo.id%}">{{articleInfo.title}}</a>({{articleInfo.views}})</li>
+        {% endfor %}
+        {% endif %}
+            </ul>
+    </div>
+    <div class="ft"></div>
+</div>

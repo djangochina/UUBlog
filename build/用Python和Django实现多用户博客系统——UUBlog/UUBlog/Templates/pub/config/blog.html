@@ -1,0 +1,200 @@
+{% extends "pub/basepage.html"%}
+
+{% block title%} 首页 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>域名</td>
+                    <td><input name="domain" type="text" size="60" value="{{currentBlog.domain}}"/></td>
+                </tr>
+                <tr>
+                    <td>标题</td>
+                    <td><input name="title" type="text" size="60" value="{{currentBlog.title}}"/></td>
+                </tr>
+                <tr>
+                    <td>描述</td>
+                    <td><input name="description" type="text" size="60" value="{{currentBlog.description}}"/></td>
+                </tr>
+
+                <tr>
+                    <td>关键字</td>
+                    <td><input name="keywords" type="text" size="60" value="{{currentBlog.keywords}}"/></td>
+                </tr>
+                <tr>
+                    <td>关于</td>
+                    <td><input name="about" type="text" size="60" value="{{currentBlog.about}}"/></td>
+                </tr>
+                <tr>
+                    <td>公告</td>
+                    <td><input name="announcement" type="text" size="60" value="{{currentBlog.announcement}}"/></td>
+                </tr>
+                <tr>
+                    <td>模块</td>
+                    <td>
+                        <script type="text/javascript">
+                            
+                            function addOption(objSelectIdFrom,objSelectIdTo) {
+                                $("#"+objSelectIdFrom+" option:selected").each(function() {
+                                    var selectedOption = $(this);
+                                    
+                                    var isExist = false;
+                                    
+                                    $("#"+objSelectIdTo+" option").each(function() {
+                                        if (selectedOption.val() == $(this).val()) {
+                                            isExist = true;
+                                        }
+                                    });
+
+                                    if (!isExist) {
+                                        var newOption = "<opiton value='" + selectedOption.val() + "'>" + selectedOption.text() + "</option>";
+                                        newOption     = "<option value='" + selectedOption.val() + "'>" + selectedOption.text() + "</option>";
+                                        
+                                        $("#"+objSelectIdTo).append(newOption);
+                                    }
+                                });
+                            }
+                            
+                            function removeOption(objSelectId) {
+                                $("#" + objSelectId + " option:selected").remove();
+                            }
+
+                            function moveOption(objSelectId,direction) {
+                                var selectedOption = $("#" + objSelectId + " option:selected");
+                                var index = selectedOption.index();
+
+                                if (direction < 0) {
+
+                                    if (index == 0) {
+                                        return;
+                                    }
+                                    selectedOption.remove();
+                                    var preview = $("#" + objSelectId + " option").filter(":eq("+(index-1)+")");
+                                    selectedOption.insertBefore(preview)
+                                    
+                                } else {
+                                    var count = $("#" + objSelectId + " option").length - 1;
+                                    if (index == count) {
+                                        return;
+                                    }
+                                    var next = $("#" + objSelectId + " option").filter(":eq("+(index+1)+")");
+                                    selectedOption.insertAfter(next)
+                                }
+                                //selectedOption.remove();
+                            }
+
+                            function getModules(objSelectIdTo) {
+                                var values = "";
+                                $("#"+objSelectIdTo+" option").each(function() {
+                                    values += $(this).val()+",";
+                                });
+                                $("#modules").val(values);
+                                return true;
+                            }
+                        </script>
+<input name="modules" id="modules" type="hidden"/>
+                        <table>
+                            <tr>
+                                <td>
+                                    <div id="testjquery"></div>
+                                    <select name="myModules" id="myModules" multiple="multiple" width="180px" height="120px" style="width: 180px;height: 120px;">
+                                        {% if myModules %}
+                                        {% for module,name in myModules.items %}
+                                        <option value="{{module}}">{{name}}</option>
+                                        {% endfor %}
+
+                                        {% endif %}
+                                    </select>
+                                </td>
+
+                                <td><input name="modulemoveup" type="button" value="上移"  onclick="moveOption('myModules',-1);"/><br/>
+                                    <input name="modulemovedow" type="button" value="下移" onclick="moveOption('myModules',1);"/><br/>
+                                    <input name="moduleremove" type="button" value="删除" onclick="removeOption('myModules');"/>
+                                </td>
+
+                                <td>
+                                    <select id="allModules" name="allModules" multiple="multiple" width="180px" height="120px" style="width: 180px;height: 120px;">
+                                              {% if allModules %}
+                                              {% for module,name in allModules.items %}
+                                              <option value="{{module}}">{{name}}</option>
+                                              {% endfor %}
+
+                                              {% endif %}
+                                          </select>
+                                </td>
+
+                                <td><input name="moduleadd" type="button" value="添加" onclick="addOption('allModules','myModules');"/></td>
+
+                            </tr>
+                        </table>
+                        
+                        
+
+                        
+
+                        
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>模板</td>
+                    <td>{{currentBlog.template}}
+                        <select name="template">
+                            <option value="default" {% ifequal currentBlog.template default %} selected="selected" {% endifequal %}>Default</option>
+                            <option value="temp1"  {% ifequal currentBlog.template temp1 %} selected="selected" {% endifequal %}>Temp1</option>
+                            <option value="temp2"  {% ifequal currentBlog.template temp2 %} selected="selected" {% endifequal %}>Temp2</option>
+                            <option value="temp3"  {% ifequal currentBlog.template temp3 %} selected="selected" {% endifequal %}>Temp3</option>
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>CSS代码</td>
+                    <td><input name="css" type="text" size="60" value="{{currentBlog.css}}"/></td>
+                </tr>
+                <tr>
+                    <td>页首Html代码</td>
+                    <td><input name="headhtml" type="text" size="60" value="{{currentBlog.headhtml}}"/></td>
+                </tr>
+                <tr>
+                    <td>页脚Html代码</td>
+                    <td><input name="footerhtml" type="text" size="60" value="{{currentBlog.footerhtml}}"/></td>
+                </tr>
+               
+
+
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="ok" onclick="getModules('myModules');" value="--修改--"/></td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block sidebar%}
+
+<div class="tbox">
+    <div class="hd">管理</div>
+    <ul class="bd">
+        <li><a href="{% url 'profilebase' uid=userInfos.currentuser.id%}">基本资料</a></li>
+        <li><a href="{% url 'profileavatar' uid=userInfos.currentuser.id%}">设定头像</a></li>
+        <li><a href="{% url 'profileinfo' uid=userInfos.currentuser.id%}">个人信息</a></li>
+        <li><a href="{% url 'profilecontact' uid=userInfos.currentuser.id%}">联系方式</a></li>
+        <li><a href="{% url 'profilesecurity' uid=userInfos.currentuser.id%}">安全设置</a></li>
+        <li><a href="{% url 'configblog' uid=userInfos.currentuser.id%}">博客设置</a></li>
+    </ul>
+</div>
+
+{% endblock %}

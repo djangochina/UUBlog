@@ -1,0 +1,88 @@
+{% extends "pub/basepage.html"%}
+
+{% block title%} 首页 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>blog_domain</td>
+                    <td><input name="blog_domain" type="text" size="60" value="{{userProfile.blog_domain}}"/></td>
+                </tr>
+                <tr>
+                    <td>blog_title</td>
+                    <td><input name="blog_title" type="text" size="60" value="{{userProfile.blog_title}}"/></td>
+                </tr>
+                <tr>
+                    <td>blog_keywords</td>
+                    <td><input name="blog_keywords" type="text" size="60" value="{{userProfile.blog_keywords}}"/></td>
+                </tr>
+                <tr>
+                    <td>blog_about</td>
+                    <td><input name="blog_about" type="text" size="60" value="{{userProfile.blog_about}}"/></td>
+                </tr>
+                <tr>
+                    <td>blog_announcement</td>
+                    <td><input name="blog_announcement" type="text" size="60" value="{{userProfile.blog_announcement}}"/></td>
+                </tr>
+                <tr>
+                    <td>blog_template</td>
+                    <td>{{userProfile.blog_template}}
+                        <select name="blog_template">
+                            <option value="default" {% ifequal userProfile.blog_template default %} selected="selected" {% endifequal %}>Default</option>
+                            <option value="temp1"  {% ifequal userProfile.blog_template temp1 %} selected="selected" {% endifequal %}>Temp1</option>
+                            <option value="temp2"  {% ifequal userProfile.blog_template temp2 %} selected="selected" {% endifequal %}>Temp2</option>
+                            <option value="temp3"  {% ifequal userProfile.blog_template temp3 %} selected="selected" {% endifequal %}>Temp3</option>
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>blog_css</td>
+                    <td><input name="blog_css" type="text" size="60" value="{{userProfile.blog_css}}"/></td>
+                </tr>
+                <tr>
+                    <td>blog_headhtml</td>
+                    <td><input name="blog_headhtml" type="text" size="60" value="{{userProfile.blog_headhtml}}"/></td>
+                </tr>
+                <tr>
+                    <td>blog_footerhtml</td>
+                    <td><input name="blog_footerhtml" type="text" size="60" value="{{userProfile.blog_footerhtml}}"/></td>
+                </tr>
+               
+
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="ok" value="--修改--"/></td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block sidebar%}
+
+<div class="tbox">
+    <div class="hd">管理</div>
+    <ul class="bd">
+        <li><a href="{% url 'articleadd' uid=userInfos.currentuser.id%}">设定头像</a></li>
+        <li><a href="{% url 'articlelistdraft' uid=userInfos.currentuser.id%}">帐户设置</a></li>
+        <li><a href="{% url 'articleadd' uid=userInfos.currentuser.id%}">基本资料</a></li>
+        <li><a href="{% url 'articlelistdraft' uid=userInfos.currentuser.id%}">个人信息</a></li>
+        <li><a href="{% url 'articleadd' uid=userInfos.currentuser.id%}">联系方式</a></li>
+        <li><a href="{% url 'articlelistdraft' uid=userInfos.currentuser.id%}">博客设置</a></li>
+    </ul>
+</div>
+
+
+{% endblock %}

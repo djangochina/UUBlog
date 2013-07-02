@@ -1,0 +1,156 @@
+﻿{% extends 'blog/basepage.html'%}
+{% block styles %}
+ a{position:absolute;display:block;border:1px solid #999;padding:2px}
+ a:hover{border:1px solid #fff;text-decoration:none}
+ a span {display:none;cursor:hand;text-align:center;font:bold 12px/30px Verdana, Arial;}
+ a:hover span{width:500px;margin:0 2px;background:#000;display:block;position:absolute;bottom:0;left:0;color:#fff;filter:alpha(opacity=60);-moz-opacity:0.6;opacity:0.6;}
+
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" charset="utf-8" src="/static/scripts/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+    function FollowBlog(obj) {
+        blog_id = $(obj).attr("id");
+        dot = blog_id.indexOf("_");
+        blogid = blog_id.substring(dot + 1);
+        ajaxurl = "{% url 'blogajaxfollowblog' %}";
+        postData = {"blogid":blogid};
+
+        $.ajax({
+            type: "GET",
+            data: postData,
+            url: ajaxurl,
+            cache: false,
+            dataType: "json",
+            success: function(data, textStatus) {
+                var follows = parseInt($("#follow_"+blogid).html());
+                follows += 1;
+                $("#follow_"+blogid).html(follows);
+                $(obj).attr("value", "已关注");
+                $(obj).attr("disabled", "disabled");
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                
+            }
+        });
+        
+        return false;
+    }
+
+    
+    $(document).ready(function() {
+        $(".blogItem").each(function() {
+            $(this).hover(
+                function() {
+                    $(this).find(".suggest").css("display","block");
+                    
+                },
+                function() {
+                    $(this).find(".suggest").css("display","none");
+                }
+            );
+        });
+    });
+</script>
+
+{% endblock %}
+
+{% block container %}
+<div id="wrap_content">
+    <div id="blogList" class="blogList">
+        <div id="blogFilter" class="border tbox">
+            <ul>
+                {% if currentType %}
+                <li><a href="{% url 'blogspacesuggest' tid=currentType.id%}">推荐博客</a></li>
+                <li><a href="{% url 'blogspacesuggestnew' tid=currentType.id%}">最新推荐</a></li>
+                <li><a href="{% url 'blogspacefollow' tid=currentType.id%}">关注排行</a></li>
+
+                {% else %}
+                <li><a href="{% url 'blogspacesuggest' %}">推荐博客</a></li>
+                <li><a href="{% url 'blogspacesuggestnew' %}">最新推荐</a></li>
+                <li><a href="{% url 'blogspacefollow' %}">关注排行</a></li>
+                {% endif %}
+
+            </ul>
+
+        </div>
+        <div class="clear"> </div> 
+        <div class="blogContainer">
+            <ul>
+                {% if blogList %}
+                {% for blogInfo in blogList%}
+                <li>
+                    <div class="blogItem">
+                        <div class="avatar">
+                            <a href="{% url 'bloghome' uid=blogInfo.id%}">
+                                <img src="/media/{{blogInfo.avatar}}" width="160px" height="160px"/>
+                                    
+                            </a>
+                            <span class="suggest" style="display:none; ">{{blogInfo.suggestes}}人推荐</span>
+                        </div>
+                        <div class="title"><a href="{% url 'bloghome' uid=blogInfo.id%}">{{blogInfo.title}}</a></div>
+                        <div class="description">{{blogInfo.description}}</div>
+                        <div class="meta">
+                            <div class="left">粉丝<span id="follow_{{blogInfo.id}}">
+                                                    {{blogInfo.follows}}
+                                                </span></div>
+                            <div id="followstatus" class="right">
+                                {% if userInfos.currentuser%}
+                                {% ifequal blogInfo.id userInfos.currentblog.id%}
+                                我自己
+                                {% else %}
+
+                                {% if blogInfo.id in followBlogIds %}
+                                已关注
+                                        
+                                {% else %}
+                                <input type="submit" id="blog_{{blogInfo.id}}" name="ok"  value="--关注--" onclick="FollowBlog(this);"/>
+                                {% endif %}
+                                {% endifequal %}    
+                                
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                </li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<div id="wrap_sidebar">
+
+    <div id="module_Channel" class="border tbox">
+        <div class="hd">
+            <h2>博客</h2>
+        </div>
+        <div id="typeList" class="bd">
+            <ul>
+                {% if typeList %}
+                {% for typelInfo in typeList %}
+                <li><a href="{% url 'blogblog' tid=typelInfo.id%}">{{typelInfo.name}}</a></li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        <div class="ft"></div>
+    </div>
+    {% if myModules %}
+            {% for module in myModules %}
+                {% with "blog/modules/"|add:module|add:".html" as template%}
+                {% include template %}
+                {% endwith %}
+
+            {% endfor %}
+                
+        {% else %}
+    {% endif %}
+</div>
+
+
+{% endblock %}

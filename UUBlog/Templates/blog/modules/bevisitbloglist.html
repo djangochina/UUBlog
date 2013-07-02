@@ -1,0 +1,29 @@
+<div id="module_BeVisitBlogList" class="border tbox">
+    <div class="hd">
+        <h2>最近访客</h2>
+    </div>
+    <div class="bd">
+        <ul>
+        {% if moduleList.bevisitbloglist %}
+
+        {% for blogInfo in moduleList.bevisitbloglist %}
+
+            <li>
+                <div class="blog">
+                    <div class="avatar">
+                        <a href="{% url 'bloghome' uid=blogInfo.id%}">                        
+                            <img src="/media/{{blogInfo.avatar}}" width="40px" height="40px" alt="{{blogInfo.title}}"/>
+                        </a>
+                    </div>
+                </div>
+
+            </li>
+    {% endfor %}
+    {% endif %}
+        </ul>
+    </div>
+
+    <div class="ft"></div>
+</div>
+
+

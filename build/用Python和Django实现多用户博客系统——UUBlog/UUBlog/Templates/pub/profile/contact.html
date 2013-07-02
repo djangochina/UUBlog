@@ -1,0 +1,78 @@
+{% extends "pub/basepage.html"%}
+
+{% block title%} 首页 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>用户名</td>
+                    <td>{{userInfos.currentuser.username}}</td>
+                </tr>
+                <tr>
+                    <td>QQ</td>
+                    <td><input name="qq" type="text" size="60" value="{{currentUserProfile.qq}}"/></td>
+                </tr>
+                <tr>
+                    <td>MSN</td>
+                    <td><input name="msn" type="text" size="60" value="{{currentUserProfile.msn}}"/></td>
+                </tr>
+                <tr>
+                    <td>阿里旺旺</td>
+                    <td><input name="taobao" type="text" size="60" value="{{currentUserProfile.taobao}}"/></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input name="email" type="text" size="60" value="{{currentUserProfile.email}}"/></td>
+                </tr>
+                <tr>
+                    <td>固定电话</td>
+                    <td><input name="phone" type="text" size="60" value="{{currentUserProfile.phone}}"/></td>
+                </tr>
+                <tr>
+                    <td>移动电话</td>
+                    <td><input name="mobile" type="text" size="60" value="{{currentUserProfile.mobile}}"/></td>
+                </tr>
+
+                <tr>
+                    <td>联系地址：</td>
+                    <td><input name="address" type="text" size="60" value="{{currentUserProfile.address}}"/></td>
+                </tr>
+                <tr>
+                    <td>邮政编码：</td>
+                    <td><input name="zipcode" type="text" size="60" value="{{currentUserProfile.zipcode}}"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="ok" value="--修改--"/></td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block sidebar%}
+
+<div class="tbox">
+    <div class="hd">管理</div>
+    <ul class="bd">
+        <li><a href="{% url 'profilebase' uid=userInfos.currentuser.id%}">基本资料</a></li>
+        <li><a href="{% url 'profileavatar' uid=userInfos.currentuser.id%}">设定头像</a></li>
+        <li><a href="{% url 'profileinfo' uid=userInfos.currentuser.id%}">个人信息</a></li>
+        <li><a href="{% url 'profilecontact' uid=userInfos.currentuser.id%}">联系方式</a></li>
+        <li><a href="{% url 'profilesecurity' uid=userInfos.currentuser.id%}">安全设置</a></li>
+        <li><a href="{% url 'configblog' uid=userInfos.currentuser.id%}">博客设置</a></li>
+    </ul>
+</div>
+
+{% endblock %}

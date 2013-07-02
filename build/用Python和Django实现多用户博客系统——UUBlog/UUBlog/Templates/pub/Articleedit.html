@@ -1,0 +1,152 @@
+{% extends "pub/basepage.html"%}
+
+{% block title%} 首页 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>标题</td>
+                    <td><input name="title" type="text" size="60" value="{{articleInfo.title}}"/></td>
+                </tr>
+                <tr>
+                    <td>摘要</td>
+                    <td><textarea name="summary" id="summary" cols="70" rows="5">{{articleInfo.summary}}</textarea></td>
+                </tr>
+                
+                <tr>
+                    <td>内容</td>
+                    <td>
+<script type="text/plain" id="content" name="content">
+            {{articleInfo.content|safe}}
+        </script>
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>个人分类</td>
+                    <td>
+                        <select name="category" id="category">
+                            {% if categoryList %}
+                            {% for categoryInfo in categoryList%}
+                            {% ifequal articleInfo.category.id categoryInfo.id %}
+                            <option value="{{categoryInfo.id}}" selected="selected">{{categoryInfo.name}}</option>
+                            {% else %}
+                            <option value="{{categoryInfo.id}}">{{categoryInfo.name}}</option>
+                            {% endifequal %}
+                    
+                            {% endfor %}
+
+                            {% endif %}
+                            <option value="1" {% ifequal articleInfo.category.id 0 %} selected="selected" {% endifequal %}>未分类</option>
+                        </select> <a href="{% url 'category' uid=userInfos.currentuser.id%}" target="_blank">管理分类</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tags</td>
+                    <td><input name="tags" type="text" size="60" value="{{articleInfo.tags}}"/></td>
+                </tr>
+                <tr>
+                    <td>状态</td>
+                    <td>
+                        <input type="checkbox" name="status" {% ifequal articleInfo.status 1%} checked="checked" {% endifequal %}/>发布
+                    </td>
+                </tr>
+                <tr>
+                    <td>选项</td>
+                    <td>
+                        <input type="checkbox" name="cancomment" {% ifequal articleInfo.cancomment 1%} checked="checked" {% endifequal %}/>允许评论
+
+                        <input type="checkbox" name="ishome" {% ifequal articleInfo.ishome 1%} checked="checked" {% endifequal %}/>首页
+                        <input type="checkbox" name="isrecommend" {% ifequal articleInfo.isrecommend 1%} checked="checked" {% endifequal %}/>推荐
+                        <input type="checkbox" name="istop" {% ifequal articleInfo.istop 1%} checked="checked" {% endifequal %}/>置顶
+                        <input type="checkbox" name="isoriginal" {% ifequal articleInfo.isoriginal 1%} checked="checked" {% endifequal %}/>原创
+
+                    </td>
+                </tr>
+               
+                <tr>
+                    <td>访问密码</td>
+                    <td><input name="password" type="text" size="60" value="{{articleInfo.password}}"/></td>
+                </tr>                
+
+                <tr>
+                    <td>频道分类</td>
+                    <td>
+                        {% if channelList %}
+                            {% for channelInfo in channelList%}
+                            {% ifequal articleInfo.channel_id channelInfo.id %}
+                            <span><input name="channel1" type="radio" value="{{channelInfo.id}}" checked="checked"/>{{channelInfo.name}}</span>
+                            {% else %}
+                            <span><input name="channel1" type="radio" value="{{channelInfo.id}}" />{{channelInfo.name}}</span>
+                        {% endifequal %}
+                        {% ifequal forloop.counter 14%}
+                        <br/>
+
+                        {% endifequal %}
+                        {% endfor %}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="ok" value="--修改--"/></td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+
+</div>
+    <script type="text/javascript">
+        var editor_a = UE.getEditor('content',{initialFrameHeight:500});
+
+        //--自动切换提交地址----
+        var doc=document,
+            version=editor_a.options.imageUrl||"php",
+            form=doc.getElementById("form");
+
+        if(version.match(/php/)){
+            form.action="../php/getContent.php";
+        }else if(version.match(/net/)){
+            form.action="../net/getContent.ashx";
+        }else if(version.match(/jsp/)){
+            form.action="../jsp/getContent.jsp";
+        }
+        //-----
+
+
+    </script>
+{% endblock %}
+
+
+{% block sidebar%}
+<div class="tbox">
+    <div class="hd">文章管理</div>
+    <ul class="bd">
+        <li><a href="{% url 'articleadd' uid=userInfos.currentuser.id%}">添加新文章</a></li>
+        <li><a href="{% url 'articlelistdraft' uid=userInfos.currentuser.id%}">草稿箱</a></li>
+    </ul>
+</div>
+<div class="tbox">
+    <div class="hd">分类管理</div>
+    <ul class="bd">
+        <li><a href="{% url 'category' uid=userInfos.currentuser.id%}">编辑分类</a></li>
+        <li><a href="{% url 'articlelist' uid=userInfos.currentuser.id %}">所有文章</a></li>
+        <li><a href="{% url 'articlelistcategory' uid=userInfos.currentuser.id cid=1%}">未分类</a></li>
+        {% if categoryList %}
+        {% for categoryInfo in categoryList %}
+        <li><a href="{% url 'articlelistcategory' uid=userInfos.currentuser.id cid=categoryInfo.id%}">{{categoryInfo.name}}</a></li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+
+</div>
+{% endblock %}

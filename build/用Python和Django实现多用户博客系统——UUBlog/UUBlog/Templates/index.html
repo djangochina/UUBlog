@@ -1,0 +1,53 @@
+﻿{% extends 'basepage.html'%}
+
+{% block container %}
+<div id="wrap_content">
+    <div class="articleList">
+         {% if articleList %}
+        {% for key,value in articleList.items%}
+
+        <div class="border tbox">
+            <div class="hd"><h2>{{key.name}}</h2></div>
+            <div class="bd">
+                {% if value %}
+                {% for articleInfo in value%}
+                <div class="article">
+                    <div class="artTitle"><h2><a href="{% url 'articleshow' uid=articleInfo.user_id aid=articleInfo.id%}">{{articleInfo.title}}</a></h2></div>
+                    <div class="artCon">
+                    
+                        {{articleInfo.summary}}       
+                    </div>
+
+                    <div class="artMeta">
+                        <span><a href="{% url 'userhome' uid=articleInfo.user_id%}">{{articleInfo.username}}</a>&nbsp;&nbsp;┆&nbsp;&nbsp;{{articleInfo.createtime}}&nbsp;&nbsp;┆&nbsp;&nbsp;阅读({{articleInfo.views}})&nbsp;&nbsp;┆&nbsp;&nbsp;评论({{articleInfo.comments}})&nbsp;&nbsp;┆&nbsp;&nbsp;支持({{articleInfo.goods}})&nbsp;&nbsp;┆&nbsp;&nbsp;反对({{articleInfo.bads}})</span>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+            
+
+        {% endfor %}
+        {% endif %}
+
+
+        
+    </div>
+</div>
+
+<div id="wrap_sidebar">
+    {% if myModules %}
+            {% for module in myModules %}
+                {% with "modules/"|add:module|add:".html" as template%}
+                {% include template %}
+                {% endwith %}
+
+            {% endfor %}
+                
+        {% else %}
+    {% endif %}
+</div>
+
+
+{% endblock %}

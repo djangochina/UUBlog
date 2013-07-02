@@ -1,0 +1,15 @@
+<div id="module_NewCommentList" class="border tbox">
+    <div class="hd">
+        <h2>最新用户</h2>
+    </div>
+    <div class="bd">
+        <ul>
+        {% if moduleList.newuserlist %}
+        {% for userInfo in moduleList.newuserlist %}
+        <li><a href="{% url 'userhome' userInfo.id%}">{{userInfo.username}}</a></li>
+        {% endfor %}
+        {% endif %}
+            </ul>
+    </div>
+    <div class="ft"></div>
+</div>

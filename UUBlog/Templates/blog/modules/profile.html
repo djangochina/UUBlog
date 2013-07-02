@@ -1,0 +1,48 @@
+<div id="module_Profile" class="border tbox">
+    <div class="hd">
+        <h2>个人资料</h2>
+    </div>
+    <div class="bd">
+        <ul>
+            <li>
+                <img src="/media/{{userInfos.guestblog.avatar}}" width="120px" height="120px"/><br/>
+                {{userInfos.guestuserprofile.nickname}}
+            </li>
+            <li>粉丝：<span id="follow_{{blogInfo.id}}">
+                       {{userInfos.guestblog.follows}}
+                   </span>
+
+                {% ifnotequal userInfos.guestblog.id userInfos.currentblog.id %}
+                {% if userInfos.guestblog.id in followBlogIds %}
+                已关注                                 
+                {% else %}
+                <input type="submit" id="blog_{{userInfos.guestblog.id}}" name="ok"  value="--关注--" onclick="FollowBlog(this);"/>
+                {% endif %}
+                {% endifnotequal %}
+            </li>
+
+            <li>推荐：<span id="suggest_{{blogInfo.id}}">
+                       {{userInfos.guestblog.suggestes}}
+                   </span>
+
+                {% ifnotequal userInfos.guestblog.id userInfos.currentblog.id %}
+                {% if userInfos.guestblog.id in suggestBlogIds %}
+                已推荐                                 
+                {% else %}
+                <input type="submit" id="blog_{{userInfos.guestblog.id}}" name="ok"  value="--推荐--" onclick="SuggestBlog(this);"/>
+                {% endif %}
+                {% endifnotequal %}
+
+            </li>
+
+
+            <li>今日访问：{{userInfos.guestblog.todayviews}}</li>
+            <li>总访问量：{{userInfos.guestblog.totalviews}}</li>
+            <li>文章：{{userInfos.guestblog.articles}}</li>
+            <li>评论：{{userInfos.guestblog.comments}}</li>
+            <li>园龄：{{userInfos.guestuser.date_joined|date:"Y-m-d"}}</li>
+
+        </ul>
+    </div>
+    <div class="ft"></div>
+</div>

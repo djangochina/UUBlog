@@ -1,0 +1,15 @@
+<div id="module_HotCommentList" class="border tbox">
+    <div class="hd">
+        <h2>热门评论</h2>
+    </div>
+    <div class="bd">
+        <ul>
+        {% if moduleList.hotcommentlist %}
+        {% for articleInfo in moduleList.hotcommentlist %}
+        <li><a href="{% url 'articleshow' uid=articleInfo.user_id aid=articleInfo.id%}">{{articleInfo.title}}</a>({{articleInfo.comments}})</li>
+        {% endfor %}
+        {% endif %}
+            </ul>
+    </div>
+    <div class="ft"></div>
+</div>

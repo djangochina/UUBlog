@@ -1,0 +1,1 @@
+kola("mvc.Event",["kola.bom.Dispatcher"],function(b){var c=new b();var a={listen:function(d,e){c.on(d,e)},unlisten:function(d,e){c.un(d,e)},fire:function(d,e){return c.fire(d,e)==false?false:true}};return a});

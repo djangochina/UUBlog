@@ -1,0 +1,28 @@
+个人资料 Profile
+归档 Archive
+分类 Category
+搜索 Search
+标签 Tags
+
+热门文章 HotArticleList
+最新文章 NewArticleList
+推荐文章 GoodArticleList
+鄙视文章 BadArticleList
+
+热门评论 HotCommentList
+最新评论 NewCommentList
+推荐评论 GoodCommentList
+鄙视评论 BadCommentList
+
+
+
+访客
+留言
+
+好友
+评论
+文章列表
+
+个人简介
+友情链接
+网址收藏
