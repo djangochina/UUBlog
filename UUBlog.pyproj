@@ -34,10 +34,6 @@
   <ItemGroup>
     <Compile Include="manage.py" />
     <Compile Include="UUBlog\admin.py" />
-    <Compile Include="UUBlog\apps\aaa\models.py" />
-    <Compile Include="UUBlog\apps\aaa\tests.py" />
-    <Compile Include="UUBlog\apps\aaa\views.py" />
-    <Compile Include="UUBlog\apps\aaa\__init__.py" />
     <Compile Include="UUBlog\apps\accounts\accountsurls.py" />
     <Compile Include="UUBlog\apps\accounts\models.py" />
     <Compile Include="UUBlog\apps\accounts\views\viewaccounts.py" />
@@ -81,8 +77,6 @@
     </WebPiReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UUBlog\apps\aaa\" />
-    <Folder Include="UUBlog\apps\aaa\Templates\" />
     <Folder Include="UUBlog\apps\accounts\views\" />
     <Folder Include="UUBlog\apps\blog\" />
     <Folder Include="UUBlog\apps\blog\views\" />
