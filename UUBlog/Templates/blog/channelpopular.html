@@ -1,5 +1,5 @@
 ﻿{% extends 'blog/basepage.html'%}
-{% block style %}
+{% block styles %}
 <style type="text/css">
     .channelListPopular{}
 .channelListPopular .channelContainer {}
@@ -20,7 +20,7 @@ font-size: 0;}
 .channelListPopular .channelContainer .channelItem .item_ft{}
 </style>
 {% endblock %}
-{% block stript %}
+{% block scripts %}
 <script type="text/javascript" charset="utf-8" src="/static/scripts/jquery-1.10.1.min.js"></script>
 <script type="text/javascript">
     function ListenChannel() {
@@ -62,10 +62,8 @@ font-size: 0;}
     }
 </script>
 
-$("#listenChannel").bind("click",function(){
-
-});
 {% endblock %}
+
 {% block container %}
 <div id="wrap_content">
     <div class="channelListPopular">

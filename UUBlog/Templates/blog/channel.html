@@ -1,4 +1,5 @@
 ﻿{% extends 'blog/basepage.html'%}
+{% block title %}频道{% endblock %}
 {% block scripts %}
 <script type="text/javascript" charset="utf-8" src="/static/scripts/jquery-1.10.1.min.js"></script>
 <script type="text/javascript">
@@ -85,22 +86,22 @@
 
     <div id="module_Channel" class="border tbox">
         <!--
-        <div class="hd">
-            <h2>我的频道</h2>
-        </div>
-        <div id="channelList" class="bd">
-            <ul>
+            <div class="hd">
+                <h2>我的频道</h2>
+            </div>
+            <div id="channelList" class="bd">
+                <ul>
 
-                {% if myChannelList %}
-                {% for channelInfo in myChannelList %}
-                <li><a href="{% url 'blogchannel' cid=channelInfo.id%}">{{channelInfo.name}}</a></li>
-                {% endfor %}
-                {% endif %}
-            </ul>
-        </div>
-        <div class="ft"></div>
-        <div class="clear"></div>
-        -->
+                    {% if myChannelList %}
+                    {% for channelInfo in myChannelList %}
+                    <li><a href="{% url 'blogchannel' cid=channelInfo.id%}">{{channelInfo.name}}</a></li>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="ft"></div>
+            <div class="clear"></div>
+            -->
         <div class="hd">
             <h2>频道</h2>
         </div>
@@ -143,7 +144,5 @@
     {% else %}
     {% endif %}
 </div>
-
-
 
 {% endblock %}

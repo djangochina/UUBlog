@@ -1,11 +1,5 @@
 ﻿{% extends 'blog/basepage.html'%}
-{% block styles %}
- a{position:absolute;display:block;border:1px solid #999;padding:2px}
- a:hover{border:1px solid #fff;text-decoration:none}
- a span {display:none;cursor:hand;text-align:center;font:bold 12px/30px Verdana, Arial;}
- a:hover span{width:500px;margin:0 2px;background:#000;display:block;position:absolute;bottom:0;left:0;color:#fff;filter:alpha(opacity=60);-moz-opacity:0.6;opacity:0.6;}
-
-{% endblock %}
+{% block title %}博客{% endblock %}
 {% block scripts %}
 <script type="text/javascript" charset="utf-8" src="/static/scripts/jquery-1.10.1.min.js"></script>
 <script type="text/javascript">
@@ -26,6 +20,8 @@
                 var follows = parseInt($("#follow_"+blogid).html());
                 follows += 1;
                 $("#follow_"+blogid).html(follows);
+                $(obj).removeClass("addBlogFollow");
+                $(obj).addClass("blogFollowed");
                 $(obj).attr("value", "已关注");
                 $(obj).attr("disabled", "disabled");
             },
@@ -101,10 +97,11 @@
                                 {% else %}
 
                                 {% if blogInfo.id in followBlogIds %}
-                                已关注
-                                        
+                                <!--<a id="blog_{{blogInfo.id}}" href="#" style="display: block;" class="followButton blogFollowed">已关注</a> -->
+                                <span id="blog_{{blogInfo.id}}" style="display: block;" class="followButton blogFollowed">已关注</span> 
+      
                                 {% else %}
-                                <input type="submit" id="blog_{{blogInfo.id}}" name="ok"  value="--关注--" onclick="FollowBlog(this);"/>
+                                <span id="blog_{{blogInfo.id}}" style="display: block; cursor:hand;" onclick="FollowBlog(this);" class="followButton addBlogFollow">关注</span>
                                 {% endif %}
                                 {% endifequal %}    
                                 
@@ -131,6 +128,7 @@
         </div>
         <div id="typeList" class="bd">
             <ul>
+                <li><a href="{% url 'blogblog'%}">全部</a></li>
                 {% if typeList %}
                 {% for typelInfo in typeList %}
                 <li><a href="{% url 'blogblog' tid=typelInfo.id%}">{{typelInfo.name}}</a></li>

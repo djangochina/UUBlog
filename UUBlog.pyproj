@@ -126,6 +126,8 @@
     <Folder Include="Templates\Admin\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="UUBlog\static\blog\images\follow.png" />
+    <Content Include="UUBlog\static\blog\images\followed_icon.png" />
     <Content Include="UUBlog\static\blog\skins\default\images\bg.jpg" />
     <Content Include="UUBlog\static\blog\skins\default\images\top_bg.png" />
     <Content Include="UUBlog\static\blog\skins\default\index.htm" />
@@ -146,6 +148,8 @@
     <Content Include="UUBlog\static\blog\skins\t2\index.htm" />
     <Content Include="UUBlog\static\blog\skins\t2\preview.jpg" />
     <Content Include="UUBlog\static\blog\skins\t2\style.css" />
+    <Content Include="UUBlog\static\blog\styles\pub.css" />
+    <Content Include="UUBlog\static\blog\styles\style.css" />
     <Content Include="UUBlog\static\images\10.jpg" />
     <Content Include="UUBlog\static\images\top_bg.png" />
     <Content Include="UUBlog\static\scripts\jquery-1.10.1.min.js" />
@@ -171,7 +175,6 @@
     <Content Include="UUBlog\templates\blog\modules\followbloglist.html" />
     <Content Include="UUBlog\templates\blog\pub\sidebar.html" />
     <Content Include="UUBlog\templates\blog\pub\avatar.html" />
-    <Content Include="UUBlog\templates\blog\space - Copy.html" />
     <Content Include="UUBlog\templates\blog\blog.html" />
     <Content Include="UUBlog\templates\blog\channel.html" />
     <Content Include="UUBlog\templates\blog\index.html" />
@@ -204,6 +207,7 @@
     <Content Include="UUBlog\templates\blog\skins\default\home.html" />
     <Content Include="UUBlog\templates\blog\skins\default\other.html" />
     <Content Include="UUBlog\templates\blog\skins\default\show.html" />
+    <Content Include="UUBlog\templates\common\footer.html" />
     <Content Include="UUBlog\templates\common\topbar.html" />
     <Content Include="UUBlog\templates\test.html" />
     <Content Include="UUBlog\templates\basepage.html" />

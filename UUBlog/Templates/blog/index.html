@@ -1,5 +1,5 @@
 ﻿{% extends 'blog/basepage.html'%}
-
+{% block title %}首页{% endblock %}
 {% block container %}
 <div id="wrap_content">
     <div class="articleList">
@@ -26,12 +26,9 @@
                 {% endif %}
             </div>
         </div>
-            
 
         {% endfor %}
         {% endif %}
-
-
         
     </div>
 </div>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title></title>
+        <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" type="text/css" href="/static/styles/common.css" />
 <link rel="stylesheet" type="text/css" href="/static/blog/skins/default/style.css" />
 
@@ -71,11 +71,30 @@
     <body>
         {% include 'common/topbar.html'%}
         <div id="header">
-            <div>
-                <a href="/{{userInfos.guestblog.id}}">
-                    <h1>{{userInfos.guestblog.title}}</h1>
-                </a>
+            <div id="headArea">
+                <div id="blogTitle">
+                    <h1><a href="/{{userInfos.guestblog.id}}">
+                            {{userInfos.guestblog.title}}
+                        </a></h1>
+                    <p>{{userInfos.guestblog.description}}</p>
+                </div>
+                <div class="clear"></div>
+                <div id="blogNavigate">
+                    <ul>
+                        <li><a href="/{{userInfos.guestblog.id}}">
+                                首页
+                            </a></li>
+                        {% if navigateCategoryList %}
+                        {% for navigateCategory in navigateCategoryList%}
+                        <li><a href="{% url 'blogcategory' uid=navigateCategory.user_id cid=navigateCategory.id%}">{{navigateCategory.name}}</a></li>
+                        {% endfor %}
+                        {% endif %}
+                        <li>关于</li>
+                    </ul>
+                </div>
+
             </div>
+            
         </div>
 
         <div class="clear">
@@ -101,9 +120,7 @@
         </div>
         <div class="clear">
         </div>
-        <div id="footer">
-            footer
-        </div>
+        {% include 'common/footer.html'%}
 
     </body>
 </html>

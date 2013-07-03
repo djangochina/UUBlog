@@ -33,7 +33,18 @@ clear: both;background-color: #BCD3E5;}
 
 
 
-            #header { width: 990px; margin: 0px auto; height: 80px; margin-bottom: 8px;margin-top: 40px; }
+#header { width: 990px; margin: 0px auto;  margin-bottom: 8px;margin-top: 40px; }
+#headArea{border: 0px solid red; }
+#blogTitle{border: 0px solid red;float: left; margin-left: 80px;}
+#blogTitle h1{ height: 30px;line-height: 30px;border: 0px solid red;}
+#blogTitle p{float: left;display: block;font-size: 14px;padding: 10px;color: #979797;border: 0px solid red;}
+
+#blogNavigate{border: 0px solid red;float: left;margin-left: 50px; }
+#blogNavigate ul{}
+#blogNavigate ul li{ float: left;float: left;
+font-size: 14px;
+overflow: hidden;padding: 0 14px;}
+
 
             #container { width: 990px; margin: 0 auto;}
             #container #wrap_content { width: 720px; float: right; }
@@ -60,10 +71,10 @@ clear: both;background-color: #BCD3E5;}
 
             .articleList { }
             .articleList .article{margin-bottom: 20px; background: white;  overflow: hidden; vertical-align: top;padding: 10px;}
-            .articleList .article .artTitle { padding: 19px 17px 0; position: relative; height: 29px; padding-top: 17px; }
+            .articleList .article .artTitle { padding: 5px;line-height: 25px;}
             .articleList .article .artMeta { }
             .articleList .article .artMeta span { float: right; }
-            .articleList .article .artCon { }
+            .articleList .article .artCon {line-height: 150%;font-size: 12px; }
 
             .article {margin-bottom: 20px;  background: white; overflow: hidden; vertical-align: top;padding: 20px; }
             .article .artTitle { margin: 10px; }
@@ -92,7 +103,7 @@ clear: both;background-color: #BCD3E5;}
 #commentList .comment{margin-bottom: 20px;padding: 10px;  background: white; overflow: hidden; vertical-align: top;}
 #commentList .comment .username{ float: left;}
 #commentList .comment .createtime{ float: right;}
-#commentList .comment .content{word-wrap: break-word;
-word-break: break-all;line-height: 24px;}
+#commentList .comment .content{word-wrap: break-word;word-break: break-all;line-height: 24px;}
 #commentList .comment .meta{}
 #commentList .comment .meta span{ float: right;margin-right: 10px;}
+

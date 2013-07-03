@@ -45,6 +45,8 @@ def home(request,uid):
 
     moduleList=modules.GetModuleList(moduleParams)
 
+    navigateCategoryList=Category.objects.order_by("-sortnum").filter(user_id=uid)
+
     #更新用户文章总数
     guestBlog.todayviews+=1
     guestBlog.totalviews+=1
@@ -92,6 +94,7 @@ def show(request,uid=-1,aid=-1,*arg,**kwarg):
 
     moduleList=modules.GetModuleList(moduleParams)
     
+    navigateCategoryList=Category.objects.order_by("-sortnum").filter(user_id=uid)
 
     articleInfo=Article.objects.get(id=aid)
 
@@ -146,6 +149,7 @@ def category(request,uid,cid):
 
     currentCategory=Category.objects.get(id=cid)
 
+    navigateCategoryList=Category.objects.order_by("-sortnum").filter(user_id=uid)
     articleList=Article.objects.order_by("-createtime").filter(user_id=uid).filter(category_id=cid).filter(status=1)
 
     currentBlog=userInfos["currentblog"]

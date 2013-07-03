@@ -2,165 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title></title>
+        <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" type="text/css" href="/static/styles/common.css" />
+        <link rel="stylesheet" type="text/css" href="/static/blog/styles/style.css" />
 
-        <style type="text/css">
-
-            #header,#container,#footer{ width: 1000px;margin: 0px auto;}
-            #header { height: 80px; margin-bottom: 8px;border: none;}
-
-            #container { }
-            #container #wrap_content { width: 780px; float: right; }
-            #container #wrap_sidebar { width: 210px; float: left; }
-
-            #footer {margin: 8px auto; height: 60px; }
-        
-            #navigate { }
-
-
-            .tbox { margin-bottom: 20px;  background: white;  overflow: hidden; vertical-align: top; }
-            .tbox .hd { padding: 19px 17px 0; position: relative; height: 29px; padding-top: 17px; }
-            .tbox .hd h2 { font-size: 14px; line-height: 15px; color: #518900; float: left; }
-            .tbox .hd h2 a { color: #316301; }
-            .tbox .hd h2 a:hover { color: #596F37; text-decoration: none; }
-            .tbox .hd span.more { float: right; position: relative; line-height: 25px; padding-right: 8px; color: #596F37; }
-            .tbox .hd span.more a { color: #596F37; text-decoration: none; }
-            .tbox .hd span.more a:hover { color: #ff3333; text-decoration: underline; }
-
-            .tbox .bd { padding: 0 19px 11px; }
-            .tbox .bd li { margin-left: 10px; line-height: 24px; }
-
-            .tbox .ft { padding: 0 19px 11px; }
-
-            .articleList { }
-            .articleList .tbox{}
-            .articleList .tbox .hd{ border-bottom: 1px solid #dedede;}
-            .articleList .article{margin-bottom: 20px;border-bottom: 1px solid #dedede;  background: white; overflow: hidden; vertical-align: top;padding: 10px;}
-            .articleList .article .artTitle { padding: 19px 17px 0; position: relative; height: 29px; padding-top: 17px; }
-            .articleList .article .artMeta { }
-            .articleList .article .artMeta span { float: right; }
-            .articleList .article .artCon { }
-
-            .article {margin-bottom: 20px;  background: white;  overflow: hidden; vertical-align: top;padding: 20px; }
-            .article .artTitle { margin: 10px; }
-            .article .artMeta { margin: 5px; }
-            .article .artMeta span { float: right; }
-            .article .artCon { }
-
-            #aboutme{}
-            #tags{}
-            #category{}
-            #viewtop{}
-            #commenttop{}
-            #newtop{}
-
-            #channelList{}
-            #channelList ul{}
-            #channelList ul li{ float: left;width: 70px;}
-
-#channelArticleList{}
-#channelArticleList #channelNavigate{}
-#channelArticleList #channelNavigate .childrenChannel{}
-#channelArticleList #channelNavigate .childrenChannel li{ float: left;margin-right: 8px;}
-#channelArticleList .articleContainer { }            
-#channelArticleList .articleContainer .articleItem{margin-bottom: 20px;border-bottom: 1px solid #dedede;  background: white; overflow: hidden; vertical-align: top;padding: 10px;}
-#channelArticleList .articleContainer .articleItem .artTitle { padding: 19px 17px 0; position: relative; height: 29px; padding-top: 17px; }
-#channelArticleList .articleContainer .articleItem .artMeta { }
-#channelArticleList .articleContainer .articleItem .artMeta span { float: right; }
-#channelArticleList .articleContainer .articleItem .artCon { }
-
-
-#typeList{}
-#typeList ul{}
-#typeList ul li{ float: left;width: 70px;}          
-
-#blogList{}
-#blogList #blogFilter{ height: 30px; }
-#blogList #blogFilter ul{}
-#blogList #blogFilter ul li{ float: left;height: 30px;line-height: 30px;font-size: 14px;height: 29px; color: #518900;margin-left: 8px;}
-            
-#blogList .blogContainer{}
-#blogList .blogContainer ul{}
-#blogList .blogContainer ul li{float: left;width: 195px;height: 295px; border-bottom: 1px solid #E1E3E6;background: #FAFAFA;display: list-item;text-align: -webkit-match-parent;}
-#blogList .blogContainer ul li .blogItem{border-right: 1px solid #E1E3E6;
-    height: 281px;
-    position: relative;
-    padding-left: 17px;
-    padding-right: 17px;
-    padding-top: 12px;
-    width: 160px;
-}
-#blogList .blogContainer ul li .blogItem .avatar{}
-#blogList .blogContainer ul li .blogItem .title{padding-left: 8px;
-line-height: 23px;
-overflow: hidden;
-font-size: 18px;
-font-weight: bold;
-margin-top: 6px;
-max-height: 55px;}
-#blogList .blogContainer ul li .blogItem .title a{
-display: block;
-color: #333;
-text-decoration: none;
-word-break: break-all;
-}
-
-#blogList .blogContainer ul li .blogItem .description{
-height: 82px;
-margin-top: 5px;
-padding: 0 5px;
-overflow: hidden;
-font-size: 14px;
-color: #888;
-line-height: 20px;}
-#blogList .blogContainer ul li .blogItem .meta{position: absolute;
-    bottom: 0;
-    height: 38px;
-    width: 160px;}
-
-
-#blogList .blogContainer ul li .blogItem .suggest{
-width: 155px;
-height: 33px;
-line-height: 33px;
-position: absolute;
-top: 139px;
-left: 17px;
-    padding-left: 5px;
-
-background:#000;
-display:block;
-
-color:#fff;
-filter:alpha(opacity=60);-moz-opacity:0.6;opacity:0.6;
-}
-
-#blogList .blogContainer ul li .blogItem .suggest span{
-float: left;
-display: block;
-width: 85px;
-height: 32px;
-color: #888;
-padding: 0 10px;
-line-height: 34px;
-overflow: hidden;
-font-size: 14px;
-font-weight: bold;
-vertical-align: baseline;
-background: transparent;
-margin: 0;
-border: 0;
-outline: 0;
-}
-        </style>
-{% block style %}{% endblock %}
+        {% block styles %}{% endblock %}
         {% block scripts %}{% endblock %}
 
     </head>
 
     <body>
-{% include 'common/topbar.html'%}
+        {% include 'common/topbar.html'%}
         <div id="header" class="border">
             <div>
                 <a href="/{{userInfos.guestblog.id}}">
@@ -176,9 +28,7 @@ outline: 0;
         </div>
         <div class="clear">
         </div>
-        <div id="footer">
-            footer
-        </div>
+        {% include 'common/footer.html'%}
 
     </body>
 </html>

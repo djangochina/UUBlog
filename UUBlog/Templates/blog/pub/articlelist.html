@@ -45,6 +45,7 @@
 </div>
 
 
+
         
 {% endblock %}
 
@@ -57,6 +58,7 @@
         <li><a href="{% url 'blogpubarticlelistdraft' uid=userInfos.currentuser.id%}">草稿箱</a></li>
     </ul>
 </div>
+
 <div class="tbox">
     <div class="hd">分类管理</div>
     <ul class="bd">
@@ -65,9 +67,10 @@
         <li><a href="{% url 'blogpubarticlelistcategory' uid=userInfos.currentuser.id cid=1%}">未分类</a></li>
         {% if categoryList %}
         {% for categoryInfo in categoryList %}
-<li><a href="{% url 'blogpubarticlelistcategory' uid=userInfos.currentuser.id cid=categoryInfo.id%}">{{categoryInfo.name}}</a></li>
+        <li><a href="{% url 'blogpubarticlelistcategory' uid=userInfos.currentuser.id cid=categoryInfo.id%}">{{categoryInfo.name}}</a></li>
         {% endfor %}
-{% endif %}
+        {% endif %}
     </ul>
 </div>
+
 {% endblock %}
