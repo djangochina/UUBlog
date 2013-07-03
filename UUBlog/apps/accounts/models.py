@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
   
 class UserProfile(UBaseModel):
     class Meta:
-        #app_label="accounts"
+        app_label="accounts"
         db_table="accounts_userprofile"
     user=models.ForeignKey(User,unique=True)
     #头像
