@@ -75,7 +75,7 @@
 #blogList .blogContainer{}
 #blogList .blogContainer ul{}
 #blogList .blogContainer ul li{float: left;width: 195px;height: 295px; border-bottom: 1px solid #E1E3E6;background: #FAFAFA;display: list-item;text-align: -webkit-match-parent;}
-#blogList .blogContainer ul li .blogItem{border-right: 1px solid #E1E3E6;
+#blogList .blogContainer .blogItem{border-right: 1px solid #E1E3E6;
     height: 281px;
     position: relative;
     padding-left: 17px;
@@ -83,22 +83,23 @@
     padding-top: 12px;
     width: 160px;
 }
-#blogList .blogContainer ul li .blogItem .avatar{}
-#blogList .blogContainer ul li .blogItem .title{padding-left: 8px;
+#blogList .blogContainer .blogItem .avatar{}
+#blogList .blogContainer .blogItem .title{
+    padding-left: 8px;
 line-height: 23px;
 overflow: hidden;
 font-size: 18px;
 font-weight: bold;
 margin-top: 6px;
 max-height: 55px;}
-#blogList .blogContainer ul li .blogItem .title a{
+#blogList .blogContainer .blogItem .title a{
 display: block;
 color: #333;
 text-decoration: none;
 word-break: break-all;
 }
 
-#blogList .blogContainer ul li .blogItem .description{
+#blogList .blogContainer .blogItem .description{
 height: 82px;
 margin-top: 5px;
 padding: 0 5px;
@@ -106,9 +107,9 @@ overflow: hidden;
 font-size: 14px;
 color: #888;
 line-height: 20px;}
-#blogList .blogContainer ul li .blogItem .meta{position: absolute;
+#blogList .blogContainer .blogItem .meta{position: absolute;
     bottom: 0;
-    height: 38px;
+    height: 38px;line-height: 38px;
     width: 160px;}
 
 
@@ -146,8 +147,8 @@ border: 0;
 outline: 0;
 }
 
-.followButton{background: transparent url(/static/blog/images/follow.png);width: 70px;height: 30px;margin-right: 20px;float: left;text-indent: -9999px;}
+.followButton{background: transparent url(/static/blog/images/follow.png);width: 68px;height: 28px;margin-right: 20px;float: left;text-indent: -9999px;}
 
-.addBlogFollow{background-position: 1px 1px;}
+.addBlogFollow{background-position: -5px -2px;}
 
-.blogFollowed{background-position: -79px 1px;}
+.blogFollowed{background-position: -93px -2px;}

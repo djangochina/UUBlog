@@ -33,17 +33,15 @@ clear: both;background-color: #BCD3E5;}
 
 
 
-#header { width: 990px; margin: 0px auto;  margin-bottom: 8px;margin-top: 40px; }
-#headArea{border: 0px solid red; }
+#header { width: 990px; margin: 0px auto;  margin-bottom: 10px;margin-top: 40px;border: 0px solid red; }
+#headArea{border: 0px solid red;float: left;}
 #blogTitle{border: 0px solid red;float: left; margin-left: 80px;}
 #blogTitle h1{ height: 30px;line-height: 30px;border: 0px solid red;}
 #blogTitle p{float: left;display: block;font-size: 14px;padding: 10px;color: #979797;border: 0px solid red;}
 
-#blogNavigate{border: 0px solid red;float: left;margin-left: 50px; }
+#blogNavigate{border: 0px solid red;float: left;margin-left: 50px;margin-bottom: 15px;}
 #blogNavigate ul{}
-#blogNavigate ul li{ float: left;float: left;
-font-size: 14px;
-overflow: hidden;padding: 0 14px;}
+#blogNavigate ul li{ float: left;float: left;font-size: 14px;overflow: hidden;padding: 0 14px;}
 
 
             #container { width: 990px; margin: 0 auto;}

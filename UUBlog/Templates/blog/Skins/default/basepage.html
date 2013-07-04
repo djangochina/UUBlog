@@ -104,10 +104,10 @@
                 {% block content %}{% endblock %}
             </div>
             <div id="wrap_sidebar">
-                {% if myModules %}
-                {% for module in myModules %}
-                {% ifnotequal module ''%}
-                {% with "blog/modules/"|add:module|add:".html" as template%}
+                {% if moduleList %}
+                {% for moduleName,moduleValue in moduleList.items %}
+                {% ifnotequal moduleName ''%}
+                {% with "blog/modules/"|add:moduleName|add:".html" as template%}
                 {% include template %}
                 {% endwith %}
                 {% endifnotequal %}

@@ -43,6 +43,7 @@
     <Compile Include="UUBlog\apps\blog\modules.py" />
     <Compile Include="UUBlog\apps\blog\blogurls.py" />
     <Compile Include="UUBlog\apps\blog\views\index.py" />
+    <Compile Include="UUBlog\apps\blog\views\baseblogview.py" />
     <Compile Include="UUBlog\apps\blog\views\viewarticle.py" />
     <Compile Include="UUBlog\apps\blog\views\viewblog.py" />
     <Compile Include="UUBlog\apps\blog\views\viewcategory.py" />
@@ -60,6 +61,7 @@
     <Compile Include="UUBlog\common\pub.py" />
     <Compile Include="UUBlog\common\utility.py" />
     <Compile Include="UUBlog\common\__init__.py" />
+    <Compile Include="UUBlog\core\ubasetemplateView.py" />
     <Compile Include="UUBlog\core\ubasemodel.py" />
     <Compile Include="UUBlog\core\__init__.py" />
     <Compile Include="UUBlog\views\index.py" />

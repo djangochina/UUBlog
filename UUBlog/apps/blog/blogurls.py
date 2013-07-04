@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 
 from django.conf.urls import patterns, include, url
-
+import UUBlog
 from UUBlog import settings
 from django.contrib import admin
 admin.autodiscover()
@@ -51,13 +51,22 @@ urlpatterns += patterns('UUBlog.apps.blog.views.viewchannel',
      url(r'^channel/(?P<cid>\d+)/(?P<c2id>\d+)/$', 'index',name='blogchannel'),
     
 )
+
+from UUBlog.apps.blog.views import viewarticle
+#文章管理
+urlpatterns += patterns('',
+
+     url(r'^(?P<uid>\d+)/$', viewarticle.Home.as_view(), name='bloghome'),
+     url(r'^(?P<uid>\d+)/show/(?P<aid>\d+)$', viewarticle.Show.as_view(), name='blogarticleshow'),
+)
+
 #文章管理
 urlpatterns += patterns('UUBlog.apps.blog.views.viewarticle',
 
      #文章显示部分
-     url(r'^(?P<uid>\d+)/$', 'home', name='bloghome'),
+     #url(r'^(?P<uid>\d+)/$', 'home', name='bloghome'),
      url(r'^(?P<uid>\d+)/category/(?P<cid>\d+)$', 'category', name='blogcategory'),
-     url(r'^(?P<uid>\d+)/show/(?P<aid>\d+)$', 'show', name='blogarticleshow'),
+     #url(r'^(?P<uid>\d+)/show/(?P<aid>\d+)$', 'show', name='blogarticleshow'),
 
 
      #文章管理部分

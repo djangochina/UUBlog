@@ -21,17 +21,91 @@ from UUBlog.apps.accounts.models import UserProfile
 from UUBlog.apps.accounts.views import viewaccounts
 
 from UUBlog.apps.blog.models import *
-from UUBlog.apps.blog.views import viewcategory
-
+from UUBlog.apps.blog.views import viewcategory,baseblogview
+from UUBlog.apps.blog.views.baseblogview import *
 from UUBlog.apps.blog import modules
-
-
-
-
+from UUBlog.core.ubasetemplateView import UBaseTemplateView
 
 #未分类和草稿不计入统计
 
 #博客首页
+class Home(UBaseBlogView):
+
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+
+        moduleList=self.GetBlogModuleList(uid)
+        navigateCategoryList=self.GetNavigateCategoryList(uid)
+        followBlogIds=self.GetFollowBlogIds(uid)
+        suggestBlogIds=self.GetSuggestBlogIds(uid)
+        articleList=self.GetArticleList(uid)
+
+        #更新用户文章总数
+        self.guestBlog.todayviews+=1
+        self.guestBlog.totalviews+=1
+        self.guestBlog.save()
+    
+        self.AddVisit(uid)
+
+        self.template_name="blog/skins/"+self.guestBlog.template+"/home.html"
+
+        return locals()
+
+
+#文章页面
+class Show(UBaseBlogView):
+
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+        aid=int(kwargs.get("aid",0))
+
+        moduleList=self.GetBlogModuleList(uid)
+        navigateCategoryList=self.GetNavigateCategoryList(uid)
+        followBlogIds=self.GetFollowBlogIds(uid)
+        suggestBlogIds=self.GetSuggestBlogIds(uid)
+        articleList=self.GetArticleList(uid)
+
+        #更新用户文章总数
+        self.guestBlog.todayviews+=1
+        self.guestBlog.totalviews+=1
+        self.guestBlog.save()
+    
+        self.AddVisit(uid)
+        
+    
+        articleInfo=Article.objects.get(id=aid)
+
+        #更新文章浏览量
+        articleInfo.views+=1
+        articleInfo.save()
+
+        
+        if self.HasPostData("ok"):
+            username = self.GetPostData(request,'username')
+            content = self.GetPostData(request,'content')
+
+            comment=Comment()
+            comment.article=articleInfo
+            comment.content=content
+            comment.user_id=self.currentUserProfile.user_id
+            comment.username=username
+            comment.createtime=datetime.datetime.now()
+            comment.save()
+
+            articleInfo.comments+=1
+
+            self.guestBlog.comments+=1
+            self.guestBlog.save()
+
+        commentList=Comment.objects.filter(article_id=aid)
+
+
+        self.template_name="blog/skins/"+self.guestBlog.template+"/show.html"
+
+        return locals()
+
+
+
 def home(request,uid):
     uid=int(uid)
     userInfos=viewaccounts.UsersMeta(request,uid)
@@ -98,7 +172,19 @@ def show(request,uid=-1,aid=-1,*arg,**kwarg):
 
     articleInfo=Article.objects.get(id=aid)
 
-    
+    currentBlog=userInfos["currentblog"]
+    followBlogIds=[]
+    if currentBlog:
+        followList=Follow.objects.filter(blog_id=currentBlog.id)
+        for follow in followList:
+            followBlogIds.append(follow.follow_blog_id)
+
+    suggestBlogIds=[]
+    if currentBlog:
+        suggestList=Suggest.objects.filter(blog_id=currentBlog.id)
+        for suggest in suggestList:
+            suggestBlogIds.append(suggest.suggest_blog_id)
+
 
     if request.POST.has_key('ok'):
         username = pub.GetPostData(request,'username')
