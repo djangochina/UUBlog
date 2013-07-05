@@ -1,5 +1,5 @@
 #-*- coding:utf-8 -*-
-
+from django.http import HttpResponseRedirect 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.generic.base import TemplateView
@@ -7,20 +7,43 @@ from django.views.generic.base import TemplateView
 from django.db import models
 
 
+
 class UBaseTemplateView(TemplateView):
     extraContext={}
+    returnUrl=None
 
     def post(self, request, *args, **kwargs):
+        self.returnUrl=request.path
+
         context = self.post_context_data(**kwargs)
-        return self.render_to_response(context)
+        
+        if self.returnUrl is None:
+            self.returnUrl="/"
+        return HttpResponseRedirect(self.returnUrl)
 
     def post_context_data(self, **kwargs):
-        context=self.get_context_data(**kwargs)
+        context={}
+        if kwargs:
+            for key, value in kwargs.items():
+                if callable(value):
+                    context[key]=value()
+                else:
+                    context[key]=value
 
         return context
 
+    def get(self, request, *args, **kwargs):
+
+        context = self.get_context_data(**kwargs)
+
+        if self.returnUrl is not None:
+            return HttpResponseRedirect(self.returnUrl)
+        else:
+            return self.render_to_response(context)
+
     def get_context_data(self, **kwargs):
         context = super(UBaseTemplateView, self).get_context_data(**kwargs)
+        
 
         if kwargs:
             for key, value in kwargs.items():

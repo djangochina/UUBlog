@@ -22,27 +22,27 @@ from UUBlog.apps.accounts.views import viewaccounts
 
 from UUBlog.apps.blog.models import *
 from UUBlog.apps.blog import modules
+from UUBlog.apps.blog.views.baseblogview import *
 
+class IndexView(UBaseBlogView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
 
-def index(request):
-    userInfos=viewaccounts.UsersMeta(request,-1)
+        myModules=["newuserlist","hotarticlelist","newarticlelist"]
+        moduleParams={}
+        for myModule in myModules:
+            moduleParams.setdefault(myModule,{})
 
-    myModules=["newuserlist","hotarticlelist","newarticlelist"]
-    moduleParams={}
-    for myModule in myModules:
-        moduleParams.setdefault(myModule,{})
+        moduleList=modules.GetModuleList(moduleParams)
 
-    moduleList=modules.GetModuleList(moduleParams)
+        channels=Channel.objects.filter(parent_id=0)
+        articleList={}
+        for channel in channels:
+            retValue=pub.getModelResult(Article,"-createtime",channel1_id=channel.id,status=1,ishome=1)
+            #retValue=Article.objects.order_by("-createtime").filter(channel1_id=channelId)
+            articleList.setdefault(channel,retValue)
 
-    channels=Channel.objects.filter(parent_id=0)
-    articleList={}
-    for channel in channels:
-        retValue=pub.getModelResult(Article,"-createtime",channel1_id=channel.id,status=1,ishome=1)
-        #retValue=Article.objects.order_by("-createtime").filter(channel1_id=channelId)
-        articleList.setdefault(channel,retValue)
+        self.template_name="blog/index.html"
 
-    return pub.my_render_to_response(request,"blog/index.html",locals())
+        return locals()
 
-
-def test(request):
-    return pub.my_render_to_response(request,"test.html",locals())

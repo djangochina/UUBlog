@@ -20,131 +20,33 @@ from UUBlog.common import pub,utility
 from UUBlog.apps.accounts.models import UserProfile
 from UUBlog.apps.accounts.views import viewaccounts
 from UUBlog.apps.blog.models import *
+from UUBlog.apps.blog.views.baseblogview import *
+
 from UUBlog.apps.blog import modules
 
-def index(request,tid=-1,order='suggestes'):
-    userInfos=viewaccounts.UsersMeta(request,-1)
+class IndexView(UBaseBlogView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+        tid=int(kwargs.get("tid",-1))
+        order=kwargs.get("order","suggestes")
 
-    #myModules=["newuserlist","hotarticlelist","newarticlelist"]
-    #moduleParams={}
-    #for myModule in myModules:
-    #    moduleParams.setdefault(myModule,{})
+        typeList=Type.objects.filter(parent_id=0)
 
-    #moduleList=modules.GetModuleList(moduleParams)
+        if tid>0:
+            blogList=Blog.objects.filter(types__contains=("%s," %tid))
+            currentType=Type.objects.get(id=tid)
+        else:
+            blogList=Blog.objects.all()
+            currentType=None
 
-    typeList=Type.objects.filter(parent_id=0)
-    try:
-        currentType=Type.objects.get(id=tid)
-        childrenType=Type.objects.filter(parent_id=tid)
-    except:
-        currentType=None
+        blogList=blogList.order_by("-%s" %order)
 
-    #sql='''
-    #SELECT blog.* 
-    #    FROM  `blog_blog` blog
-    #    INNER JOIN blog_blogtype blogtype ON blog.id = blogtype.blog_id
-    #    INNER JOIN blog_type type ON type.id = blogtype.type_id 
-    #'''
-    #sql="%s WHERE type.id =%s" %(sql,tid)
-    #blogList=Blog.objects.raw(sql)
+        followBlogIds=self.GetFollowBlogIds(uid)
 
-    if tid>0:
-        blogList=Blog.objects.filter(types__contains=("%s," %tid))
-        currentType=Type.objects.get(id=tid)
-    else:
-        blogList=Blog.objects.all()
-        currentType=None
-    blogList=blogList.order_by("-%s" %order)
+        self.template_name="blog/blog.html"
 
-    currentBlog=userInfos["currentblog"]
-    followBlogIds=[]
-    if currentBlog:
-        followList=Follow.objects.filter(blog_id=currentBlog.id)
-        for follow in followList:
-            followBlogIds.append(follow.follow_blog_id)
+        return locals()
 
-    return pub.my_render_to_response(request,"blog/blog.html",locals())
-
-
-
-
-def suggest(request,tid=-1):
-    userInfos=viewaccounts.UsersMeta(request,-1)
-
-    #myModules=["newuserlist","hotarticlelist","newarticlelist"]
-    #moduleParams={}
-    #for myModule in myModules:
-    #    moduleParams.setdefault(myModule,{})
-
-    #moduleList=modules.GetModuleList(moduleParams)
-
-    typeList=Type.objects.filter(parent_id=0)
-    currentType=Type.objects.get(id=tid)
-    childrenType=Type.objects.filter(parent_id=tid)
-
-    blogList=Blog.objects.filter(types__contains=("%s," %tid))
-
-    currentBlog=userInfos["currentblog"]
-    followBlogIds=[]
-    if currentBlog:
-        followList=Follow.objects.filter(blog_id=currentBlog.id)
-        for follow in followList:
-            followBlogIds.append(follow.follow_blog_id)
-
-    return pub.my_render_to_response(request,"blog/blog.html",locals())
-
-
-def suggestnew(request,tid=-1):
-    userInfos=viewaccounts.UsersMeta(request,-1)
-
-    #myModules=["newuserlist","hotarticlelist","newarticlelist"]
-    #moduleParams={}
-    #for myModule in myModules:
-    #    moduleParams.setdefault(myModule,{})
-
-    #moduleList=modules.GetModuleList(moduleParams)
-
-    typeList=Type.objects.filter(parent_id=0)
-    currentType=Type.objects.get(id=tid)
-    childrenType=Type.objects.filter(parent_id=tid)
-
-    blogList=Blog.objects.filter(types__contains=("%s," %tid))
-
-    currentBlog=userInfos["currentblog"]
-    followBlogIds=[]
-    if currentBlog:
-        followList=Follow.objects.filter(blog_id=currentBlog.id)
-        for follow in followList:
-            followBlogIds.append(follow.follow_blog_id)
-
-    return pub.my_render_to_response(request,"blog/blog.html",locals())
-
-
-def follow(request,tid=-1):
-    userInfos=viewaccounts.UsersMeta(request,-1)
-
-    #myModules=["newuserlist","hotarticlelist","newarticlelist"]
-    #moduleParams={}
-    #for myModule in myModules:
-    #    moduleParams.setdefault(myModule,{})
-
-    #moduleList=modules.GetModuleList(moduleParams)
-
-    typeList=Type.objects.filter(parent_id=0)
-    currentType=Type.objects.get(id=tid)
-    childrenType=Type.objects.filter(parent_id=tid)
-
-
-    blogList=Blog.objects.filter(types__contains=("%s," %tid))
-
-    currentBlog=userInfos["currentblog"]
-    followBlogIds=[]
-    if currentBlog:
-        followList=Follow.objects.filter(blog_id=currentBlog.id)
-        for follow in followList:
-            followBlogIds.append(follow.follow_blog_id)
-
-    return pub.my_render_to_response(request,"blog/blog.html",locals())
 
 
 def createBlog(user):

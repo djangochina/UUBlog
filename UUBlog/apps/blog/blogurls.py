@@ -4,6 +4,9 @@ from django.conf.urls import patterns, include, url
 import UUBlog
 from UUBlog import settings
 from django.contrib import admin
+from UUBlog.apps.blog.views import viewarticle,viewblog,viewchannel,viewindex,viewcategory
+
+
 admin.autodiscover()
 
 # Uncomment the next two lines to enable the admin:
@@ -16,23 +19,25 @@ urlpatterns = patterns('',
     #url(r'^test/$', 'apps.test.views.test'),
 )
 
-urlpatterns += patterns('UUBlog.apps.blog.views.viewindex',
-     url(r'^$', 'index', name='blogindex'),
+urlpatterns += patterns('',
+     url(r'^$', viewindex.IndexView.as_view(), name='blogindex'),
 )
 
 #空间信息
-urlpatterns += patterns('UUBlog.apps.blog.views.viewblog',
-     url(r'^blog/$', 'index',{"tid":0}, name='blogblog'),
-     url(r'^blog/suggest/$', 'index',{"order":"suggestes"},name='blogspacesuggest'),
-     url(r'^blog/suggestnew/$', 'index',{"order":"lastsuggesttime"},name='blogspacesuggestnew'),
-     url(r'^blog/follow/$', 'index',{"order":"follows"},name='blogspacefollow'),
+urlpatterns += patterns('',
+     url(r'^blog/$', viewblog.IndexView.as_view(),{"tid":0,"order":"suggestes"}, name='blogblog'),
+     url(r'^blog/suggest/$', viewblog.IndexView.as_view(),{"order":"suggestes"},name='blogspacesuggest'),
+     url(r'^blog/suggestnew/$', viewblog.IndexView.as_view(),{"order":"lastsuggesttime"},name='blogspacesuggestnew'),
+     url(r'^blog/follow/$', viewblog.IndexView.as_view(),{"order":"follows"},name='blogspacefollow'),
 
-     url(r'^blog/(?P<tid>\d+)/$', 'index',name='blogblog'),
-     url(r'^blog/(?P<tid>\d+)/suggest/$', 'index',{"order":"suggestes"},name='blogspacesuggest'),
-     url(r'^blog/(?P<tid>\d+)/suggestnew/$', 'index',{"order":"lastsuggesttime"},name='blogspacesuggestnew'),
-     url(r'^blog/(?P<tid>\d+)/follow/$', 'index',{"order":"follows"},name='blogspacefollow'),
+     url(r'^blog/(?P<tid>\d+)/$', viewblog.IndexView.as_view(),{"order":"suggestes"},name='blogblog'),
+     url(r'^blog/(?P<tid>\d+)/suggest/$', viewblog.IndexView.as_view(),{"order":"suggestes"},name='blogspacesuggest'),
+     url(r'^blog/(?P<tid>\d+)/suggestnew/$', viewblog.IndexView.as_view(),{"order":"lastsuggesttime"},name='blogspacesuggestnew'),
+     url(r'^blog/(?P<tid>\d+)/follow/$', viewblog.IndexView.as_view(),{"order":"follows"},name='blogspacefollow'),
     
 )
+
+
 
 #ajax
 urlpatterns += patterns('UUBlog.apps.blog.views.viewajax',
@@ -43,52 +48,58 @@ urlpatterns += patterns('UUBlog.apps.blog.views.viewajax',
 )
 
 #频道信息
+urlpatterns += patterns('',
+     url(r'^channel/$', viewchannel.IndexView.as_view(),{"cid":1}, name='blogchannel'),
+     #url(r'^channel/my/$', 'my', name='blogchannelmy'),
+     #url(r'^channel/popular/$', 'popular', name='blogchannelpopular'),
+     url(r'^channel/(?P<cid>\d+)/$', viewchannel.IndexView.as_view(),name='blogchannel'),
+     url(r'^channel/(?P<cid>\d+)/(?P<c2id>\d+)/$', viewchannel.IndexView.as_view(),name='blogchannel'),
+    
+)
+#频道信息
 urlpatterns += patterns('UUBlog.apps.blog.views.viewchannel',
-     url(r'^channel/$', 'index',{"cid":1}, name='blogchannel'),
+     #url(r'^channel/$', 'index',{"cid":1}, name='blogchannel'),
      url(r'^channel/my/$', 'my', name='blogchannelmy'),
      url(r'^channel/popular/$', 'popular', name='blogchannelpopular'),
-     url(r'^channel/(?P<cid>\d+)/$', 'index',name='blogchannel'),
-     url(r'^channel/(?P<cid>\d+)/(?P<c2id>\d+)/$', 'index',name='blogchannel'),
+     #url(r'^channel/(?P<cid>\d+)/$', 'index',name='blogchannel'),
+     #url(r'^channel/(?P<cid>\d+)/(?P<c2id>\d+)/$', 'index',name='blogchannel'),
     
 )
 
-from UUBlog.apps.blog.views import viewarticle
-#文章管理
-urlpatterns += patterns('',
 
-     url(r'^(?P<uid>\d+)/$', viewarticle.Home.as_view(), name='bloghome'),
-     url(r'^(?P<uid>\d+)/show/(?P<aid>\d+)$', viewarticle.Show.as_view(), name='blogarticleshow'),
+
+#用户博客首页及文章显示
+urlpatterns += patterns('',
+     url(r'^(?P<uid>\d+)/$', viewarticle.HomeView.as_view(), name='bloghome'),
+     url(r'^(?P<uid>\d+)/category/(?P<cid>\d+)$', viewarticle.CategoryView.as_view(), name='blogcategory'),
+     url(r'^(?P<uid>\d+)/tag/(?P<tid>\d+)$', viewarticle.TagView.as_view(), name='blogcategory'),
+     url(r'^(?P<uid>\d+)/show/(?P<aid>\d+)$', viewarticle.ShowView.as_view(), name='blogarticleshow'),
 )
 
 #文章管理
-urlpatterns += patterns('UUBlog.apps.blog.views.viewarticle',
+urlpatterns += patterns('',
 
-     #文章显示部分
-     #url(r'^(?P<uid>\d+)/$', 'home', name='bloghome'),
-     url(r'^(?P<uid>\d+)/category/(?P<cid>\d+)$', 'category', name='blogcategory'),
-     #url(r'^(?P<uid>\d+)/show/(?P<aid>\d+)$', 'show', name='blogarticleshow'),
-
-
-     #文章管理部分
-     url(r'^(?P<uid>\d+)/pub/article/list/$', 'list',name='blogpubarticlelist'),
-     url(r'^(?P<uid>\d+)/pub/article/list/draft/$', 'listdraft',name='blogpubarticlelistdraft'),
-     url(r'^(?P<uid>\d+)/pub/article/list/category/(?P<cid>\d+)$', 'listcategory',name='blogpubarticlelistcategory'),
-     url(r'^(?P<uid>\d+)/pub/article/add/$', 'add',name='blogpubarticleadd'),
-     url(r'^(?P<uid>\d+)/pub/article/edit/(?P<aid>\d+)$', 'edit', name='blogpubarticleedit'),
-     url(r'^(?P<uid>\d+)/pub/article/delete/(?P<aid>\d+)$', 'delete', name='blogpubarticledelete'),
+     url(r'^(?P<uid>\d+)/pub/article/list/$', viewarticle.PubListView.as_view(),name='blogpubarticlelist'),
+     url(r'^(?P<uid>\d+)/pub/article/list/draft/$', viewarticle.PubListView.as_view(),{"draft":True},name='blogpubarticlelistdraft'),
+     url(r'^(?P<uid>\d+)/pub/article/list/category/(?P<cid>\d+)$', viewarticle.PubListView.as_view(),name='blogpubarticlelistcategory'),
+     url(r'^(?P<uid>\d+)/pub/article/add/$', viewarticle.ArticleAddView.as_view(),name='blogpubarticleadd'),
+     url(r'^(?P<uid>\d+)/pub/article/edit/(?P<aid>\d+)$', viewarticle.ArticleEditView.as_view(), name='blogpubarticleedit'),
+     url(r'^(?P<uid>\d+)/pub/article/delete/(?P<aid>\d+)$', viewarticle.ArticleDeleteView.as_view(), name='blogpubarticledelete'),
 )
 
 
 
 #分类信息
-urlpatterns += patterns('UUBlog.apps.blog.views.viewcategory',
+urlpatterns += patterns('',
    
      #分类管理部分
-     url(r'^(?P<uid>\d+)/pub/category/$', 'index', name='blogpubcategory'),
-     url(r'^(?P<uid>\d+)/pub/category/edit/(?P<cid>\d*)$', 'edit', name='blogpubcategoryedit'),
-     url(r'^(?P<uid>\d+)/pub/category/delete/(?P<cid>\d*)$', 'delete', name='blogpubcategorydelete'),
+     url(r'^(?P<uid>\d+)/pub/category/$', viewcategory.IndexView.as_view(), name='blogpubcategory'),
+     url(r'^(?P<uid>\d+)/pub/category/edit/(?P<cid>\d*)$', viewcategory.CategoryEditView.as_view(), name='blogpubcategoryedit'),
+     url(r'^(?P<uid>\d+)/pub/category/delete/(?P<cid>\d*)$', viewcategory.CategoryDeleteView.as_view(), name='blogpubcategorydelete'),
    
 )
+
+
 
 #博客设置
 urlpatterns += patterns('UUBlog.apps.blog.views.viewblog',

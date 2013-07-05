@@ -21,54 +21,50 @@ from UUBlog.apps.accounts.models import UserProfile
 from UUBlog.apps.accounts.views import viewaccounts
 from UUBlog.apps.blog.models import *
 from UUBlog.apps.blog import modules
+from UUBlog.apps.blog.views.baseblogview import *
 
-def index(request,cid=-1,c2id=-1):
-    userInfos=viewaccounts.UsersMeta(request,-1)
-
-    #myModules=["newuserlist","hotarticlelist","newarticlelist"]
-    #moduleParams={}
-    #for myModule in myModules:
-    #    moduleParams.setdefault(myModule,{})
-
-    #moduleList=modules.GetModuleList(moduleParams)
+class IndexView(UBaseBlogView):
 
 
-    
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+        cid=int(kwargs.get("cid",0))
+        c2id=int(kwargs.get("c2id",0))
 
+        channelList=Channel.objects.filter(parent_id=0)
+        parentChannel=Channel.objects.get(id=cid)
+        childrenChannel=Channel.objects.filter(parent_id=cid)
+        listenChannelId=cid
 
-    channelList=Channel.objects.filter(parent_id=0)
-    parentChannel=Channel.objects.get(id=cid)
-    childrenChannel=Channel.objects.filter(parent_id=cid)
-    listenChannelId=cid
+        try:
+            childChannel=Channel.objects.get(id=c2id)
+            listenChannelId=c2id
 
-    try:
-        childChannel=Channel.objects.get(id=c2id)
-        listenChannelId=c2id
+            articleList=Article.objects.order_by("-createtime").filter(channel2_id=c2id)
 
-        articleList=Article.objects.order_by("-createtime").filter(channel2_id=c2id)
-
-    except:
-        childChannel=None
-        articleList=Article.objects.order_by("-createtime").filter(channel1_id=cid)
+        except:
+            childChannel=None
+            articleList=Article.objects.order_by("-createtime").filter(channel1_id=cid)
         
     
 
-    myChannelList=[]
-    hasListened=False
-    currentBlog=userInfos["currentblog"]
+        myChannelList=[]
+        hasListened=False
 
-    if currentBlog:
-        dot=currentBlog.listenchannels.find("%s," %cid)
-        hasListened=True if dot>-1 else False
+        if self.currentBlog:
+            dot=self.currentBlog.listenchannels.find("%s," %cid)
+            hasListened=True if dot>-1 else False
 
-        myChannelArray=currentBlog.listenchannels.split(",")
-        for tempCId in myChannelArray:
-            if tempCId!="":
-                myChannelList.append(Channel.objects.get(id=tempCId))
+            myChannelArray=self.currentBlog.listenchannels.split(",")
+            for tempCId in myChannelArray:
+                if tempCId!="":
+                    myChannelList.append(Channel.objects.get(id=tempCId))
 
+       
 
-    return pub.my_render_to_response(request,"blog/channel.html",locals())
+        self.template_name="blog/channel.html"
 
+        return locals()
 
 def popular(request,cid=-1):
     userInfos=viewaccounts.UsersMeta(request,-1)

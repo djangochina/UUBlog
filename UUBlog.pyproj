@@ -42,13 +42,11 @@
     <Compile Include="UUBlog\apps\blog\models.py" />
     <Compile Include="UUBlog\apps\blog\modules.py" />
     <Compile Include="UUBlog\apps\blog\blogurls.py" />
-    <Compile Include="UUBlog\apps\blog\views\index.py" />
     <Compile Include="UUBlog\apps\blog\views\baseblogview.py" />
     <Compile Include="UUBlog\apps\blog\views\viewarticle.py" />
     <Compile Include="UUBlog\apps\blog\views\viewblog.py" />
     <Compile Include="UUBlog\apps\blog\views\viewcategory.py" />
     <Compile Include="UUBlog\apps\blog\views\viewajax.py" />
-    <Compile Include="UUBlog\apps\blog\views\viewspace.py" />
     <Compile Include="UUBlog\apps\blog\views\viewchannel.py" />
     <Compile Include="UUBlog\apps\blog\views\viewindex.py" />
     <Compile Include="UUBlog\apps\blog\views\__init__.py" />

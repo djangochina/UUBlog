@@ -1,5 +1,5 @@
 #-*- coding:utf-8 -*-
-
+from django.http import HttpResponseRedirect 
 from UUBlog.core.ubasetemplateView import UBaseTemplateView
 from UUBlog.apps.accounts.views import viewaccounts
 from UUBlog.apps.blog.models import *
@@ -12,41 +12,44 @@ class UBaseBlogView(UBaseTemplateView):
         super(UBaseBlogView, self).__init__(**kwargs)
 
         self.userInfos=None
+        self.currentUser=None
         self.currentUserProfile=None
         self.currentBlog=None
+        self.guestUser=None
         self.guestUserProfile=None
         self.guestBlog=None
         self.fields={}
 
     def ResetUserInfos(self,uid):
         self.userInfos=viewaccounts.UsersMeta(self.request,uid)
+        self.currentUser=self.userInfos["currentuser"]
         self.currentUserProfile=self.userInfos["currentuserprofile"]
         self.currentBlog=self.userInfos["currentblog"]
+
+        self.guestUser=self.userInfos["guestuser"]
         self.guestUserProfile=self.userInfos["guestuserprofile"]
         self.guestBlog=self.userInfos["guestblog"]
         self.fields={
             "userInfos":self.userInfos,
+            "currentUser":self.currentUser,
             "currentUserProfile":self.currentUserProfile,
             "currentBlog":self.currentBlog,
+            "guestUser":self.guestUser,
             "guestUserProfile":self.guestUserProfile,
             "guestBlog":self.guestBlog,
         }
 
     def post_context_data(self, **kwargs):
         context= super(UBaseBlogView, self).post_context_data(**kwargs)
-
         uid=int(kwargs.get("uid",0))
         
         self.ResetUserInfos(uid)
 
         myContext=self.PostContext(**kwargs)
-        self.AddVars(context,myContext)
+        
+        return HttpResponseRedirect("/")
+        
 
-        self.AddVars(context,self.fields)
-
-        self.AddVars(context,locals())
-
-        return context
 
 
     def get_context_data(self, **kwargs):
@@ -68,7 +71,6 @@ class UBaseBlogView(UBaseTemplateView):
     def PostContext(self,**kwargs):
         context={}
         return context
-
     def GetContext(self,**kwargs):
         context={}
         return context
@@ -113,6 +115,12 @@ class UBaseBlogView(UBaseTemplateView):
 
         return suggestBlogIds
 
+    #文章分类
+    def GetCategoryList(self,uid):
+        categoryList=Category.objects.order_by("-sortnum").filter(user_id=uid)
+
+        return categoryList
+
     #在博客菜单显示的分类
     def GetNavigateCategoryList(self,uid):
         navigateCategoryList=Category.objects.order_by("-sortnum").filter(user_id=uid)
@@ -120,9 +128,11 @@ class UBaseBlogView(UBaseTemplateView):
         return navigateCategoryList
 
     #文章列表
-    def GetArticleList(self,uid):
+    def GetArticleList(self,uid,*order,**kwargs):
         articleList=Article.objects.order_by("-createtime").filter(user_id=uid).filter(status=1)
-
+        if kwargs:
+            articleList=articleList.filter(**kwargs)
+        
         return articleList
 
 
@@ -138,9 +148,16 @@ class UBaseBlogView(UBaseTemplateView):
                 visit.save()
 
 
-
-
-
+    def UpdateChannelArticles(self,num=1,*channelIds):
+        if channelIds:
+            for channelId in channelIds:
+                if channelId>0:
+                    try:
+                        channelInfo=Channel.objects.get(id=channelId)
+                        channelInfo.articles+=num
+                        channelInfo.save()
+                    except:
+                        pass
 
 
 
