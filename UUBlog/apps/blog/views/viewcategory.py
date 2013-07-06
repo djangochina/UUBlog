@@ -96,15 +96,5 @@ class CategoryDeleteView(UBaseBlogView):
 
         return locals()
 
-   
-
-def GetCategoryList(uid=-1):
-    if uid>0:
-        categoryList=Category.objects.order_by("-sortnum").filter(user_id=uid)
-    else:
-        categoryList=Category.objects.order_by("-sortnum").all()
-
-    return categoryList
-
 
     

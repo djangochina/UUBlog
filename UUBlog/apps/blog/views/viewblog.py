@@ -24,6 +24,16 @@ from UUBlog.apps.blog.views.baseblogview import *
 
 from UUBlog.apps.blog import modules
 
+def createBlog(user):
+  
+    blog=Blog()
+    blog.id=user.id
+    blog.title=user.username+"的博客".decode("utf-8")
+    blog.modules="profile,category,hotarticlelist,hotcommentlist,followbloglist"
+    blog.template="default"
+    blog.createtime=datetime.datetime.now()
+    blog.save()
+
 class IndexView(UBaseBlogView):
     def GetContext(self, **kwargs):
         uid=int(kwargs.get("uid",0))
@@ -47,146 +57,154 @@ class IndexView(UBaseBlogView):
 
         return locals()
 
-
-
-def createBlog(user):
-  
-    blog=Blog()
-    blog.id=user.id
-    blog.title=user.username+"的博客".decode("utf-8")
-    blog.modules="profile,category,hotarticlelist,hotcommentlist,followbloglist"
-    blog.template="default"
-    blog.createtime=datetime.datetime.now()
-    blog.save()
-
-#博客信息
-@login_required()
-def base(request,uid=-1):
-    userInfos=viewaccounts.UsersMeta(request,-1)
-    currentBlog=userInfos["currentblog"]
-    typeList=Type.objects.filter(parent_id=0)
-    myTypeList=currentBlog.types.split(",")
-    myTypeIds=[]
-    for tId in myTypeList:
-        if tId!="":
-            myTypeIds.append(int(tId))
-            #myTypeIds.append("%s" %bt.type_id)
-
-    if pub.HasPostData(request,"ok"):
-        currentBlog.title=pub.GetPostData(request,"title")
-        currentBlog.description=pub.GetPostData(request,"description")
-        currentBlog.keywords=pub.GetPostData(request,"keywords")
-        currentBlog.about=pub.GetPostData(request,"about")
-        currentBlog.announcement=pub.GetPostData(request,"announcement")
-        currentBlog.types=pub.GetPostData(request,"typeids")
-        currentBlog.save()
-
-        return HttpResponseRedirect('/')
-    else:
-        return pub.my_render_to_response(request,"blog/pub/base.html",locals())
-
-#头像
-@login_required()
-def avatar(request,uid=-1):
-    userInfos=viewaccounts.UsersMeta(request,-1)
-    currentBlog=userInfos["currentblog"]
-
-    #000/00/01
-    if pub.HasPostData(request,"ok"):
-        avatarPath=("%d" %currentBlog.id).rjust(7,"0")
-        dir1=avatarPath[0:3]
-        dir2=avatarPath[3:5]
-        fileName=avatarPath[5:7]
-        path="%s/%s/%s/" %("blog/avatar",dir1,dir2)
-
-        currentBlog.avatar=pub.SaveFile(request.FILES['avatar'],path,fileName)
-      
-        currentBlog.save()
-
-        return HttpResponseRedirect('/')
-    else:
-        return pub.my_render_to_response(request,"blog/pub/avatar.html",locals())
-
-#模板设置
-@login_required()
-def template(request,uid=-1):
-    userInfos=viewaccounts.UsersMeta(request,-1)
-    currentBlog=userInfos["currentblog"]
-
-    if pub.HasPostData(request,"ok"):
-        currentBlog.template=pub.GetPostData(request,"template")
+class BlogBaseView(UBaseBlogView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
        
-        currentBlog.save()
+        typeList=Type.objects.filter(parent_id=0)
+        myTypeArray=self.currentBlog.types.split(",")
+        myTypeIds=[]
+        for tId in myTypeArray:
+            if tId!="":
+                myTypeIds.append(int(tId))
 
-        return HttpResponseRedirect('/')
-    else:
-        return pub.my_render_to_response(request,"blog/pub/template.html",locals())
+        self.template_name="blog/pub/base.html"
 
-#样式设置
-@login_required()
-def style(request,uid=-1):
-    userInfos=viewaccounts.UsersMeta(request,-1)
-    currentBlog=userInfos["currentblog"]
+        return locals()
 
-    if pub.HasPostData(request,"ok"):
-        currentBlog.css=pub.GetPostData(request,"css")
-        currentBlog.headhtml=pub.GetPostData(request,"headhtml")
-        currentBlog.footerhtml=pub.GetPostData(request,"footerhtml")
-  
-        currentBlog.save()
+    def PostContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
 
-        return HttpResponseRedirect('/')
-    else:
-        return pub.my_render_to_response(request,"blog/pub/style.html",locals())
+        if self.HasPostData("ok"):
+            self.currentBlog.title=self.GetPostData("title")
+            self.currentBlog.description=self.GetPostData("description")
+            self.currentBlog.keywords=self.GetPostData("keywords")
+            self.currentBlog.about=self.GetPostData("about")
+            self.currentBlog.announcement=self.GetPostData("announcement")
+            self.currentBlog.types=self.GetPostData("typeids")
+            self.currentBlog.save()
 
-#域名设置
-@login_required()
-def domain(request,uid=-1):
-    userInfos=viewaccounts.UsersMeta(request,-1)
-    currentBlog=userInfos["currentblog"]
+        return locals()
 
+class BlogAvatarView(UBaseBlogView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
 
-    if pub.HasPostData(request,"ok"):
-        currentBlog.domain=pub.GetPostData(request,"domain")
-  
-        currentBlog.save()
+        self.template_name="blog/pub/avatar.html"
 
-        return HttpResponseRedirect('/')
-    else:
-        return pub.my_render_to_response(request,"blog/pub/domain.html",locals())
+        return locals()
 
+    def PostContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
 
+        #000/00/01
+        if self.HasPostData("ok"):
+            avatarPath=("%d" %self.currentBlog.id).rjust(7,"0")
+            dir1=avatarPath[0:3]
+            dir2=avatarPath[3:5]
+            fileName=avatarPath[5:7]
+            path="%s/%s/%s/" %("blog/avatar",dir1,dir2)
 
-#模块设置
-@login_required()
-def module(request,uid=-1):
-    userInfos=viewaccounts.UsersMeta(request,-1)
-    currentBlog=userInfos["currentblog"]
-
-    allModules={}
-    for key,value in modules.moduleList.items():
-        allModules.setdefault(key,value["name"])
-
-    tempModules=currentBlog.modules.split(",")
-    myModules={}
-    for tempModule in tempModules:
-        moduleName=modules.GetModuleName(tempModule)
-        if moduleName:
-            myModules.setdefault(tempModule,moduleName)
+            self.currentBlog.avatar=pub.SaveFile(self.request.FILES['avatar'],path,fileName)
+      
+            self.currentBlog.save()
 
 
-    if pub.HasPostData(request,"ok"):
-        tempModules=pub.GetPostData(request,"modules").split(",")
-        retModules=""
-        for key in tempModules:
-            if modules.moduleList.has_key(key):
-                retModules+=key+","
+        return locals()
+
+class BlogTemplateView(UBaseBlogView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+       
+        self.template_name="blog/pub/template.html"
+
+        return locals()
+
+    def PostContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+
+        if self.HasPostData("ok"):
+            self.currentBlog.template=self.GetPostData("template")
+           
+            self.currentBlog.save()
+
+        return locals()
+
+class BlogStyleView(UBaseBlogView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+
+        self.template_name="blog/pub/style.html"
+
+        return locals()
+
+    def PostContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+
+        if self.HasPostData("ok"):
+            self.currentBlog.css=self.GetPostData("css")
+            self.currentBlog.headhtml=self.GetPostData("headhtml")
+            self.currentBlog.footerhtml=self.GetPostData("footerhtml")
+           
+            self.currentBlog.save()
+
+        return locals()
+
+class BlogDomainView(UBaseBlogView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+
+        self.template_name="blog/pub/domain.html"
+
+        return locals()
+
+    def PostContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+
+        if self.HasPostData("ok"):
+            self.currentBlog.domain=self.GetPostData("domain")
+            
+            self.currentBlog.save()
+
+        return locals()
+
+class BlogModuleView(UBaseBlogView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+
+        allModules={}
+        for key,value in modules.moduleList.items():
+            allModules.setdefault(key,value["name"])
+
+        myModuleArray=self.currentBlog.modules.split(",")
+        myModules={}
+        for myModuleKey in myModuleArray:
+            moduleName=modules.GetModuleName(myModuleKey)
+            if moduleName:
+                myModules.setdefault(myModuleKey,moduleName)
+
+
+        self.template_name="blog/pub/module.html"
+
+        return locals()
+
+    def PostContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+
+        if self.HasPostData("ok"):
+            self.currentBlog.domain=self.GetPostData("domain")
+            
+            self.currentBlog.save()
+
+            myModuleArray=pub.GetPostData(request,"modules").split(",")
+            retModules=""
+            for key in myModuleArray:
+                if modules.moduleList.has_key(key):
+                    retModules+=key+","
                 
 
-        currentBlog.modules=retModules
+            currentBlog.modules=retModules
   
-        currentBlog.save()
+            currentBlog.save()
 
-        return HttpResponseRedirect('/')
-    else:
-        return pub.my_render_to_response(request,"blog/pub/module.html",locals())
+        return locals()

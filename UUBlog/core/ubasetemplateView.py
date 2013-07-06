@@ -44,7 +44,6 @@ class UBaseTemplateView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(UBaseTemplateView, self).get_context_data(**kwargs)
         
-
         if kwargs:
             for key, value in kwargs.items():
                 if callable(value):

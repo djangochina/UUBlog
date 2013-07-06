@@ -53,7 +53,6 @@ class HomeView(UBaseBlogView):
 
         return locals()
 
-
 #文章页面
 class ShowView(UBaseBlogView):
 
@@ -302,7 +301,6 @@ class ArticleEditView(UBaseBlogView):
         self.template_name="blog/pub/articleedit.html"
 
         return locals()
-
 
 def SetArticleValues(request,articleInfo):
     channel1Id=int(pub.GetPostData(request,'channel1',0))

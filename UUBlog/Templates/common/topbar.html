@@ -16,7 +16,7 @@
                         {% endif %}
                         <li><a href="{% url 'blogblog'%}">博客</a></li>
                         <li><a href="{% url 'blogchannel'%}">频道</a></li>
-                        <li><a href="/">随便看看</a></li>
+                        <li><a href="{% url 'bloghome' uid=randBlog.id%}">随便看看</a></li>
                     </ul>
                 </div>
                 <div class="rightinfo">

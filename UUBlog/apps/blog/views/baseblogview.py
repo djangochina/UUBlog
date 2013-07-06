@@ -18,6 +18,8 @@ class UBaseBlogView(UBaseTemplateView):
         self.guestUser=None
         self.guestUserProfile=None
         self.guestBlog=None
+        self.randBlog=None
+
         self.fields={}
 
     def ResetUserInfos(self,uid):
@@ -29,6 +31,8 @@ class UBaseBlogView(UBaseTemplateView):
         self.guestUser=self.userInfos["guestuser"]
         self.guestUserProfile=self.userInfos["guestuserprofile"]
         self.guestBlog=self.userInfos["guestblog"]
+        self.randBlog=Blog.objects.order_by("?")[0]
+
         self.fields={
             "userInfos":self.userInfos,
             "currentUser":self.currentUser,
@@ -37,6 +41,7 @@ class UBaseBlogView(UBaseTemplateView):
             "guestUser":self.guestUser,
             "guestUserProfile":self.guestUserProfile,
             "guestBlog":self.guestBlog,
+            "randBlog":self.randBlog,
         }
 
     def post_context_data(self, **kwargs):
@@ -47,9 +52,13 @@ class UBaseBlogView(UBaseTemplateView):
 
         myContext=self.PostContext(**kwargs)
         
-        return HttpResponseRedirect("/")
-        
+        self.AddVars(context,myContext)
 
+        self.AddVars(context,self.fields)
+
+        self.AddVars(context,locals())
+
+        return context
 
 
     def get_context_data(self, **kwargs):

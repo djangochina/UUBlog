@@ -1,6 +1,70 @@
 {% extends "blog/pub/basepage.html"%}
 
 {% block title%} 首页 {% endblock %}
+{% block scripts %}
+<script type="text/javascript" charset="utf-8" src="/static/scripts/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+                            
+    function addOption(objSelectIdFrom,objSelectIdTo) {
+        $("#"+objSelectIdFrom+" option:selected").each(function() {
+            var selectedOption = $(this);
+                                    
+            var isExist = false;
+                                    
+            $("#"+objSelectIdTo+" option").each(function() {
+                if (selectedOption.val() == $(this).val()) {
+                    isExist = true;
+                }
+            });
+
+            if (!isExist) {
+                var newOption = "<opiton value='" + selectedOption.val() + "'>" + selectedOption.text() + "</option>";
+                newOption     = "<option value='" + selectedOption.val() + "'>" + selectedOption.text() + "</option>";
+                                        
+                $("#"+objSelectIdTo).append(newOption);
+            }
+        });
+    }
+                            
+    function removeOption(objSelectId) {
+        $("#" + objSelectId + " option:selected").remove();
+    }
+
+    function moveOption(objSelectId,direction) {
+        var selectedOption = $("#" + objSelectId + " option:selected");
+        var index = selectedOption.index();
+
+        if (direction < 0) {
+
+            if (index == 0) {
+                return;
+            }
+            selectedOption.remove();
+            var preview = $("#" + objSelectId + " option").filter(":eq("+(index-1)+")");
+            selectedOption.insertBefore(preview)
+                                    
+        } else {
+            var count = $("#" + objSelectId + " option").length - 1;
+            if (index == count) {
+                return;
+            }
+            var next = $("#" + objSelectId + " option").filter(":eq("+(index+1)+")");
+            selectedOption.insertAfter(next)
+        }
+        //selectedOption.remove();
+    }
+
+    function getModules(objSelectIdTo) {
+        var values = "";
+        $("#"+objSelectIdTo+" option").each(function() {
+            values += $(this).val()+",";
+        });
+        $("#modules").val(values);
+        return true;
+    }
+</script>
+
+{% endblock %}
 
 {% block content %}
 <div class="tbox">
@@ -14,66 +78,7 @@
                 <tr>
                     <td>模块</td>
                     <td>
-                        <script type="text/javascript">
-                            
-                            function addOption(objSelectIdFrom,objSelectIdTo) {
-                                $("#"+objSelectIdFrom+" option:selected").each(function() {
-                                    var selectedOption = $(this);
-                                    
-                                    var isExist = false;
-                                    
-                                    $("#"+objSelectIdTo+" option").each(function() {
-                                        if (selectedOption.val() == $(this).val()) {
-                                            isExist = true;
-                                        }
-                                    });
-
-                                    if (!isExist) {
-                                        var newOption = "<opiton value='" + selectedOption.val() + "'>" + selectedOption.text() + "</option>";
-                                        newOption     = "<option value='" + selectedOption.val() + "'>" + selectedOption.text() + "</option>";
-                                        
-                                        $("#"+objSelectIdTo).append(newOption);
-                                    }
-                                });
-                            }
-                            
-                            function removeOption(objSelectId) {
-                                $("#" + objSelectId + " option:selected").remove();
-                            }
-
-                            function moveOption(objSelectId,direction) {
-                                var selectedOption = $("#" + objSelectId + " option:selected");
-                                var index = selectedOption.index();
-
-                                if (direction < 0) {
-
-                                    if (index == 0) {
-                                        return;
-                                    }
-                                    selectedOption.remove();
-                                    var preview = $("#" + objSelectId + " option").filter(":eq("+(index-1)+")");
-                                    selectedOption.insertBefore(preview)
-                                    
-                                } else {
-                                    var count = $("#" + objSelectId + " option").length - 1;
-                                    if (index == count) {
-                                        return;
-                                    }
-                                    var next = $("#" + objSelectId + " option").filter(":eq("+(index+1)+")");
-                                    selectedOption.insertAfter(next)
-                                }
-                                //selectedOption.remove();
-                            }
-
-                            function getModules(objSelectIdTo) {
-                                var values = "";
-                                $("#"+objSelectIdTo+" option").each(function() {
-                                    values += $(this).val()+",";
-                                });
-                                $("#modules").val(values);
-                                return true;
-                            }
-                        </script>
+                        
 <input name="modules" id="modules" type="hidden"/>
                         <table>
                             <tr>
