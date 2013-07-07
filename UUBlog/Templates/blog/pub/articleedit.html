@@ -36,9 +36,9 @@
         {% endif %}
         <form name="form1" method="POST" action="" >
             {% csrf_token %}
-            <table>
+            <table width="100%">
                 <tr>
-                    <td>标题</td>
+                    <td width="80px">标题</td>
                     <td><input name="title" type="text" size="60" value="{{articleInfo.title}}"/></td>
                 </tr>
                 <tr>
@@ -50,13 +50,9 @@
                     <td>内容</td>
                     <td>
                         <script type="text/plain" id="content" name="content">
-            {{articleInfo.content|safe}}
+                            {{articleInfo.content|safe}}
 
-        </script>
-
-
-
-
+                        </script>
                     </td>
                 </tr>
                 <tr>

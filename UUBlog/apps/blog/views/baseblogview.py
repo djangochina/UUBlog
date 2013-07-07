@@ -77,12 +77,7 @@ class UBaseBlogView(UBaseTemplateView):
 
         return context
 
-    def PostContext(self,**kwargs):
-        context={}
-        return context
-    def GetContext(self,**kwargs):
-        context={}
-        return context
+
 
 
 
@@ -132,7 +127,7 @@ class UBaseBlogView(UBaseTemplateView):
 
     #在博客菜单显示的分类
     def GetNavigateCategoryList(self,uid):
-        navigateCategoryList=Category.objects.order_by("-sortnum").filter(user_id=uid)
+        navigateCategoryList=Category.objects.order_by("-sortnum").filter(user_id=uid,isnav=1)
 
         return navigateCategoryList
 
@@ -145,9 +140,9 @@ class UBaseBlogView(UBaseTemplateView):
         return articleList
 
 
-
+    #添加访客
     def AddVisit(self,uid):
-        if not self.IsMyBlog(uid):
+        if self.currentUser and not self.IsMyBlog(uid):
             visit=Visit.objects.filter(blog_id=self.currentBlog.id,visit_blog_id=self.guestBlog.id)
             if not visit:
                 visit=Visit()
@@ -156,7 +151,7 @@ class UBaseBlogView(UBaseTemplateView):
                 visit.lastvisittime=datetime.datetime.now()
                 visit.save()
 
-
+    #更新频道文章数量
     def UpdateChannelArticles(self,num=1,*channelIds):
         if channelIds:
             for channelId in channelIds:

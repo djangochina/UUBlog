@@ -84,8 +84,8 @@ urlpatterns += patterns('',
 #文章分类管理
 urlpatterns += patterns('',
      url(r'^(?P<uid>\d+)/pub/category/$', viewcategory.IndexView.as_view(), name='blogpubcategory'),
-     url(r'^(?P<uid>\d+)/pub/category/edit/(?P<cid>\d*)$', viewcategory.CategoryEditView.as_view(), name='blogpubcategoryedit'),
-     url(r'^(?P<uid>\d+)/pub/category/delete/(?P<cid>\d*)$', viewcategory.CategoryDeleteView.as_view(), name='blogpubcategorydelete'),
+     url(r'^(?P<uid>\d+)/pub/category/edit/(?P<cid>\d*)$', viewcategory.EditView.as_view(), name='blogpubcategoryedit'),
+     url(r'^(?P<uid>\d+)/pub/category/delete/(?P<cid>\d*)$', viewcategory.DeleteView.as_view(), name='blogpubcategorydelete'),
    
 )
 
@@ -93,12 +93,12 @@ urlpatterns += patterns('',
 #博客设置
 urlpatterns += patterns('',
 
-    url(r'^(?P<uid>\d+)/pub/setting/$', viewblog.BlogBaseView.as_view(), name='blogpubsetting'),
-    url(r'^(?P<uid>\d+)/pub/setting/avatar', viewblog.BlogAvatarView.as_view(), name='blogpubsettingavatar'),
-    url(r'^(?P<uid>\d+)/pub/setting/module', viewblog.BlogModuleView.as_view(), name='blogpubsettingmodule'),
-    url(r'^(?P<uid>\d+)/pub/setting/domain$', viewblog.BlogDomainView.as_view(), name='blogpubsettingdomain'),
-    url(r'^(?P<uid>\d+)/pub/setting/template/$', viewblog.BlogTemplateView.as_view(), name='blogpubsettingtemplate'),
-    url(r'^(?P<uid>\d+)/pub/setting/style/$', viewblog.BlogStyleView.as_view(), name='blogpubsettingstyle'),
+    url(r'^(?P<uid>\d+)/pub/setting/$', viewblog.BaseView.as_view(), name='blogpubsetting'),
+    url(r'^(?P<uid>\d+)/pub/setting/avatar', viewblog.AvatarView.as_view(), name='blogpubsettingavatar'),
+    url(r'^(?P<uid>\d+)/pub/setting/module', viewblog.ModuleView.as_view(), name='blogpubsettingmodule'),
+    url(r'^(?P<uid>\d+)/pub/setting/domain$', viewblog.DomainView.as_view(), name='blogpubsettingdomain'),
+    url(r'^(?P<uid>\d+)/pub/setting/template/$', viewblog.TemplateView.as_view(), name='blogpubsettingtemplate'),
+    url(r'^(?P<uid>\d+)/pub/setting/style/$', viewblog.StyleView.as_view(), name='blogpubsettingstyle'),
 )
 
 

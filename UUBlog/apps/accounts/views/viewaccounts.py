@@ -24,179 +24,212 @@ from UUBlog.common import pub,utility
 from UUBlog.apps.accounts.models import *
 from UUBlog.apps.blog.models import *
 from UUBlog.apps.blog import modules
+from UUBlog.apps.accounts.views.baseaccountsview import *
 
 
-def register(request):
-    if pub.HasPostData(request,"ok"):
-        username=pub.GetPostData(request,"username")
-        password=pub.GetPostData(request,"password")
-        email=pub.GetPostData(request,"email")
 
-        user=User.objects.create_user(username,email,password)
-        user.first_name=username
-        user.save()
 
-        createUserProfile(user)
 
-        from UUBlog.apps.blog.views import viewblog
-        viewblog.createBlog(user)
+class RegisterView(UBaseAccountsView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
 
-        return HttpResponseRedirect('/')
-    else:
-        return pub.my_render_to_response(request,"accounts/register.html",locals())
+        self.template_name="accounts/register.html"
 
-def login(request):
-    if pub.HasPostData(request,"ok"):
-        username=pub.GetPostData(request,"username")
-        password=pub.GetPostData(request,"password")
+        return locals()
 
-        user=auth.authenticate(username=username,password=password)
-        if user is not None:
-            userProfile=user.get_profile()
-            try:
+    def PostContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+
+        if self.HasPostData("ok"):
+            username=self.GetPostData("username")
+            password=self.GetPostData("password")
+            email=self.GetPostData("email")
+
+            user=User.objects.create_user(username,email,password)
+            user.first_name=username
+            user.save()
+
+            profile=UserProfile(user=user)
+            profile.nickname=user.username
+            profile.save()
+
+            from UUBlog.apps.blog.views import viewblog
+            viewblog.createBlog(user)
+
+        self.returnUrl="/"
+
+        return locals()
+
+class LoginView(UBaseAccountsView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+
+        self.template_name="accounts/login.html"
+
+        return locals()
+
+    def PostContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+
+        if self.HasPostData("ok"):
+            username=self.GetPostData("username")
+            password=self.GetPostData("password")
+
+            user=auth.authenticate(username=username,password=password)
+            if user is not None:
                 userProfile=user.get_profile()
-            except:
-                createUserProfile(user)
-            try:
-                blog=Blog.objects.get(id=user.id)
-            except:
-                from UUBlog.apps.blog.views import viewblog
-                viewblog.createBlog(user)
+                
+                try:
+                    blog=Blog.objects.get(id=user.id)
+                except:
+                    pass
+                    #from UUBlog.apps.blog.views import viewblog
+                    #viewblog.createBlog(user)
 
-            if user.is_active:
-                auth.login(request,user)
-                return HttpResponseRedirect('/')
-            else:
-                return HttpResponseRedirect('')
-        else:
-            return HttpResponseRedirect('')
-    else:
-        return pub.my_render_to_response(request,"accounts/login.html",locals())
+                if user.is_active:
+                    auth.login(self.request,user)
 
-def logout(request):
-    auth.logout(request)
-    return HttpResponseRedirect('/')
+        self.returnUrl="/"
 
+        return locals()
 
+class LogoutView(UBaseAccountsView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
 
-def createUserProfile(user):
-    profile=UserProfile(user=user)
+        auth.logout(self.request)
+        self.returnUrl="/"
 
-    profile.nickname=user.username
-    profile.save()
-
-
+        return locals()
 
 #头像
-@login_required()
-def avatar(request,uid=-1):
-    userInfos=UsersMeta(request,-1)
-    currentUserProfile=userInfos["currentuserprofile"]
-    #000/00/01
-    if pub.HasPostData(request,"ok"):
-        avatarPath=("%d" %currentUserProfile.user_id).rjust(7,"0")
-        dir1=avatarPath[0:3]
-        dir2=avatarPath[3:5]
-        fileName=avatarPath[5:7]
-        path="%s/%s/%s/" %("avatar",dir1,dir2)
+class AvatarView(UBaseAccountsView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
 
-        currentUserProfile.avatar=pub.SaveFile(request.FILES['avatar'],path,fileName)
+        self.template_name="accounts/pub/avatar.html"
+
+        return locals()
+
+    def PostContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+        #000/00/01
+        if self.HasPostData("ok") and self.request.FILES['avatar']:
+            avatarPath=("%d" %self.currentUserProfile.user_id).rjust(7,"0")
+            dir1=avatarPath[0:3]
+            dir2=avatarPath[3:5]
+            fileName=avatarPath[5:7]
+            path="%s/%s/%s/" %("avatar",dir1,dir2)
+
+            self.currentUserProfile.avatar=pub.SaveFile(self.request.FILES['avatar'],path,fileName)
       
-        currentUserProfile.save()
+            self.currentUserProfile.save()
 
-        return HttpResponseRedirect('/')
-    else:
-        return pub.my_render_to_response(request,"accounts/pub/avatar.html",locals())
-
+        return locals()
 
 #基本信息
-@login_required()
-def base(request,uid=-1):
-    userInfos=UsersMeta(request,-1)
-    currentUserProfile=userInfos["currentuserprofile"]
+class BaseView(UBaseAccountsView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
 
-    if pub.HasPostData(request,"ok"):
-        currentUserProfile.nickname=pub.GetPostData(request,"nickname")
-        currentUserProfile.realname=pub.GetPostData(request,"realname")
-        currentUserProfile.gender=pub.GetPostData(request,"gender")
-        currentUserProfile.birthday=pub.GetPostData(request,"birthday")
-        currentUserProfile.birthcity=pub.GetPostData(request,"birthcity")
-        currentUserProfile.residecity=pub.GetPostData(request,"residecity")
+        self.template_name="accounts/pub/base.html"
+
+        return locals()
+
+    def PostContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
+
+        if self.HasPostData("ok"):
+            self.currentUserProfile.nickname=self.GetPostData("nickname")
+            self.currentUserProfile.realname=self.GetPostData("realname")
+            self.currentUserProfile.gender=self.GetPostData("gender")
+            self.currentUserProfile.birthday=self.GetPostData("birthday")
+            self.currentUserProfile.birthcity=self.GetPostData("birthcity")
+            self.currentUserProfile.residecity=self.GetPostData("residecity")
       
-        currentUserProfile.save()
+            self.currentUserProfile.save()
 
-        return HttpResponseRedirect('/')
-    else:
-        return pub.my_render_to_response(request,"accounts/pub/base.html",locals())
-
+        return locals()
 
 #个人信息
-@login_required()
-def info(request,uid=-1):
-    userInfos=UsersMeta(request,-1)
-    currentUserProfile=userInfos["currentuserprofile"]
+class InfoView(UBaseAccountsView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
 
-    if pub.HasPostData(request,"ok"):
-        currentUserProfile.affectivestatus=pub.GetPostData(request,"affectivestatus")
-        currentUserProfile.lookingfor=pub.GetPostData(request,"lookingfor")
-        currentUserProfile.bloodtype=pub.GetPostData(request,"bloodtype")
-        currentUserProfile.site=pub.GetPostData(request,"site")
-        currentUserProfile.bio=pub.GetPostData(request,"bio")
-        currentUserProfile.interest=pub.GetPostData(request,"interest")
-        currentUserProfile.sightml=pub.GetPostData(request,"sightml")
-        currentUserProfile.timeoffset=pub.GetPostData(request,"timeoffset")
+        self.template_name="accounts/pub/info.html"
 
-        currentUserProfile.save()
+        return locals()
 
-        return HttpResponseRedirect('/')
-    else:
-        return pub.my_render_to_response(request,"accounts/pub/info.html",locals())
+    def PostContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
 
+        if self.HasPostData("ok"):
+            self.currentUserProfile.affectivestatus=self.GetPostData("affectivestatus")
+            self.currentUserProfile.lookingfor=self.GetPostData("lookingfor")
+            self.currentUserProfile.bloodtype=self.GetPostData("bloodtype")
+            self.currentUserProfile.site=self.GetPostData("site")
+            self.currentUserProfile.bio=self.GetPostData("bio")
+            self.currentUserProfile.interest=self.GetPostData("interest")
+            self.currentUserProfile.sightml=self.GetPostData("sightml")
+            self.currentUserProfile.timeoffset=self.GetPostData("timeoffset")
+
+            self.currentUserProfile.save()
+
+        return locals()
 
 #联系方式
-@login_required()
-def contact(request,uid=-1):
-    userInfos=UsersMeta(request,-1)
-    currentUserProfile=userInfos["currentuserprofile"]
+class ContactView(UBaseAccountsView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
 
-    if pub.HasPostData(request,"ok"):
-        currentUserProfile.qq=pub.GetPostData(request,"qq")
-        currentUserProfile.msn=pub.GetPostData(request,"msn")
-        currentUserProfile.taobao=pub.GetPostData(request,"taobao")
-        currentUserProfile.email=pub.GetPostData(request,"email")
-        currentUserProfile.phone=pub.GetPostData(request,"phone")
-        currentUserProfile.mobile=pub.GetPostData(request,"mobile")
-        currentUserProfile.address=pub.GetPostData(request,"address")
-        currentUserProfile.zipcode=pub.GetPostData(request,"zipcode")
+        self.template_name="accounts/pub/contact.html"
 
-        currentUserProfile.save()
+        return locals()
 
-        return HttpResponseRedirect('/')
-    else:
-        return pub.my_render_to_response(request,"accounts/pub/contact.html",locals())
+    def PostContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
 
+        if self.HasPostData("ok"):
+            self.currentUserProfile.qq=self.GetPostData("qq")
+            self.currentUserProfile.msn=self.GetPostData("msn")
+            self.currentUserProfile.taobao=self.GetPostData("taobao")
+            self.currentUserProfile.email=self.GetPostData("email")
+            self.currentUserProfile.phone=self.GetPostData("phone")
+            self.currentUserProfile.mobile=self.GetPostData("mobile")
+            self.currentUserProfile.address=self.GetPostData("address")
+            self.currentUserProfile.zipcode=self.GetPostData("zipcode")
+
+            self.currentUserProfile.save()
+
+        return locals()
 
 #安全
-@login_required()
-def security(request,uid=-1):
-    userInfos=UsersMeta(request,-1)
-    currentUserProfile=userInfos["currentuserprofile"]
+class SecurityView(UBaseAccountsView):
+    def GetContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
 
-    if pub.HasPostData(request,"ok"):
-        currentUserProfile.avatar=utility.SaveFile(request.FILES['avatar'],'avatar/')
-      
-        currentUserProfile.save()
+        self.template_name="accounts/pub/security.html"
 
-        return HttpResponseRedirect('/')
-    else:
-        return pub.my_render_to_response(request,"accounts/pub/security.html",locals())
+        return locals()
 
+    def PostContext(self, **kwargs):
+        uid=int(kwargs.get("uid",0))
 
+        if self.HasPostData("ok"):
+            pass
+            #self.currentUserProfile.qq=self.GetPostData("qq")
+            #self.currentUserProfile.msn=self.GetPostData("msn")
+            #self.currentUserProfile.taobao=self.GetPostData("taobao")
+            #self.currentUserProfile.email=self.GetPostData("email")
+            #self.currentUserProfile.phone=self.GetPostData("phone")
+            #self.currentUserProfile.mobile=self.GetPostData("mobile")
+            #self.currentUserProfile.address=self.GetPostData("address")
+            #self.currentUserProfile.zipcode=self.GetPostData("zipcode")
 
+            #self.currentUserProfile.save()
 
-
-
-
+        return locals()
 
 
 

@@ -41,16 +41,18 @@ class IndexView(UBaseBlogView):
         if self.HasPostData('ok'):
             name=self.GetPostData("name")
             sortnum=self.GetPostData("sortnum")
+            isnav=self.GetPostData("isnav",False)
 
             categoryInfo=Category()
             categoryInfo.name=name
             categoryInfo.sortnum=sortnum
+            categoryInfo.isnav=1 if isnav else 0
             categoryInfo.user_id=self.currentUser.id
             categoryInfo.save()
 
         return locals()
 
-class CategoryEditView(UBaseBlogView):
+class EditView(UBaseBlogView):
     
 
     def GetContext(self, **kwargs):
@@ -71,16 +73,19 @@ class CategoryEditView(UBaseBlogView):
             
             name=self.GetPostData("name")
             sortnum=self.GetPostData("sortnum")
+            isnav=self.GetPostData("isnav",False)
 
             categoryInfo=Category.objects.get(id=cid)
             categoryInfo.name=name
             categoryInfo.sortnum=sortnum
+            categoryInfo.isnav=1 if isnav else 0
+
             categoryInfo.save()
         
         self.returnUrl=categoryroot %self.currentUser.id
         return locals()
 
-class CategoryDeleteView(UBaseBlogView):
+class DeleteView(UBaseBlogView):
     
 
     def GetContext(self, **kwargs):

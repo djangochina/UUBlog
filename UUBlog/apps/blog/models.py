@@ -10,8 +10,9 @@ class Category(UBaseModel):
     name=models.CharField(max_length=80)
     sortnum=models.IntegerField(default=10)
     articles=models.IntegerField(default=0)
+    isnav=models.IntegerField(default=0)
     user_id=models.IntegerField(default=0)
-
+    
 class Article(UBaseModel):
     class Meta:
         db_table="blog_article"

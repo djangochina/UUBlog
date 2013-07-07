@@ -36,6 +36,7 @@
     <Compile Include="UUBlog\admin.py" />
     <Compile Include="UUBlog\apps\accounts\accountsurls.py" />
     <Compile Include="UUBlog\apps\accounts\models.py" />
+    <Compile Include="UUBlog\apps\accounts\views\baseaccountsview.py" />
     <Compile Include="UUBlog\apps\accounts\views\viewaccounts.py" />
     <Compile Include="UUBlog\apps\accounts\views\__init__.py" />
     <Compile Include="UUBlog\apps\accounts\__init__.py" />
@@ -153,6 +154,7 @@
     <Content Include="UUBlog\static\images\10.jpg" />
     <Content Include="UUBlog\static\images\top_bg.png" />
     <Content Include="UUBlog\static\scripts\jquery-1.10.1.min.js" />
+    <Content Include="UUBlog\static\styles\style.css" />
     <Content Include="UUBlog\static\styles\common.css" />
     <Content Include="UUBlog\static\ueditor\dialogs\anchor\anchor.html" />
     <Content Include="UUBlog\static\ueditor\dialogs\internal.js" />

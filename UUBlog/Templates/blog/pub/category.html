@@ -15,13 +15,16 @@
             <table>
                 <tr>
                     <td>名称</td>
-                    <td><textarea name="name" id="name">{{categoryInfo.name}}</textarea></td>
+                    <td><input name="name" id="name" value="{{categoryInfo.name}}" /></td>
                 </tr>
                 <tr>
                     <td>排序</td>
-                    <td><input name="sortnum" type="text" size="60" value="{{categoryInfo.sortnum}}"/></td>
+                    <td><input name="sortnum" type="text" value="{{categoryInfo.sortnum}}"/></td>
                 </tr>
-               
+                <tr>
+                    <td>导航显示</td>
+                    <td><input name="isnav" type="checkbox" {% ifequal categoryInfo.isnav 1 %} checked="checked" {% endifequal %}/></td>
+                </tr>
                 <tr>
                     <td></td>
                     <td><input type="submit" name="ok" value="--修改--"/></td>
@@ -29,24 +32,41 @@
 
             </table>
         </form>
-        <table>
-            {% if categoryList %}
-            {% for categoryInfo in categoryList%}
-            <tr>
-                <td>{{categoryInfo.name}}</td>
-                <td>{{categoryInfo.sort_num}}</td>
-                <td><a href="{% url 'blogpubcategoryedit' uid=categoryInfo.user_id  cid=categoryInfo.id %}">编辑</a>
-&nbsp;
-<a href="{% url 'blogpubcategorydelete' uid=categoryInfo.user_id cid=categoryInfo.id %}">删除</a>
-                </td>
-            </tr>
-            {% endfor %}
+{% if categoryList %}
+        <table width="100%">
+            <th>
+                <tr>
+                    <td>名称</td>
+                    
+                    <td width="60">排序</td>
+                    <td width="60">导航显示</td>
+                    <td width="120">操作</td>
+                </tr>
+                
+            </th>
+            <tbody>
+                
+                {% for categoryInfo in categoryList%}
+                <tr>
+                    <td>{{categoryInfo.name}}</td>
+                    <td>{{categoryInfo.sortnum}}</td>
+                    <td>{% ifequal categoryInfo.isnav 1 %} 是 {% else %} 否 {% endifequal %}</td>
+                    <td><a href="{% url 'blogpubcategoryedit' uid=categoryInfo.user_id  cid=categoryInfo.id %}">编辑</a>
+                        &nbsp;
+                        <a href="{% url 'blogpubcategorydelete' uid=categoryInfo.user_id cid=categoryInfo.id %}">删除</a>
+                    </td>
+                </tr>
+                {% endfor %}
 
-            {% endif %}
+                
+            </tbody>
 
         </table>
+        {% endif %}
+
     </div>
 </div>
+
 {% endblock %}
 
 {% block sidebar%}
@@ -57,6 +77,7 @@
         <li><a href="{% url 'blogpubarticlelistdraft' uid=userInfos.currentuser.id%}">草稿箱</a></li>
     </ul>
 </div>
+
 <div class="tbox">
     <div class="hd">分类管理</div>
     <ul class="bd">
@@ -71,4 +92,6 @@
     </ul>
 
 </div>
+
+
 {% endblock %}

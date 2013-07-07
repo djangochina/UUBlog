@@ -29,7 +29,9 @@ def createBlog(user):
     blog=Blog()
     blog.id=user.id
     blog.title=user.username+"的博客".decode("utf-8")
-    blog.modules="profile,category,hotarticlelist,hotcommentlist,followbloglist"
+    blog.description="欢迎来".decode("utf-8")+user.username+"的博客".decode("utf-8")
+    blog.keywords=user.username
+    blog.modules="profile,category,hotarticlelist,hotcommentlist,followbloglist,bevisitbloglist"
     blog.template="default"
     blog.createtime=datetime.datetime.now()
     blog.save()
@@ -57,7 +59,7 @@ class IndexView(UBaseBlogView):
 
         return locals()
 
-class BlogBaseView(UBaseBlogView):
+class BaseView(UBaseBlogView):
     def GetContext(self, **kwargs):
         uid=int(kwargs.get("uid",0))
        
@@ -86,7 +88,7 @@ class BlogBaseView(UBaseBlogView):
 
         return locals()
 
-class BlogAvatarView(UBaseBlogView):
+class AvatarView(UBaseBlogView):
     def GetContext(self, **kwargs):
         uid=int(kwargs.get("uid",0))
 
@@ -98,7 +100,7 @@ class BlogAvatarView(UBaseBlogView):
         uid=int(kwargs.get("uid",0))
 
         #000/00/01
-        if self.HasPostData("ok"):
+        if self.HasPostData("ok") and self.request.FILES['avatar']:
             avatarPath=("%d" %self.currentBlog.id).rjust(7,"0")
             dir1=avatarPath[0:3]
             dir2=avatarPath[3:5]
@@ -112,7 +114,7 @@ class BlogAvatarView(UBaseBlogView):
 
         return locals()
 
-class BlogTemplateView(UBaseBlogView):
+class TemplateView(UBaseBlogView):
     def GetContext(self, **kwargs):
         uid=int(kwargs.get("uid",0))
        
@@ -130,7 +132,7 @@ class BlogTemplateView(UBaseBlogView):
 
         return locals()
 
-class BlogStyleView(UBaseBlogView):
+class StyleView(UBaseBlogView):
     def GetContext(self, **kwargs):
         uid=int(kwargs.get("uid",0))
 
@@ -150,7 +152,7 @@ class BlogStyleView(UBaseBlogView):
 
         return locals()
 
-class BlogDomainView(UBaseBlogView):
+class DomainView(UBaseBlogView):
     def GetContext(self, **kwargs):
         uid=int(kwargs.get("uid",0))
 
@@ -168,7 +170,7 @@ class BlogDomainView(UBaseBlogView):
 
         return locals()
 
-class BlogModuleView(UBaseBlogView):
+class ModuleView(UBaseBlogView):
     def GetContext(self, **kwargs):
         uid=int(kwargs.get("uid",0))
 

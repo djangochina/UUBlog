@@ -60,6 +60,13 @@ class UBaseTemplateView(TemplateView):
 
         return context
 
+    def PostContext(self,**kwargs):
+        context={}
+        return context
+    def GetContext(self,**kwargs):
+        context={}
+        return context
+
 
     def AddVars(self,context,args={},**kwargs):
         if args:
