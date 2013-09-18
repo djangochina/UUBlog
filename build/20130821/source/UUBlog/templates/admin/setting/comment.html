@@ -1,0 +1,62 @@
+{% extends "admin/container.html"%}
+
+
+{% block title%} 首页 {% endblock %}
+{% block scripts %}
+
+{% endblock %}
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="form1" method="POST" action="" autocomplete="off" >
+            {% csrf_token %}
+            <div class="rowItem">
+                <span>开启评论</span>
+                <input name="comment_open" type="checkbox" value="True" {% ifequal view.options.comment_open 'True'%} checked="checked" {% endifequal%}/>
+            </div>
+            <div class="rowItem">
+                <span>评论间隔</span>
+                <input name="comment_interval" type="text" size="60" value="{{view.options.comment_interval}}"/>
+            </div>
+            <div class="rowItem">
+                <span>评论审核</span>
+                <input name="comment_check" type="checkbox" value="True" {% ifequal view.options.comment_check 'True'%} checked="checked" {% endifequal%}/>
+            </div>
+            <div class="rowItem">
+                <span>评论验证码</span>
+                <input name="comment_code" type="checkbox" value="True" {% ifequal view.options.comment_code 'True'%} checked="checked" {% endifequal%}/>
+            </div>
+            <div class="rowItem">
+                <span>评论分页</span>
+                <input name="comment_paging" type="checkbox" value="True" {% ifequal view.options.comment_paging 'True'%} checked="checked" {% endifequal%}/>
+            </div>
+            <div class="rowItem">
+                <span> 每页显示</span>
+                <input name="comment_pagesize" type="text" size="60" value="{{view.options.comment_pagesize}}"/>
+            </div>
+            <div class="rowItem">
+                <span>排在前面</span>{% ifequal view.options.comment_order 'False'%}adf{% endifequal%}
+                <select name="comment_order">
+                    <option value="True" {% ifequal view.options.comment_order 'True'%} selected="selected" {% endifequal%}>较新的</option>
+                    <option value="False" {% ifequal view.options.comment_order 'False'%} selected="selected" {% endifequal%}>较旧的</option>
+                </select>
+            </div>
+            
+            <div class="rowItem">
+                <input type="submit" name="ok" value="--修改--"/>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block sidebar%}
+
+{% include 'blog/pub/sidebar.html' %}
+
+{% endblock %}

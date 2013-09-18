@@ -1,0 +1,14 @@
+<div id="module_Category" class="border tbox">
+    <div class="hd">
+        <h2>{{widget.title}}</h2>
+    </div>
+    <div class="bd">
+        <ul>
+        {% for categoryInfo in widget.datas %}
+        <li><a href="{% url 'blogcategory' uid=categoryInfo.user_id cid=categoryInfo.id%}">{{categoryInfo.name}}</a>({{categoryInfo.articles}})</li>
+        {% endfor %}
+            </ul>
+    </div>
+    <div class="ft"></div>
+</div>
+

@@ -1,0 +1,37 @@
+{% load uublogtags %}
+{% if pageObject %}
+<div class="pagination">
+
+    <span class="step-links">
+
+        {% if pageObject.has_previous %}
+
+        <a href="?page={{ pageObject.previous_page_number }}">上一页</a>
+
+        {% else %}
+
+        <span class='empty'></span>
+
+        {% endif %}
+
+        <span class="current">
+
+            当前页 {{ pageObject.number }} of {{ pageObject.paginator.num_pages }}
+
+        </span>
+
+        {% if pageObject.has_next %}
+        <a href="?{% DoQueryString view.currentQueryString page=pageObject.next_page_number %}">下一页</a>
+
+
+        {% else %}
+
+        <span class='empty'></span>                            
+
+        {% endif %}
+
+    </span>
+
+</div>
+
+{% endif %}

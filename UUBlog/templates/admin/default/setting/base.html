@@ -1,0 +1,117 @@
+{% extends "admin/default/container.html"%}
+{% load url from future %}
+
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#timezone").val("{{self.options.timezone}}");
+        $("#datetimeformat").val("{{self.options.datetimeformat}}");
+        
+        $("#baseForm").validate();
+    
+    });
+</script>
+{% endblock %}
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="baseForm" id="baseForm" method="POST" action="" autocomplete="off" >
+            {% csrf_token %}
+            <div class="rowItem">
+                <label>标题</label>
+                <input name="title" type="text" size="60" value="{{self.options.title}}"  class="required"/>
+            </div>
+            <div class="rowItem">
+                <label>描述</label>
+                <input name="description" type="text" size="60" value="{{self.options.description}}"/>
+            </div>
+            
+            <div class="rowItem">
+                <label>公告</label>
+                <textarea name="announcement">{{self.options.announcement}}</textarea>
+            </div>
+            <div class="rowItem">
+                <label>时区</label>
+                <select name="timezone" id="timezone">
+                    <option value="-12" >(标准时-12) 日界线西</option>
+                    <option value="-11" >(标准时-11) 中途岛、萨摩亚群岛</option>
+                    <option value="-10" >(标准时-10) 夏威夷</option>
+                    <option value="-9" >(标准时-9) 阿拉斯加</option>
+                    <option value="-8" >(标准时-8) 太平洋时间(美国和加拿大)</option>
+                    <option value="-7" >(标准时-7) 山地时间(美国和加拿大)</option>
+                    <option value="-6" >(标准时-6) 中部时间(美国和加拿大)、墨西哥城</option>
+                    <option value="-5" >(标准时-5) 东部时间(美国和加拿大)、波哥大</option>
+                    <option value="-4" >(标准时-4) 大西洋时间(加拿大)、加拉加斯</option>
+                    <option value="-3.5" >(标准时-3:30) 纽芬兰</option>
+                    <option value="-3" >(标准时-3) 巴西、布宜诺斯艾利斯、乔治敦</option>
+                    <option value="-2" >(标准时-2) 中大西洋</option>
+                    <option value="-1" >(标准时-1) 亚速尔群岛、佛得角群岛</option>
+                    <option value="0" >(标准时) 西欧时间、伦敦、卡萨布兰卡</option>
+                    <option value="1" >(标准时+1) 中欧时间、安哥拉、利比亚</option>
+                    <option value="2" >(标准时+2) 东欧时间、开罗，雅典</option>
+                    <option value="3" >(标准时+3) 巴格达、科威特、莫斯科</option>
+                    <option value="3.5" >(标准时+3:30) 德黑兰</option>
+                    <option value="4" >(标准时+4) 阿布扎比、马斯喀特、巴库</option>
+                    <option value="4.5" >(标准时+4:30) 喀布尔</option>
+                    <option value="5" >(标准时+5) 叶卡捷琳堡、伊斯兰堡、卡拉奇</option>
+                    <option value="5.5" >(标准时+5:30) 孟买、加尔各答、新德里</option>
+                    <option value="6" >(标准时+6) 阿拉木图、 达卡、新亚伯利亚</option>
+                    <option value="7" >(标准时+7) 曼谷、河内、雅加达</option>
+                    <option value="8" selected="selected">(标准时+8) 北京、重庆、香港、新加坡</option>
+                    <option value="9" >(标准时+9) 东京、汉城、大阪、雅库茨克</option>
+                    <option value="9.5" >(标准时+9:30) 阿德莱德、达尔文</option>
+                    <option value="10" >(标准时+10) 悉尼、关岛</option>
+                    <option value="11" >(标准时+11) 马加丹、索罗门群岛</option>
+                    <option value="12" >(标准时+12) 奥克兰、惠灵顿、堪察加半岛</option>
+                </select>
+            </div>
+
+            <div class="rowItem">
+                <label>日期\时间格式</label>
+                <select name="datetimeformat" id="datetimeformat">
+                    <option value="Y-m-d H:i:s" {% if self.options.datetimeformat == 'Y-m-d H:i:s'%} selected="selected" {% endif %}>2013-08-28 20:21:36</option>
+                    <option value="Y年m月d日 H时i分s秒" {% if self.options.datetimeformat == 'Y年m月d日 H时i分s秒'%} selected="selected" {% endif %}>2013年08月28日 20时21分36秒</option>
+
+                </select>
+                <input name="datetimeformat_custom"  value="{{self.options.datetimeformat}}"/>
+
+            </div>
+           
+            <div class="rowItem">
+                <label>email</label>
+                <input name="email" type="text" size="60" value="{{self.options.email}}"/>
+            </div>
+           
+            <div class="rowItem">
+                <label>关闭博客</label>
+                <input name="close_site" type="checkbox" value="True" {% ifequal self.options.close_site 'True'%}checked="checked"{% endifequal%}/>
+                
+            </div>
+            <div class="rowItem">
+                <label>关闭的信息</label>
+                <textarea name="close_info">{{self.options.close_info}}</textarea>
+            </div>
+            <div class="rowItem">
+                <label>网站备案号</label>
+                <input name="icp" type="text" size="60" value="{{self.options.icp}}"/>
+            </div>
+            <div class="rowItem">
+                <label>版权信息</label>
+                <textarea name="copyright">{{self.options.copyright|safe}}</textarea>
+            </div>
+
+          
+
+
+            <div class="rowItem">
+                <input type="submit" name="ok" value="--修改--"/>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+

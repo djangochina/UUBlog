@@ -1,0 +1,86 @@
+{% extends "blog/pub/basepage.html"%}
+
+{% block title%} 首页 {% endblock %}
+{% block scripts %}
+
+{% endblock %}
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="form1" method="POST" action="" >
+            {% csrf_token %}
+            
+
+            <div class="rowItem">
+                <span>属性设置</span>
+                <div class="value">
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <th>name</th>
+                                <th>label</th>
+                                <th>录入表单</th>
+                                <th>值</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input name="name" type="text" width="60"/></td>
+                                <td><input name="label" type="text" width="60"/></td>
+                                <td><select name="form">
+                                        <option>text</option>
+                                        <option>select</option>
+                                        <option>checkbox</option>
+                                        <option>radio</option>
+                                        
+
+                                    </select></td>
+                                <td><input name="value" type="text" width="200"/></td>
+
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+            <div class="rowItem">
+                <span>数据格式</span>
+                <select name="dataformat">
+                    <option>html</option>
+                    <option>url</option>
+                    <option>json</option>
+                </select>
+            </div>
+            <div class="rowItem">
+                <span>数据定义</span>
+                <textarea name="datadef"></textarea>
+            </div>
+            <div class="rowItem">
+                <span>模板处理</span>
+                <textarea name="render"></textarea>
+            </div>
+
+            <div class="rowItem">
+                <span>关键字</span>
+                <input name="keywords" type="text" size="60" value="{{currentBlog.keywords}}"/>
+            </div>
+           
+            <div class="rowItem">
+                <input type="submit" name="ok" value="--修改--"/>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block sidebar%}
+
+{% include 'blog/pub/sidebar.html' %}
+
+{% endblock %}

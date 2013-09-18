@@ -1,0 +1,13 @@
+<div id="module_GoodArticleList" class="border tbox">
+    <div class="hd">
+        <h2>{{widget.title}}</h2>
+    </div>
+    <div class="bd">
+        <ul>
+        {% for articleInfo in widget.datas %}
+        <li><a href="{% url 'blogarticleshow' uid=articleInfo.user_id aid=articleInfo.id%}">{{articleInfo.title}}</a>({{articleInfo.comments}})</li>
+        {% endfor %}
+            </ul>
+    </div>
+    <div class="ft"></div>
+</div>

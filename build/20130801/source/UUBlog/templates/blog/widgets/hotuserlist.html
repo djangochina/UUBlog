@@ -1,0 +1,13 @@
+<div id="module_NewCommentList" class="border tbox">
+    <div class="hd">
+        <h2>{{widget.title}}</h2>
+    </div>
+    <div class="bd">
+        <ul>
+        {% for data in widget.datas %}
+        <li><a href="{% url 'bloghome' uid=data.id%}">{{data.title}}</a></li>
+        {% endfor %}
+            </ul>
+    </div>
+    <div class="ft"></div>
+</div>

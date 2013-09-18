@@ -1,0 +1,82 @@
+{% extends "blog/pub/basepage.html"%}
+
+{% block title%} 首页 {% endblock %}
+{% block scripts %}
+<script type="text/javascript" charset="utf-8" src="/static/scripts/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+    function addRow() {
+        var tr = "<tr>";
+        {% for jsonColumn in jsonColumnDefList%}
+            tr += '<td><input id="{{jsonColumn.name}}" name="{{jsonColumn.name}}" type="text" width="60"/></td>';
+        {% endfor %}
+         tr+="</tr>";
+            $("#widgetDatas").append(tr);
+    }
+
+    function test(parameters) {
+  
+    }
+</script>
+{% endblock %}
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <div class="rowItem">
+                <span>标题</span>
+                <input name="title" type="text" size="60" value="{{blogWidgetInfo.title}}"/>
+            </div>
+            {% ifnotequal attHtml None %}
+            <div class="rowItem">
+                <span>参数设置</span>
+                <div class="value">{{attHtml|safe}}</div>
+            </div>
+            {% endifnotequal %}
+            {% ifnotequal dataItem None %}
+            <div class="rowItem">
+                <span>内容设置</span>
+                <div class="value">
+                    {% ifequal widgetInfo.datafrom 'json'%}
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                {% for jsonColumn in jsonColumnDefList%}
+                                <th><label id="{{jsonColumn.name}}">{{jsonColumn.label}}</label></th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody id="widgetDatas">
+                            {{dataItem|safe}}
+                        </tbody>
+                    </table>
+                    <input type="button" value="添加行" onclick="addRow();"/>
+                    {% else %}
+                    {{dataItem|safe}}
+                    {% endifequal %}
+                </div>
+            </div>
+            {% endifnotequal %}
+            <div class="rowItem">
+                <span>排序</span>
+                <input name="sortnum" type="text" size="60" value="{{blogWidgetInfo.sortnum}}"/>
+            </div>
+
+            <div class="rowItem">
+                <input type="submit" name="ok" value="--修改--"/>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block sidebar%}
+
+{% include 'blog/pub/sidebar.html' %}
+
+{% endblock %}

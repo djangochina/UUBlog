@@ -1,0 +1,129 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>迷途知返 jquery.msgbox Demos</TITLE>
+<META content="text/html; charset=UTF-8" http-equiv=Content-Type>
+<LINK rel=stylesheet type=text/css href="jquery.msgbox.css">
+<SCRIPT type=text/javascript src="http://code.jquery.com/jquery-latest.min.js"></SCRIPT>
+<SCRIPT type=text/javascript src="jquery.dragndrop.min.js"></SCRIPT>
+<SCRIPT type=text/javascript src="jquery.msgbox.js"></SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript>  
+$(function(){   
+
+	$("#test1").click(function(){
+		new $.msgbox('Hello world').show();
+	});
+	
+	$("#test2").click(function(){
+		new $.msgbox({
+			width:500,
+			height:500,
+			title: 'Hello',
+			content: 'Hello, world!',
+			bgOpacity: .8
+		}).show();
+	});
+	
+	$("#test3").click(function(){
+		new $.msgbox({
+			allowDrag: false // enable drag and drop(default), disable if false
+		}).show();
+	});
+	
+	$("#test4").click(function(){
+		new $.msgbox({
+			onClose: function(){
+				alert(this.titleWrap.html()); // this is refered to the object itself
+			}
+		}).show();
+	});
+	
+	$("#test5").click(function(){
+		new $.msgbox({
+			autoClose: 10 // do not counting down
+		}).show();  
+	});
+	
+	$("#test6").click(function(){
+		new $.msgbox({
+			autoClose: 0 // do not counting down
+		}).show().startAutoClose(10); // start counting down, support chain operations
+	});
+	
+	$("#test7").click(function(){
+		new $.msgbox({
+			type: 'alert',
+			content: 'Hello'
+		}).show();
+	});
+	
+	$("#test8").click(function(){
+		new $.msgbox({
+			onClose: function(){ alert(this.getValue()) }, // with onclose plugin
+			type: 'confirm',
+			content: 'Hello'
+		}).show();
+	});
+	
+	$("#test9").click(function(){
+		new $.msgbox({
+			onClose: function(){ alert(this.getValue()) },
+			type: 'input',
+			content: 'Enter your words:'
+		}).show();
+	});
+	
+	$("#test10").click(function(){
+		new $.msgbox({
+			//onAjaxed: function(){ alert('Loading complete') },
+			type: 'ajax',   // or url 
+			content: 'http://pwwang.com'
+		}).show();
+	});
+	
+	$("#test11").click(function(){
+		new $.msgbox({
+			type: 'iframe',
+			content: 'http://pwwang.com'
+		}).show();
+	});
+	
+	$("#test12").click(function(){
+		new $.msgbox({
+			anim: 1  // 0, 2, no animation with other values
+		}).show();
+	});
+	
+	$("#test13").click(function(){
+		new $.msgbox({
+			showClose: false    // disable in options
+		}).show();
+	});
+	
+	$("#test14").click(function(){
+		new $.msgbox({
+			closeIcon: 'image:close.gif'  // or 'text:Close', or 'image:close.png' to display an image
+		}).show();
+	});
+
+});   
+  
+</SCRIPT>
+
+<META></HEAD>
+<BODY><A href="http://pwwang.com/">PWWANG.COM</A> <A href="http://pwwang.com/2009/10/01/jquery-msgbox/">PLUGIN HOME</A><br />
+<input type="button" id="test1" value="1.The simplest way" /><br />
+<input type="button" id="test2" value="2.With otions" /><br />
+<input type="button" id="test3" value="3.Plugin dragndrop, drag and drop disabled" /><br />
+<input type="button" id="test4" value="4.Plugin onclose" /><br />
+<input type="button" id="test5" value="5.Plugin autoclose" /><br />
+<input type="button" id="test6" value="6.Plugin autoclose, set by public function" /><br />
+<input type="button" id="test7" value="7.Plugin contenttype, alert" /><br />
+<input type="button" id="test8" value="8.Plugin contenttype, confirm" /><br />
+<input type="button" id="test9" value="9.Plugin contenttype, input" /><br />
+<input type="button" id="test10" value="10.Plugin contenttype, ajax/url" /><br />
+<input type="button" id="test11" value="11.Plugin contenttype, iframe" /><br />
+<input type="button" id="test12" value="12.Plugin animate, animate type 1" /><br />
+<input type="button" id="test13" value="13.Plugin showclose, showClose=false" /><br />
+<input type="button" id="test14" value="14.Plugin closeicon" /><br />
+</BODY>
+</HTML>

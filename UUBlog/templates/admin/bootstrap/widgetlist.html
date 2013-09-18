@@ -1,0 +1,159 @@
+{% extends "admin/bootstrap/container.html"%}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/static/js/layer/skin/layer.css" />
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" charset="utf-8" src="/static/js/layer/layer.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#oneyear').on('click', function(){
+            
+            $.layer({
+	            type: 2,
+	            title: '设置',
+	            fix: false,
+	            
+	            shadeClose: true,
+	            shade: [0.1,'#fff', true],
+	            border : [5, 0.3, '#666', true],
+	            offset: ['100px',''],
+	            area: ['990px','500px'],
+	            iframe: {src: 'http://sentsin.taobao.com/'},
+	            success: function(){
+		            layer.msg('点击层外任意处，可关闭该iframe层', 2, 9);
+	            }
+            });
+            
+        });
+        
+    });
+    var widgetLayer = "";
+    function showWidget(pageurl) {
+          widgetLayer=$.layer({
+	            type: 1,
+	            title: '设置',
+	          
+	            area: ['550px','300px'],
+	           
+	            page: {
+	                url: pageurl,
+	                ok: function() { var a = ""; }
+                }
+            });  
+    }
+
+</script>
+
+{% endblock %}
+{% block content %}
+<div class="tbox">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+    <table >
+        <tr>
+            <td class="editBox">
+                
+                <div  class="border tbox">
+                    <div class="hd">
+                        <h2>所有工具</h2><span class="button" id="oneyear">查看效果</span>
+                    </div>
+                    <div class="bd">
+                        <form name="form1" method="POST" action="" autocomplete="off">
+                            {% csrf_token %}
+                            <table width="100%" class="floatR">
+                                <th>
+                                    <tr>
+                                        <td>名称</td>
+                                        <td width="120">名称</td>
+                    
+                                        <td width="60">描述</td>
+                    
+                                    </tr>
+                                </th>
+
+                                <tbody id="navList">
+                                    {% for key,value in widgetList.items%}
+                
+                                    <tr>
+                                        <td><input name="widget" type="checkbox" value="{{key}}"/></td>
+                                        <td>{{value.config.title}}</td>
+                                        <td>
+                                            {{value.config.description}}
+                                        </td>
+                    
+                   
+                   
+                                    </tr>
+
+                                    {% endfor %}
+                                    <tfoot>
+                                        <tr  class="dataFooter">
+                                            <td colspan="3"><input type="submit" name="ok" value="--添加--"/></td>
+                                        </tr>
+                                    </tfoot>
+                
+                                </tbody>
+
+                            </table>
+                        </form>
+
+                    </div>
+           
+                </div>
+
+                
+
+            </td>
+            <td>
+                侧边栏：{{sidebarInfo.name}} &nbsp;<a href="{% url 'admin_sidebar_manager'%}">返回</a>
+                <form name="form1" method="POST" action="" autocomplete="off">
+                    {% csrf_token %}
+                    <table class="dataList" >
+                        <thead>
+                            <tr class="dataHeader">
+                                <th width="40">排序</th>
+                                <th>名称</th>
+                                <th width="80">显示标题</th>
+                                <th width="80">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="widgetList">
+                
+                            {% for myWidgetInfo in myWidgetList%}
+                            <tr class="dataItem">
+                                <td><input name="item_sortnum_{{myWidgetInfo.id}}" id="item_sortnum" value="{{myWidgetInfo.sortnum}}" size="1"></td>
+                                <td>{{myWidgetInfo.title}}</td>
+                                <td>
+                                    {% if myWidgetInfo.isshowtitle%} 显示 {% else %}隐藏{% endif %}{{myWidgetInfo.sidebar_id}}
+                                </td>
+                                <td>
+                                    <a href="#" onclick="window.open('/widget/{{myWidgetInfo.widget}}/{{myWidgetInfo.id}}/');">编辑</a>&nbsp;|&nbsp;
+                                    <a href="#" onclick="showWidget('/widget/{{myWidgetInfo.widget}}/{{myWidgetInfo.id}}/');">编辑</a>&nbsp;|&nbsp;
+
+                                    <a href="{% url 'admin_widget_edit' sid=myWidgetInfo.sidebar_id wid=myWidgetInfo.id%}?action=delete">删除</a>
+                                </td>
+                   
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                        <tfoot>
+                            <tr class="dataFooter">
+                                <td colspan="4"><input type="submit" name="okSort" value="更新排序"/></td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+  
+</div>
+
+
+{% endblock %}
+

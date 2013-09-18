@@ -1,0 +1,38 @@
+{% extends self.themeConfig.containerpath %}
+{% load url from future %}
+
+{% load uublogtags %}
+{% block title%}首页{{block.super}}{% endblock %}
+{% block keywords %}{{block.super}}{% endblock %}
+{% block description %}{{block.super}}{% endblock %}
+
+{% block content %}
+<div class="postList">
+    {% for post in postList%}
+    <div class="border post">
+        
+        <div class="postTitle"><h2><a href="{% url 'post' pid=post.id%}">{{post.title}}</a></h2></div>
+        
+        {% if post.titlepic != ''%}
+        <div class="postTitlePic">
+            <a href="{% url 'post' pid=post.id%}"><img src="{{post.titlepic|DoTitlePic}}" width="160px" height="120px"/></a>
+        </div>
+        {% endif %} 
+        <div class="postCon">
+            {{post.summary|striptags}}    
+        </div>
+        <div class="postMeta">
+            &nbsp;&nbsp;{{post.createtime|date:self.options.datetimeformat}}&nbsp;&nbsp;
+            ┆&nbsp;&nbsp;阅读({{post.views}})&nbsp;&nbsp;┆&nbsp;&nbsp;评论({{post.comments}})&nbsp;&nbsp;
+            ┆&nbsp;&nbsp;支持({{post.goods}})&nbsp;&nbsp;┆&nbsp;&nbsp;反对({{post.bads}})
+        </div>
+    </div>
+
+    {% endfor %}
+
+    {% with "themes/"|add:self.theme|add:"/pagination.html" as pagination%}
+        {% include pagination%}
+    {% endwith %}
+</div>
+
+{% endblock %}

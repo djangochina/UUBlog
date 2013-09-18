@@ -1,0 +1,187 @@
+﻿{% load uublogtags %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="keywords" content="{% block keywords %}{% endblock %}" />
+        <meta name="description" content="{% block description %}{% endblock %}" />
+        <link rel="stylesheet" type="text/css" href="/static/admin/default/css/style.css" />
+        
+        <script type="text/javascript" charset="utf-8" src="/static/js/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/static/js/jquery.cookies.2.2.0.min.js"></script>
+
+        <script type="text/javascript" charset="utf-8" src="/static/js/common.js"></script>
+
+        {% block styles %}{% endblock %}
+        {% block scripts %}{% endblock %}
+        <style type="text/css">
+
+        </style>
+        <script type="text/javascript">
+            
+            $(document).ready(function() {
+                var currentMenu = $.cookies.get("currentMenu");
+                console.log("get:" + currentMenu);
+                if (!currentMenu) {
+                    currentMenu = "menuIndex";
+                }
+                
+                
+                toggleMenu(currentMenu);
+            });
+            
+            function toggleMenu(menu) {
+                $("#subMenu > div").hide();
+                $("#" + menu).show();
+                $.cookies.set('currentMenu', menu, { path: "/" });
+                
+                //setCookie('currentMenu', menu, 0,"/");
+                
+                console.log("set:" + menu);
+                
+                //var currentMenu = getCookie("currentMenu");
+                var currentMenu = $.cookies.get("currentMenu");
+                
+                console.log("get:" + currentMenu);
+            }
+        </script>
+    </head>
+
+    <body>
+        <div id="header">
+            <div id="mainMenu">
+            <ul>
+                <li><a onclick="toggleMenu('menuIndex');">首页</a></li>
+                <li><a onclick="toggleMenu('menuContent');">内容</a></li>
+                <li><a onclick="toggleMenu('menuAttachment');">附件</a></li>
+                <li><a onclick="toggleMenu('menuStyle');">外观</a></li>
+                <li><a onclick="toggleMenu('menuSetting');">设置</a></li>
+
+            </ul>
+        </div>
+        </div>
+        
+        <div class="clear"></div>
+
+        <div id="subMenu">
+            <div id="menuIndex" class="border tbox">
+                <div class="hd">
+                    <h2>仪表盘</h2>
+                </div>
+                <div class="bd">
+                    <ul>
+                        <li><a href="{% url 'admin_index' %}">首页</a></li>
+           
+                    </ul>
+                </div>
+                <div class="ft"></div>
+            </div>
+
+            <div id="menuContent" class="border tbox">
+                <div class="hd">
+                    <h2>文章</h2>
+                </div>
+                <div class="bd">
+                    <ul>
+                        <li><a href="{% url 'admin_post_manager' %}">所有文章</a></li>
+                        <li><a href="{% url 'admin_post_edit' %}">新建文章</a></li>
+                        <li><a href="{% url 'admin_cat_manager' %}">分类</a></li>
+                        <li><a href="{% url 'admin_tag_manager' %}">Tag</a></li>
+
+                    </ul>
+                </div>
+                <div class="hd">
+                    <h2>页面</h2>
+                </div>
+
+                <div class="bd">
+                    <ul>
+                       
+                        <li><a href="{% url 'admin_page_manager' %}">页面管理</a></li>
+                        <li><a href="{% url 'admin_page_edit' %}">新建页面</a></li>
+            
+
+                    </ul>
+                </div>
+
+                <div class="ft"></div>
+            </div>
+
+            <div id="menuAttachment" class="border tbox">
+                <div class="hd">
+                    <h2>附件</h2>
+                </div>
+                <div class="bd">
+                    <ul>
+                        {% for articleInfo in widget.datas %}
+                        <li><a href="{% url 'blogarticleshow' uid=articleInfo.user_id aid=articleInfo.id%}">{{articleInfo.title}}</a>({{articleInfo.comments}})</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="ft"></div>
+            </div>
+
+            <div id="menuStyle" class="border tbox">
+                <div class="hd">
+                    <h2>外观</h2>
+                </div>
+                <div class="bd">
+                    <ul>
+                        <li><a href="{% url 'admin_theme_manager' %}">主题</a></li>
+                        <li><a href="{% url 'admin_widget_manager' %}">小工具</a></li>
+                        <li><a href="{% url 'admin_nav_manager' %}">菜单</a></li>
+                        <li><a href="{% url 'admin_file_manager' %}">编辑</a></li>
+                    </ul>
+                </div>
+                <div class="ft"></div>
+            </div>
+
+            <div id="menuSetting" class="border tbox">
+                <div class="hd">
+                    <h2>设置</h2>
+                </div>
+                <div class="bd">
+                    <ul>
+                        <li><a href="{% url 'admin_setting_base' %}">基本</a></li>
+            
+            
+                        <li><a href="{% url 'admin_setting_content' %}">内容</a></li>
+                        <li><a href="{% url 'admin_setting_comment' %}">评论</a></li>
+
+                        <li><a href="{% url 'admin_setting_other' %}">其他</a></li>
+                        <li><a href="{% url 'admin_setting_avatar' %}">头像</a></li>
+
+                        <li><a href="{% url 'admin_setting_base' %}">主题</a></li>
+                    </ul>
+                </div>
+                <div class="ft"></div>
+            </div>
+
+            <div class="menuManager">
+                <div class="hd"><h2>管理</h2></div>
+                <ul class="bd">
+        
+
+                </ul>
+            </div>
+
+        </div>
+
+        <div id="container">
+                {% block container %}{% endblock %}
+        </div>
+
+        <div id="footer">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+
+            </ul>
+        </div>
+    </body>
+
+</html>
+

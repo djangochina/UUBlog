@@ -1,0 +1,8 @@
+{% load uublogtags %}
+
+{% for theWidget in view.widgetList %}
+        {% with "widgets/"|add:theWidget.name|add:".html" as template%}
+        {% include template  with widget=theWidget only%}
+        {% endwith %}
+                      
+{% endfor %}

@@ -1,0 +1,91 @@
+{% extends "accounts/pub/basepage.html"%}
+
+{% block title%} 首页 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <div class="rowItem">
+                <span>用户名</span>
+                {{userInfos.currentuser.username}}
+            </div>
+            <div class="rowItem">
+                <span>情感状态</span>
+                <select name="affectivestatus">
+                    <option value="0" {% ifequal currentUserProfile.affectivestatus 0%} selected="selected"{% endifequal %}>-请选择-</option>
+                    <option value="1" {% ifequal currentUserProfile.affectivestatus 1%} selected="selected"{% endifequal %}>单身</option>
+                    <option value="2" {% ifequal currentUserProfile.affectivestatus 2%} selected="selected"{% endifequal %}>已婚</option>
+                    <option value="3" {% ifequal currentUserProfile.affectivestatus 3%} selected="selected"{% endifequal %}>离异</option>
+                    <option value="4" {% ifequal currentUserProfile.affectivestatus 4%} selected="selected"{% endifequal %}>长期恋爱中</option>
+                    <option value="5" {% ifequal currentUserProfile.affectivestatus 5%} selected="selected"{% endifequal %}>单身 想找朋友</option>
+                    <option value="6" {% ifequal currentUserProfile.affectivestatus 6%} selected="selected"{% endifequal %}>单身 不想找朋友</option>
+                    <option value="7" {% ifequal currentUserProfile.affectivestatus 7%} selected="selected"{% endifequal %}>分居</option>
+                    <option value="8" {% ifequal currentUserProfile.affectivestatus 8%} selected="selected"{% endifequal %}>丧偶</option>
+                    <option value="9" {% ifequal currentUserProfile.affectivestatus 9%} selected="selected"{% endifequal %}>其它</option>
+                </select>
+            </div>
+            <div class="rowItem">
+                <span>交友目的</span>
+                <select name="lookingfor">
+                    <option value="0" {% ifequal currentUserProfile.lookingfor 0%} selected="selected"{% endifequal %}>-请选择-</option>
+                    <option value="1" {% ifequal currentUserProfile.lookingfor 1%} selected="selected"{% endifequal %}>结交朋友</option>
+                    <option value="2" {% ifequal currentUserProfile.lookingfor 2%} selected="selected"{% endifequal %}>谈恋爱</option>
+                    <option value="3" {% ifequal currentUserProfile.lookingfor 3%} selected="selected"{% endifequal %}>正式征婚</option>
+                    <option value="4" {% ifequal currentUserProfile.lookingfor 4%} selected="selected"{% endifequal %}>玩伴</option>
+                    <option value="5" {% ifequal currentUserProfile.lookingfor 5%} selected="selected"{% endifequal %}>事业伙伴</option>
+                    <option value="6" {% ifequal currentUserProfile.lookingfor 6%} selected="selected"{% endifequal %}>思想交流</option>
+                    <option value="7" {% ifequal currentUserProfile.lookingfor 7%} selected="selected"{% endifequal %}>其它</option>
+                </select>
+            </div>
+            <div class="rowItem">
+                <span>血型</span>
+                <select name="bloodtype" id="bloodtype">
+                    <option value="0" {% ifequal currentUserProfile.bloodtype 0%} selected="selected"{% endifequal %}>-请选择-</option>
+                    <option value="1" {% ifequal currentUserProfile.bloodtype 1%} selected="selected"{% endifequal %}>A</option>
+                    <option value="2" {% ifequal currentUserProfile.bloodtype 2%} selected="selected"{% endifequal %}>B</option>
+                    <option value="3" {% ifequal currentUserProfile.bloodtype 3%} selected="selected"{% endifequal %}>AB</option>
+                    <option value="4" {% ifequal currentUserProfile.bloodtype 4%} selected="selected"{% endifequal %}>O</option>
+                    <option value="5" {% ifequal currentUserProfile.bloodtype 5%} selected="selected"{% endifequal %}>其它</option>
+                </select>
+            </div>
+            <div class="rowItem">
+                <span>个人主页</span>
+                <input name="site" type="text" size="60" value="{{currentUserProfile.site}}"/>
+            </div>
+            <div class="rowItem">
+                <span>自我介绍</span>
+                <textarea name="bio">{{currentUserProfile.bio}}</textarea>
+            </div>
+            <div class="rowItem">
+                <span>兴趣爱好</span>
+                <textarea name="interest" >{{currentUserProfile.interest}}</textarea>
+            </div>
+            <div class="rowItem">
+                <span>个人签名</span>
+                <textarea name="sightml">{{currentUserProfile.sightml}}</textarea>
+            </div>
+            <div class="rowItem">
+                <span>时区</span>
+                <input name="timeoffset" type="text" size="60" value="{{currentUserProfile.timeoffset}}"/>
+            </div>
+            <div class="rowItem">
+                <input type="submit" name="ok" value="--修改--"/>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+
+
+{% block sidebar%}
+
+{% include 'accounts/pub/sidebar.html' %}
+
+{% endblock %}

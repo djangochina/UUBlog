@@ -1,0 +1,107 @@
+= Introduction =
+jQuery.msgbox
+popups a msgbox on the web pages using jQuery
+
+= Information =
+Author: pwwang( http://pwwang.com )
+
+Plugin page: http://pwwang.com/2009/10/01/jquery-msgbox/
+
+= Details =
+It does:
+  * simulate window.alert, and the title of the box will flash if you try to click other part of the page
+  * simulate window.confirm
+  * allow you to popup a plain text box
+  * allow you to popup a iframe in the box
+  * allow you to popup a box with Ajax method
+  * be closed automatically as you wish
+  * mask the back contents of page when box showed
+  * do an event you designated when the box closes
+  * be dragged to anywhere in the window as you wish
+  * decided whether popup another box if the page is in the iframe of a box
+
+= Version 1.0 =
+  * add basic functions, non-jQuery version
+
+= Version 2.0 =
+  * jQuery version, change the code in form of jQuery
+  * change the initial auto close time value from -1 to 0, more logical
+  * dispatch the css(except the neccessary css to display)
+  * change realization of close event from 'eval' to function
+  * add close icon
+  * the background opacity(0~1) is configurable
+  * add the event after ajax loaded, the data can be passed by parameters
+  * fix a drag bug
+  * fix a bug about "select"
+  * prevent dragging on close icon
+  * fix a bug that when the msgbox is closed manually, but the timer is still runs
+  * when window resized, the location of the msgbox is relocated.
+
+= Version 3.0 =
+  * fix a bug of close event
+  * add a mode of using the plugin just by a string
+  * add a configurable css of title, and fix the bug
+  * add a parameter oneboxmode to control whether the msgbox is shown in an iframe
+  * add a effect that the title flashes when clicking the background
+  * auto-calculated the close icon location
+  * auto-calculated the height of iframe
+  * fix a bug of background
+  * fix a bug that the drag does not stop when the mouse enter the iframe
+
+= Version 3.1 =
+  * fix the bug that display can not get got in IE 8
+  * the msgbox code is removed when msgbox closed
+
+= Version 4.0 =
+  * fix the bug that ie6 can not find display property and the close icon can not be found
+  * add a parameter to hide the scroll bar in firefox
+  * add the type of "alert"
+  * add the type of "confirm"
+  * fix a bug of "oneboxmode"
+  * provide jquery.msgbox.min.js
+  * fix other bugs
+
+= Version 4.1 =
+  * show "Close" before the close icon loaded
+  * fix a bug of displaying
+
+= Version 4.2 =
+  * fix a bug of "select"
+
+= Version 5.0 =
+  * change a set of parameters' name
+  * add the type of "input"
+  * add a parameter to control whether drag is enabled
+  * add a parameter to control whether animation is enabled
+  * keep the msgbox stay when window scrolled
+  * add a external method to close the msgbox
+  * do not force a close icon
+  * remove the parameters : oneboxmode, hidescrollbar
+  * change the drag function, using the jquery.dragndrop plugin
+  * change the content overflow from hidden to auto
+  
+= Version 6.0 =
+  * change the frame of codes of the plugin. New codes help to provide external method
+  * provide serval external method( closing the box from outside for example)
+  * parameter 'type' is not standalone any more, it is included in 'content'
+  * parameter 'closeImg' is changed to 'closeIcon', include types of 'string' or 'icon'
+  * return value could be got directly via $mb.value, ($mb = $.msgbox(...))
+  * serval different animations for the box showing and closing provided
+  
+= Version 6.1 =
+  * provide a mode that close icon can be hide, as well as a public function to control it
+  * fix the bug that the background layer can not cover the document or become too long
+  * the box can not be moved out of the window
+  * fix the bug that the height main content div is not accurat
+  * fix the bug that the browser will be choked when the box is opening or closing
+
+= Version 7.0 =
+  * Recoding the whole plugin using a new style
+  * All functions are complemented by plugins of jquery.msgbox, except basic dom assembling.
+  
+= Version 7.1 =
+  * Add an internal plugin called fixdimen to fix the dimension of titleWrap and contentWrapWrap.
+  * Modify the jquery.dragndrop to make dragging and dropping elements with style position = fixed available.
+  * Add an option cache. It is false(default) that the msgbox DOM will be removed while close, otherwise, they are hidden.
+
+

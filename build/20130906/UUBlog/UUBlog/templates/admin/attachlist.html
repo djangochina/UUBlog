@@ -1,0 +1,92 @@
+{% extends "admin/container.html"%}
+{% load uublogtags %}
+{% block title%} 文章管理 {% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    function copyAttachUrl(id) {
+        var attachUrl = $("#" + id).val();
+
+        if (copy2Clipboard(attachUrl)!=false) {
+            alert("地址复制成功");
+        } else {
+            alert("复制失败");
+        }
+    }
+</script>
+{% endblock %}
+{% block content %}
+<div class="tbox">
+     <div class="dataFilter">
+         <ul>
+             <li>
+                 <a href="{% url 'admin_attach_manager'%}">全部</a>
+                     
+             </li>
+
+             <li>
+                 <a href="{% url 'admin_attach_manager'%}?filetype=1">图片</a>
+                     
+             </li>
+             <li>
+                 <a href="{% url 'admin_attach_manager'%}?filetype=2">多媒体</a>
+                     
+             </li>
+             <li>
+                 <a href="{% url 'admin_attach_manager'%}?filetype=3">文件</a>
+                     
+             </li>
+             <li>
+                 <a href="{% url 'admin_attach_manager'%}?filetype=10">其它</a>
+                     
+             </li>
+
+         </ul>
+                </div>
+
+    <div class="clear"></div>
+
+    <table class="dataList">
+        <thead>
+            <tr class="dataHeader">
+                <th>标题</th>
+                
+                <th width="220">链接</th>
+                <th width="60">扩展名</th>
+                <th width="40">类型</th>
+                <th width="120">时间</th>
+                <th width="40">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for attachInfo in attachList%}
+            <tr class="dataItem">
+                <td>{{attachInfo.title}}</td>
+                
+                <td>
+                    <input name="attach_url" id="attach_url_{{attachInfo.id}}" value="/media{{attachInfo.path}}"/>
+                    <a href="#" target="_blank"><a href="#" onclick="copyAttachUrl('attach_url_{{attachInfo.id}}');return false;">复制</a>
+                </td>   
+                <td>{{attachInfo.extension}} </td> 
+                <td>
+                    {% if attachInfo.filetype == 1%} 图片
+                    {% elif attachInfo.filetype == 2%} 多媒体
+                    {% elif attachInfo.filetype == 3%} 文件
+                    {% else %} 其它
+                    {% endif %}
+                </td>          
+                <td>{{attachInfo.createtime|date:"Y-m-d H:i:s"}} </td>
+
+         
+                <td><a href="{% url 'admin_attach_edit' aid=attachInfo.id%}?{% DoQueryString view.currentQueryString  action='delete' %}">删除</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+    {% include 'admin/pagination.html'%}
+
+</div>
+
+
+{% endblock %}

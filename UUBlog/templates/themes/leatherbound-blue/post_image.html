@@ -1,0 +1,30 @@
+{% extends self.themeConfig.containerpath %}
+{% load url from future %}
+
+{% block title%} 内容页面{% endblock %}
+
+{% block content %}
+
+<div class="postInfo">
+            
+   
+
+    <div class="postTitle"><h1>{{postInfo.title}}</h1></div>
+
+    <div class="postCon">{{postInfo.content|safe}}
+        <div>支持({{postInfo.goods}})&nbsp;&nbsp;┆&nbsp;&nbsp;反对({{postInfo.bads}})</div>
+    </div>
+
+    <div class="postMeta">
+        <span>{{postInfo.username}}&nbsp;&nbsp;┆&nbsp;&nbsp;{{postInfo.createtime|date:self.options.datetimeformat}}&nbsp;&nbsp;
+            ┆&nbsp;&nbsp;阅读({{postInfo.views}})&nbsp;&nbsp;┆&nbsp;&nbsp;评论({{postInfo.comments}})
+           
+        </span>
+    </div>
+</div>
+
+    {% with "themes/"|add:self.theme|add:"/comment.html" as comment%}
+        {% include comment%}
+    {% endwith %}
+
+{% endblock%}

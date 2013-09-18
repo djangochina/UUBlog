@@ -1,0 +1,29 @@
+{% extends "admin/default/container.html"%}
+{% load url from future %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form  enctype="multipart/form-data"  name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <div class="rowItem">
+                <label>头像</label>
+                <div class="value">
+                    <img src="/media/{{currentBlog.avatar}}" width="120px" height="120px"/><br/>
+                    <input name="avatar" type="file" size="60" />
+                </div>
+            </div>
+            <div class="rowItem">
+                <input type="submit" name="ok" value="--修改--"/>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}
+
+

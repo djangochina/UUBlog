@@ -1,0 +1,23 @@
+{% extends "admin/default/container.html"%}
+{% load url from future %}
+
+{% block content %}
+<div class="tbox">
+    <div class="messageContainer">
+        <div class="message">
+            {{self.message}}
+        </div>
+        <div class="operations">
+            <a href="/admin/">返回首页</a>
+            {% if view.redirectUrl %}
+            <a href="{{self.redirectUrl}}">跳转</a>
+            {% endif %}
+        </div>
+
+    </div>
+
+    
+
+</div>
+
+{% endblock %}

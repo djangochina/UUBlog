@@ -1,0 +1,91 @@
+{% extends "blog/pub/basepage.html"%}
+
+{% block title%} 分类管理 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        
+
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <div class="rowItem">
+                <span>名称</span>
+                <input name="name" id="name" value="{{categoryInfo.name}}" />
+            </div>
+            <div class="rowItem">
+                <span>排序</span>
+                <input name="sortnum" type="text" value="{{categoryInfo.sortnum}}"/>
+            </div>
+            <div class="rowItem">
+                <span>导航显示</span>
+                <input name="isnav" type="checkbox" {% ifequal categoryInfo.isnav 1 %} checked="checked" {% endifequal %}/>
+            </div>
+            <div class="rowItem">
+                <input type="submit" name="ok" value="--修改--"/>
+            </div>
+        </form>
+        {% if categoryList %}
+        <table width="100%">
+            <th>
+                <tr>
+                    <td>名称</td>
+                    
+                    <td width="60">排序</td>
+                    <td width="60">导航显示</td>
+                    <td width="120">操作</td>
+                </tr>
+                
+            </th>
+            <tbody>
+                
+                {% for categoryInfo in categoryList%}
+                <tr>
+                    <td>{{categoryInfo.name}}</td>
+                    <td>{{categoryInfo.sortnum}}</td>
+                    <td>{% ifequal categoryInfo.isnav 1 %} 是 {% else %} 否 {% endifequal %}</td>
+                    <td><a href="{% url 'blogpubcategoryedit' uid=categoryInfo.user_id  cid=categoryInfo.id %}">编辑</a>
+                        &nbsp;
+                        <a href="{% url 'blogpubcategorydelete' uid=categoryInfo.user_id cid=categoryInfo.id %}">删除</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block sidebar%}
+<div class="tbox">
+    <div class="hd"><h2>文章管理</h2></div>
+    <ul class="bd">
+        <li><a href="{% url 'blogpubarticleadd' uid=userInfos.currentuser.id%}">添加新文章</a></li>
+        <li><a href="{% url 'blogpubarticlelistdraft' uid=userInfos.currentuser.id%}">草稿箱</a></li>
+    </ul>
+</div>
+<div class="tbox">
+    <div class="hd"><h2>分类管理</h2></div>
+    <ul class="bd">
+        <li><a href="{% url 'blogpubcategory' uid=userInfos.currentuser.id%}">编辑分类</a></li>
+        <li><a href="{% url 'blogpubarticlelist' uid=userInfos.currentuser.id %}">所有文章</a></li>
+        <li><a href="{% url 'blogpubarticlelistcategory' uid=userInfos.currentuser.id cid=1%}">未分类</a></li>
+        {% if categoryList %}
+        {% for categoryInfo in categoryList %}
+        <li><a href="{% url 'blogpubarticlelistcategory' uid=userInfos.currentuser.id cid=categoryInfo.id%}">{{categoryInfo.name}}</a></li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,307 @@
+{% extends "admin/default/container.html"%}
+{% load url from future %}
+
+{% block styles %}
+<style type="text/css">
+
+</style>
+
+{% endblock %}
+{% block scripts %}
+
+
+<!-- tinyMCE -->
+<script language="javascript" type="text/javascript" src="/static/tinymce/tinymce.min.js"></script>
+<script language="javascript" type="text/javascript" src="/static/tinymce/textareas.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#postForm").validate();
+        selectPosition(null);
+        
+        {% if postInfo %}
+        $("#catTree").val("{{ postInfo.category_id}}");
+        $("#sidebarfloat").val("{{ postInfo.sidebarfloat}}");
+        {% endif %}
+    });
+        
+    function selectPosition(obj) {
+       
+        var options="<option value='0'>未分类</option>"+buildCatTree(0,-1)[0];
+        $("#catTree").html(options);
+    }
+
+
+    function buildCatTree(index,level)
+    {
+        var options=["",""];
+            
+        {{catTree|safe}}
+            
+        var catArray= data[index];
+            
+        /*undefined*/
+        if (catArray==undefined){
+            return options;
+        }
+        
+        level+=1;
+        
+        for(var i=0;i<catArray.length;i++){
+            var catPId=catArray[i][0];
+            var catId=catArray[i][1];
+            var catName=catArray[i][2];
+            var catAlias=catArray[i][3];
+            var catPosts=catArray[i][4];
+            var catSortnum=catArray[i][5];
+            
+        
+            options[0]+="<option value='"+catId+"'>"+PadLeft(catName,level,"-",true)+"</option>";
+        
+            options[1]+="<tr id='cat_"+catId+"'>";
+            options[1]+="<td>"+PadLeft(catName,level,"&nbsp;&nbsp;&nbsp;&nbsp;",true)+"</td>";
+            options[1]+="<td>"+catAlias+"</td>";
+            options[1]+="<td>"+catPosts+"</td>";
+            options[1]+="<td>"+catSortnum+"</td>";
+            options[1]+="<td>"+"<a href=\"/admin/cat/"+catId+"/\">编辑</a>&nbsp;<a href=\"/admin/cat/"+catId+"/\">删除</a>"+"</td>";
+            options[1]+="</tr>";
+        
+            var tree=buildCatTree(catId,level);
+            options[0]+=tree[0];
+            options[1]+=tree[1];
+        }
+            
+        return options;
+    }
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div class="tbox">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="postForm" id="postForm" method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <table>
+                <tr>
+                    <td  class="contentBox">
+                        <div class="rowItem">
+                            <label>标题</label>
+                            <input name="title" type="text" size="60" value="{{postInfo.title}}" class="required"/>
+                        </div>
+
+
+            
+                        <div class="rowItem" >
+                            <label>内容</label>
+                            <div class="value" style="width: 90%;"><textarea name="content" id="content" style="height: 500px;" >{{postInfo.content|safe}}</textarea></div>
+
+                           
+
+                        </div>
+
+                        
+                        <div class="rowItem" style="clear: both;">
+                            <label>摘要</label>
+                            <div class="value" style="width: 90%; "><textarea name="summary" id="summary" cols="70" rows="4">{{postInfo.summary}}</textarea></div>
+                        </div>
+
+                    </td>
+                    <td class="editBox">
+                        <div  class="border tbox">
+                            <div class="hd">
+                                <h2>设置</h2>
+                            </div>
+                            <div class="bd">
+                                <div class="rowItem">
+                                    <label>个人分类</label>
+                   
+                                    <select id="catTree" name="catTree"></select>
+                   
+                                    <a href="{% url 'admin_cat_manager'%}">管理分类</a>
+                                </div>
+
+
+                                <div class="rowItem">
+                                    <label>Tags</label>
+                                    <input name="tags" type="text" value="{{postInfo.tags}}"/>
+                                </div>
+                                <div class="rowItem">
+                                    <label>状态</label>
+                                    <select name="status">
+                                        {% if postInfo.status %}
+                                        <option value="1" selected="selected">发布</option>
+                                        <option value="0">草稿</option>
+                                        {% else %}
+                                        <option value="1" >发布</option>
+                                        <option value="0" selected="selected">草稿</option>
+                                        {% endif %}
+
+                                    </select>
+                                   
+                                </div>
+                                <div class="rowItem">
+                                    <label>发布时间</label>
+                                    <input name="createtime" type="text" value="{{postInfo.createtime|date:"Y-m-d H:i:s"}}"/>
+                                </div>
+                            </div>
+           
+                        </div>
+
+                        <div  class="border tbox">
+                            <div class="hd">
+                                <h2>高级设置</h2>
+                            </div>
+                            <div class="bd">
+                               
+
+                                <div class="rowItem">
+                                    <label>允许评论</label>
+                                   
+                                    <input type="checkbox" id="cancomment" name="cancomment" {% if postInfo.cancomment%} checked="checked" {% endif %}/>
+                                </div>
+                                <div class="rowItem">
+                                    <label>置顶</label>
+                                    <input type="checkbox" id="istop" name="istop" value="True" {% if postInfo.istop%} checked="checked" {% endif %}/>
+                                </div>
+
+
+
+                                <div class="rowItem">
+                                    <label>访问密码</label>
+                                    <input name="password" type="text" value="{{postInfo.password}}"/>
+                                </div>
+
+
+                                <div class="rowItem">
+                                    <label>标题图片</label>
+                                    <input name="titlepic" type="file" style="width: 80x;" />{% ifnotequal postInfo.titlepic ''%}
+                                    
+                                    {% endifnotequal %} 
+                                </div>
+                                <div class="rowItem">
+                                    <label>模板</label>
+                                    <select name="template">
+                                        {% for key,value in self.themeConfig.posttemplate.items %}
+                                        <option value="{{key}}" {% ifequal self.options.post_template key%} selected="selected"{% endifequal%}>{{value}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+
+                                <div class="rowItem">
+                                    <label>侧边栏</label>
+                                    <select name="sidebar">
+                                        {% for sidebarInfo in self.sidebarList %}
+                                        <option value="{{sidebarInfo.id}}" {% ifequal self.options.post_sidebar sidebarInfo.id%} selected="selected"{% endifequal%}>{{sidebarInfo.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="rowItem">
+                                    <label>侧边栏位置</label>
+                                    <select name="sidebarfloat" id="sidebarfloat">
+                                        <option value="none" >无</option>
+                                        <option value="left" >左</option>
+                                        <option value="right" >右</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="rowItem">
+                                    <input type="submit" name="ok" value="--确定--"/>
+                                </div>
+                            </div>
+           
+                        </div>
+
+                        
+
+                    </td>
+
+                </tr>
+            </table>
+           
+        </form>
+
+</div>
+<script type="text/javascript">
+    //实例化编辑器
+
+    var options = {
+
+        imageUrl:UEDITOR_HOME_URL + "../yunserver/yunImageUp.php",
+
+        imagePath:"http://",
+
+
+
+        scrawlUrl:UEDITOR_HOME_URL + "../yunserver/yunScrawlUp.php",
+
+        scrawlPath:"http://",
+
+
+
+        fileUrl:UEDITOR_HOME_URL + "../yunserver/yunFileUp.php",
+
+        filePath:"http://",
+
+
+
+        catcherUrl:UEDITOR_HOME_URL + "php/getRemoteImage.php",
+
+        catcherPath:UEDITOR_HOME_URL + "php/",
+
+
+
+        imageManagerUrl:UEDITOR_HOME_URL + "../yunserver/yunImgManage.php",
+
+        imageManagerPath:"http://",
+
+
+
+        snapscreenHost:'ueditor.baidu.com',
+
+        snapscreenServerUrl:UEDITOR_HOME_URL + "../yunserver/yunSnapImgUp.php",
+
+        snapscreenPath:"http://",
+
+
+
+        wordImageUrl:UEDITOR_HOME_URL + "../yunserver/yunImageUp.php",
+
+        wordImagePath:"http://", //
+
+
+
+        getMovieUrl:UEDITOR_HOME_URL + "../yunserver/getMovie.php",
+
+
+
+        lang:/^zh/.test(navigator.language || navigator.browserLanguage || navigator.userLanguage) ? 'zh-cn' : 'en',
+
+        langPath:UEDITOR_HOME_URL + "lang/",
+
+
+
+        webAppKey:"9HrmGf2ul4mlyK8ktO2Ziayd",
+
+        initialFrameWidth:750,
+
+        initialFrameHeight:400,
+
+        focus:true
+
+    };
+
+
+  
+
+
+    </script>
+{% endblock %}
+
+

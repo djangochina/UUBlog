@@ -1,0 +1,39 @@
+{% extends "admin/bootstrap/container.html"%}
+
+{% block scripts %}
+<script type="text/javascript">
+
+</script>
+{% endblock %}
+{% block content %}
+<div class="tbox">
+    {% if message%}
+    <b>{{message}}</b>
+    {% endif %}
+    <div>
+        <div>当着主题：{{self.themeConfig.name}}</div>
+{% for theme in themeList%}
+        <form name="form1" method="POST" action="" >
+            <input type="hidden" name="theme" value="{{theme.theme}}"/>
+            {% csrf_token %}
+            <div>
+                <img src="/static/themes/{{theme.theme}}/preview.jpg"/><br/>                
+                {{theme.theme}}<br/>
+                {{theme.name}}
+            </div>
+
+            <div class="rowItem">
+                <input type="submit" name="ok" value="--修改--"/>
+            </div>
+        </form>
+
+        {% endfor %}
+
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+

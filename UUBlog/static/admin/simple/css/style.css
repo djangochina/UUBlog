@@ -1,0 +1,102 @@
+@import url("/static/css/global.css");
+
+body {margin: 0;
+background: #498FE4 url(/cld/image/bg.gif) repeat-x;
+color: #444;}
+
+#body {  height:100%;
+border-radius: 3px;
+background: #F0F3F5;
+margin: 0 auto;
+box-shadow: 0px 0px 10px #2972d3;
+border: 1px solid white;
+}
+
+/*头和主菜单*/
+#header{border-radius: 3px 3px 0 0;
+border-bottom: solid 1px white;
+background: url(/static/admin/simple/images/header_bg.gif) repeat-x;
+height: 73px;}
+
+#mainMenu{}
+#mainMenu ul li{ float: left;height: 50px;line-height: 50px;}
+#mainMenu ul li a{padding: 5px;font-size: 18px;color: white;font-weight: 700;}
+#mainMenu ul li a:hover{ cursor: pointer;}
+
+/*左侧面板和二级菜单*/
+#leftPanel {float: left;
+background: transparent url(/static/admin/simple/images/submenu_bg.gif) repeat-y;
+width: 210px;height: 100%; }
+
+#subMenu{}
+#subMenu .border{ border: none;}
+#subMenu .tbox{ background: none;}
+#subMenu .menuBox{display: none;}
+
+/*右侧面板和内容*/
+#rightPanel { padding: 10px;text-align: left; width: 100%;overflow: hidden;height: 100%;}
+
+#mainContent{}
+
+#footer{ width: 100%;height: 30px;border-top: 1px solid #CCC; }
+
+
+table{ border: 0px solid #dedede;width: 100%;}
+table th{ padding: 0px 5px;text-align: left;}
+table td{ padding: 0px 5px;vertical-align: top;}
+
+
+.dataFilter{height: 30px;line-height: 30px;margin: 5px;}
+.dataFilter ul li{ float: left;margin: 0px 5px;}
+
+.dataList{ border: 1px solid #ccc;}
+.dataList .dataHeader{ background: whiteSmoke;border-top: 1px solid #CCC;border-bottom: 1px solid #CCC;padding: 0 10px;margin: 0;height: 38px; color: #326CA6;}
+.dataList .dataItem{ height: 25px;line-height: 25px;border-bottom: 1px solid #dedede;}
+.dataList .dataFooter{}
+
+
+
+.cats_0{}
+.cats_0 .childCats{ margin-left: 8px;}
+
+
+.rowItem{ margin: 5px 0px !important;clear: both;}
+.rowItem label{ width: 120px;float: left;}
+.rowItem label.error{float:none;}
+.rowItem .value{ float: left;}
+.rowItem textarea{ width: 500px;height: 80px;}
+
+.contentBox{ width: auto;}
+.contentBox .rowItem label{ width: 60px;}
+
+.editBox{ width: 300px;}
+.editBox .rowItem label{display: block; width: 60px;}
+.editBox .rowItem label.error{float:none;width: auto;margin-left: 60px;}
+
+.widgetSetting{ width: 545px;margin: 10px auto;}
+.widgetSetting .rowItem label{ margin-left: 10px;}
+
+.lb{ cursor: pointer;margin-right: 20px;}
+
+
+
+/*消息*/
+.messageContainer{ border: 1px solid #dedede;padding: 50px;}
+.messageContainer .message{ text-align: center;}
+.messageContainer .operations{margin-top: 20px; text-align: center;height: 20px;line-height: 20px;}
+
+/*上传附近*/
+#startUpload{ position: absolute;left: 370px;top: 90px;}
+.uploadify{}
+.uploadify-queue-item{ float: left;width: 300px;margin: 5px;}
+
+
+
+
+
+
+
+
+
+
+

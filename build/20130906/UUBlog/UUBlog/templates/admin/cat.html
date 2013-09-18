@@ -1,0 +1,129 @@
+{% extends "admin/container.html"%}
+
+{% block title%} 分类管理 {% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#catForm").validate();
+    selectPosition(null);
+        
+        {% if catInfo %}
+        $("#parentId").val({{ catInfo.parent_id}});
+        {% endif %}
+    });
+        
+    
+    function buildCatTree(index,level)
+    {
+        var options=["",""];
+            
+        {{catTree|safe}}
+            
+        var catArray= data[index];
+            
+        /*undefined*/
+        if (catArray==undefined){
+            return options;
+        }
+        
+        level+=1;
+        
+        for(var i=0;i<catArray.length;i++){
+            var catPId=catArray[i][0];
+            var catId=catArray[i][1];
+            var catName=catArray[i][2];
+            var catAlias=catArray[i][3];
+            var catPosts=catArray[i][4];
+            var catSortnum=catArray[i][5];
+            
+        
+            options[0]+="<option value='"+catId+"'>"+PadLeft(catName,level,"-",true)+"</option>";
+        
+            options[1]+="<tr id='cat_"+catId+"'>";
+            options[1]+="<td>"+PadLeft(catName,level,"&nbsp;&nbsp;&nbsp;&nbsp;",true)+"</td>";
+            options[1]+="<td>"+catAlias+"</td>";
+            options[1]+="<td>"+catPosts+"</td>";
+            options[1]+="<td>"+catSortnum+"</td>";
+            options[1]+="<td>"+"<a href=\"/admin/cat/"+catId+"/\">编辑</a>&nbsp;<a href=\"/admin/cat/"+catId+"/\">删除</a>"+"</td>";
+            options[1]+="</tr>";
+        
+            var tree=buildCatTree(catId,level);
+            options[0]+=tree[0];
+            options[1]+=tree[1];
+        }
+            
+        return options;
+    }
+            
+    function selectPosition(obj) {
+        var options="<option value='0'>主分类</option>"+buildCatTree(0,-1)[0];
+        
+        $("#parentId").html(options);
+    }
+
+</script>
+{% endblock %}
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        
+
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <div class="floatL">
+            <form name="catForm" id="catForm" method="POST" action="" >
+                {% csrf_token %}
+                <div class="rowItem">
+                    <label>父级</label>
+                    <select  name="parentId" id="parentId" onchange=""></select>
+                </div>
+
+                <div class="rowItem">
+                    <label>名称</label>
+                    <input name="name" id="name" value="{{catInfo.name}}" class="required"/>
+                </div>
+                <div class="rowItem">
+                    <label>别名</label>
+                    <input name="alias" id="alias" value="{{catInfo.alias}}" />
+                </div>
+
+                <div class="rowItem">
+                    <label>排序</label>
+                    <input name="sortnum" type="text" value="{{catInfo.sortnum}}" class="digits"/>
+                </div>
+                <div class="rowItem">
+                    <label>模板</label>
+                    <select name="template">
+                        {% for key,value in view.themeConfig.cattemplate.items %}
+                        <option value="{{key}}" {% ifequal view.options.cat_template key%} selected="selected"{% endifequal%}>{{value}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+                <div class="rowItem">
+                    <label>侧边栏</label>
+                    <select name="sidebar">
+                        {% for sidebarInfo in view.sidebarList %}
+                        <option value="{{sidebarInfo.id}}" {% ifequal view.options.cat_sidebar sidebarInfo.id%} selected="selected"{% endifequal%}>{{sidebarInfo.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+                <div class="rowItem">
+                    <input type="submit" name="ok" value="--修改--"/>
+                </div>
+            </form>
+        </div>
+
+     
+    </div>
+
+</div>
+
+
+
+{% endblock %}
+

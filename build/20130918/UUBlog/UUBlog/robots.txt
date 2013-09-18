@@ -1,0 +1,16 @@
+# robots.txt 
+User-agent: *
+Disallow: 
+Disallow: /admin/
+Disallow: /common/
+Disallow: /core/
+Disallow: /media/
+Disallow: /plugins/
+Disallow: /static/
+Disallow: /templates/
+Disallow: /templatetags/
+Disallow: /uu/
+Disallow: /views/
+Disallow: /widgets/
+Sitemap: http://www.uublog.me/sitemap.xml
+Sitemap: http://www.uublog.me/sitemap.html

@@ -1,0 +1,97 @@
+﻿
+{% load uublogtags %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="keywords" content="{% block keywords %}{% endblock %}" />
+        <meta name="description" content="{% block description %}{% endblock %}" />
+        <link rel="stylesheet" type="text/css" href="/static/admin/default/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/screen.css" />
+            <style type="text/css">    
+                body { }
+
+#loginContainer{ margin-top: 150px;}
+#login{width: 300px;margin: 0px auto; font-size: 18px;background: none;color: #333;
+    padding: 15px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+-webkit-box-shadow: 0 0 40px rgba(0,0,0,.3);
+-moz-box-shadow: 0 0 40px rgba(0,0,0,.3);
+box-shadow: 0 0 40px rgba(0,0,0,.3);
+}
+
+#login  .rowItem{ margin-bottom: 20px !important; }
+
+#login .rowItem label{display: block;float: left; font-size: 14px;margin-bottom: 5px;}
+#login .rowItem label.error{float:none;width: auto;}
+
+#login .rowItem .input{
+    border: 1px solid #B5DBDC;
+    width: 295px;
+    height: 35px;line-height: 35px;
+    font-size: 18px;
+}
+
+
+            </style> 
+
+
+
+        <script type="text/javascript" charset="utf-8" src="/static/js/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/static/js/jquery.cookies.2.2.0.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/static/js/jquery.validate.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/static/js/message_cn.js"></script>
+
+        <script type="text/javascript" charset="utf-8" src="/static/js/common.js"></script>
+       
+        <script type="text/javascript">
+            
+            $(document).ready(function() {
+                $("#loginForm").validate();
+            });
+         
+        </script>
+
+    </head>
+
+    <body>
+        <div id="loginContainer">
+            <div id="login" class="tbox">
+                
+                
+
+                <form name="loginForm" id="loginForm" method="POST" action="">
+                    {% csrf_token %}
+                    <div class="rowItem" style="text-align: center;border-bottom: 1px solid #ccc; ">
+                        <h2>用户登录</h2>
+                        <p>欢迎使用UUBlog</p>
+                    </div>
+
+                    <div class="rowItem">
+                        <label>用户名</label>
+                        <input name="username" id="username" type="text" value="" class="input required"/>
+                    </div>
+            
+                    <div class="rowItem">
+                        <label>密码</label>
+                        <input name="password" id="password" type="text"  value="" class="input required"/>
+                          
+                    </div>
+                    <div  class="rowItem">
+                        <a href="/">返回</a> <input type="submit" name="ok" id="ok" value="--登录--" class="floatR" />
+                    </div>
+                 
+                </form>
+              
+            </div>
+        </div>
+    </body>
+
+
+
+</html>
+
+

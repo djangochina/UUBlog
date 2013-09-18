@@ -1,0 +1,174 @@
+﻿{% load uublogtags %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}管理面板-UUBlog{% endblock %}</title>
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <link href="/static/admin/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+       <link href="/static/admin/bootstrap/css/css.css" rel="stylesheet" media="screen">
+
+        {% block styles %}{% endblock %}
+        <style type="text/css"></style>
+
+        <script type="text/javascript" charset="utf-8" src="/static/js/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/static/js/jquery.cookies.2.2.0.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/static/js/jquery.validate.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/static/js/message_cn.js"></script>
+
+        <script type="text/javascript" charset="utf-8" src="/static/js/common.js"></script>
+        <script src="/static/admin/bootstrap/js/bootstrap.min.js"></script>
+       
+        <script type="text/javascript">
+            
+            $(document).ready(function() {
+                var currentMenu = $.cookies.get("currentMenu");
+                console.log("get:" + currentMenu);
+                if (!currentMenu) {
+                    currentMenu = "menuIndex";
+                }
+                
+                
+                toggleMenu(currentMenu);
+            });
+            
+            function toggleMenu(menu) {
+                $(".menuBox").hide();
+                $("#" + menu).show();
+                $.cookies.set('currentMenu', menu, { path: "/" });
+                
+            }
+        </script>
+        {% block scripts %}{% endblock %}
+
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span10">
+                    <ul class="unstyled inline">
+                        <li><a onclick="toggleMenu('menuIndex');">首页</a></li>
+                        <li><a onclick="toggleMenu('menuContent');">内容</a></li>
+                        <li><a onclick="toggleMenu('menuAttachment');">附件</a></li>
+                        <li><a onclick="toggleMenu('menuStyle');">界面</a></li>
+                        <li><a onclick="toggleMenu('menuMenu');">菜单</a></li>
+                        <li><a onclick="toggleMenu('menuSetting');">设置</a></li>
+
+                    </ul>
+
+                   
+
+                </div>
+                <div class="span2">
+                     <ul class="unstyled inline">
+                        <li><a href="/" target="_blank">站点首页</a></li>
+                        <li><a href="{% url 'logout'%}">退出</a></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span2">
+                    <div id="menuIndex" class="border tbox menuBox">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">仪表盘</li>
+                            <li><a href="{% url 'admin_index' %}">首页</a></li>
+                            <li><a href="{% url 'admin_post_edit' %}">新建文章</a></li>
+                            <li><a href="{% url 'admin_page_edit' %}">新建页面</a></li>
+                            <li><a href="{% url 'admin_attach_edit' %}">添加附件</a></li>
+
+                            <a href="{% url 'admin_nav_manager' %}">菜单</a>
+
+                        </ul>
+                    </div>
+
+                    <div id="menuContent" class="border tbox menuBox">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">文章管理</li>
+                            <li><a href="{% url 'admin_post_manager' %}">文章管理</a></li>
+                            <li><a href="{% url 'admin_post_edit' %}">新建文章</a></li>
+                            <li><a href="{% url 'admin_cat_manager' %}">分类</a></li>
+                            <!--<li><a href="{% url 'admin_tag_manager' %}">Tag</a></li>-->
+                            <li class="nav-header">页面管理</li>
+                            <li><a href="{% url 'admin_page_manager' %}">页面管理</a></li>
+                            <li><a href="{% url 'admin_page_edit' %}">新建页面</a></li>
+
+                        </ul>
+                       
+                    </div>
+
+                    <div id="menuAttachment" class="border tbox menuBox">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">附件</li>
+                            <li><a href="{% url 'admin_attach_manager' %}">附件</a></li>
+                            <li><a href="{% url 'admin_attach_edit' %}">添加附件</a></li>
+
+                        </ul>
+                    </div>
+
+                    <div id="menuStyle" class="border tbox menuBox">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">外观</li>
+                            <li><a href="{% url 'admin_theme_manager' %}">主题</a></li>
+                            <li><a href="{% url 'admin_header_style' %}">顶部</a></li>
+                            <li><a href="{% url 'admin_background_style' %}">背景</a></li>
+                            <li><a href="">编辑</a></li>
+
+                        </ul>
+
+                    </div>
+                    <div id="menuMenu" class="border tbox menuBox">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">菜单</li>
+                            <li><a href="{% url 'admin_nav_manager' %}">菜单</a></li>
+                            <li><a href="{% url 'admin_sidebar_manager' %}">侧边栏</a></li>
+                        </ul>
+                    </div>
+
+
+
+                    <div id="menuSetting" class="border tbox menuBox">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">设置</li>
+                            <li><a href="{% url 'admin_setting_base' %}">基本</a></li>
+            
+            
+                            <li><a href="{% url 'admin_setting_content' %}">内容</a></li>
+                            <li><a href="{% url 'admin_setting_comment' %}">评论</a></li>
+                            <li><a href="{% url 'admin_setting_attach' %}">附件</a></li>
+
+                            <li><a href="{% url 'admin_setting_other' %}">其他</a></li>
+                                  
+                        </ul>
+                    </div>
+
+                    <div id="menuManager" class="border tbox menuBox">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">管理</li>
+                            <li><a href="{% url 'admin_setting_base' %}">基本</a></li>
+            
+            
+                            <li><a href="{% url 'admin_setting_content' %}">内容</a></li>
+                            <li><a href="{% url 'admin_setting_comment' %}">评论</a></li>
+                            <li><a href="{% url 'admin_setting_attach' %}">附件</a></li>
+
+                            <li><a href="{% url 'admin_setting_other' %}">其他</a></li>
+                                  
+                        </ul>
+
+                    </div>
+                </div>
+
+
+                <div class="span10">
+                    {% block container %}{% endblock %}
+                </div>
+            </div>
+
+        </div>
+       
+    </body>
+</html>
+
+

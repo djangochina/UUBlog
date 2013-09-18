@@ -1,0 +1,14 @@
+
+<div id="widget_{{widget.name}}" class="border tbox widget">
+    {% if widget.isshowtitle %}
+    <div class="hd">
+        <h2>{{widget.title}}</h2>
+    </div>
+    {% endif %}
+    <div class="bd">
+        {% block widgetBody %}{% endblock %}
+    </div>
+    <div class="ft">
+        {% block widgetFooter %}{% endblock %}
+    </div>
+</div>

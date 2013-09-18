@@ -1,0 +1,32 @@
+﻿        <div id="topbar">
+            <div class="wrapbox">
+                <div class="leftinfo">
+                    <ul>
+                        <li><a href="/">
+                                <h1>UUBlog</h1>
+                            </a></li>
+{% for navi in view.navigate.top.left %}
+{{navi.alias}}
+{% endfor %}
+
+                    </ul>
+                    
+                </div>
+                <div class="centerinfo">
+                    <ul>
+                       
+                    </ul>
+                </div>
+                <div class="rightinfo">
+                    <ul>
+                       {% for navi in view.navigate.top.right %}
+{{navi.alias}}
+{% endfor %}
+                    </ul>
+                    
+                </div>
+
+            </div>
+        </div>
+<div class="clear">
+        </div>

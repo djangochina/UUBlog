@@ -1,0 +1,90 @@
+﻿{% load url from future %}
+{% load uublogtags %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}-{{self.options.title}}-{{self.options.site_title}}{% endblock %}</title>
+        <meta name="keywords" content="{% block keywords %}{{self.options.site_keywords}}{% endblock %}" />
+        <meta name="description" content="{% block description %}{{self.options.site_description}}{% endblock %}" />
+        {% block metas %}{% endblock %}
+
+<link rel="stylesheet" type="text/css" href="/static/themes/{{self.theme}}/css/default.css" />
+        <link rel="stylesheet" type="text/css" href="/static/themes/{{self.theme}}/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/static/themes/{{self.theme}}/css/twitter-widget.css" />
+        {% DoCustomStyle self.options %}
+        {% block styles %}{% endblock %}
+        
+		<script src="/static/js/jquery.js"></script>
+		<script src="/static/themes/{{self.theme}}/js/hoverIntent.js"></script>
+		<script src="/static/themes/{{self.theme}}/js/superfish.js"></script>
+		<script>
+
+		    (function($){ //create closure so we can safely use $ as alias for jQuery
+
+		        $(document).ready(function(){
+
+		            // initialise plugin
+		            var example = $('#mainNav').superfish({
+		                //add options here if required
+		            });
+
+		            // buttons to demonstrate Superfish's public methods
+		            $('.destroy').on('click', function(){
+		                example.superfish('destroy');
+		            });
+
+		            $('.init').on('click', function(){
+		                example.superfish();
+		            });
+
+		            $('.open').on('click', function(){
+		                example.children('li:first').superfish('show');
+		            });
+
+		            $('.close').on('click', function(){
+		                example.children('li:first').superfish('hide');
+		            });
+		        });
+
+		    })(jQuery);
+
+
+		</script>
+
+        
+        {% block scripts %}{% endblock %}
+
+        {{self.options.header_html|safe}}
+    </head>
+
+    <body>
+      
+
+        <div id="bottom-shadow">
+            <div id="top-shadow">
+                <div id="wrapper">
+                    <div id="wrapper-bgtops"></div>
+                    <div id="wrapper-bg">
+                        <div id="wrapper-bgtop">
+                            <div class="container">
+                                {% block container %}{% endblock %}
+                            </div>
+                    
+                        </div>
+                    </div>
+                    <div id="wrapper-bgbtm"></div>
+
+                </div>
+            </div>
+        </div>
+       
+        {% with "themes/"|add:self.theme|add:"/footer.html" as footer%}
+        {% include footer%}
+        {% endwith %}
+
+        {{self.options.footer_html|safe}}
+    </body>
+
+</html>
+

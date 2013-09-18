@@ -1,0 +1,19 @@
+﻿<div class="clear">
+        </div>
+<div id="footer" >
+    <div class="wrapbox">
+        <div class="floatL copyright">
+            {{view.options.copyright|safe}}
+        </div>
+        <div class="floatR bottomNav">
+            <ul>
+                {% for navInfo in view.navs.bottom %}
+                <li><a href="{{navInfo.url}}" target="{{navInfo.target}}">{{navInfo.name}}</a></li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+
+</div>
+

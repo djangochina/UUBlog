@@ -1,0 +1,81 @@
+﻿{% load uublogtags %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}-{{self.options.title}}-{{self.options.site_title}}{% endblock %}</title>
+        <meta name="keywords" content="{% block keywords %}{{self.options.site_keywords}}{% endblock %}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="{% block description %}{{self.options.site_description}}{% endblock %}" />
+        {% block metas %}{% endblock %}
+
+        <link href="/static/themes/{{self.theme}}/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="/static/themes/{{self.theme}}/css/css.css" rel="stylesheet" media="screen">
+        {% DoCustomStyle self.options %}
+        {% block styles %}{% endblock %}
+        
+		<script src="/static/js/jquery-1.10.1.min.js"></script>
+		<script src="/static/themes/{{self.theme}}/js/hoverIntent.js"></script>
+        <script src="/static/themes/{{self.theme}}/js/superfish.js"></script>
+        <script src="/static/themes/{{self.theme}}/js/bootstrap.min.js"></script>
+
+		<script>
+
+		    (function($){ //create closure so we can safely use $ as alias for jQuery
+
+		        $(document).ready(function(){
+
+		            // initialise plugin
+		            var example = $('#mainNav').superfish({
+		                //add options here if required
+		            });
+
+		            // buttons to demonstrate Superfish's public methods
+		            $('.destroy').on('click', function(){
+		                example.superfish('destroy');
+		            });
+
+		            $('.init').on('click', function(){
+		                example.superfish();
+		            });
+
+		            $('.open').on('click', function(){
+		                example.children('li:first').superfish('show');
+		            });
+
+		            $('.close').on('click', function(){
+		                example.children('li:first').superfish('hide');
+		            });
+		        });
+
+		    })(jQuery);
+
+
+		</script>
+
+        
+        {% block scripts %}{% endblock %}
+
+        {{self.options.header_html|safe}}
+    </head>
+
+    <body>
+        {% with "themes/"|add:self.theme|add:"/topbar.html" as topbar%}
+        {% include topbar%}
+        {% endwith %}
+
+        {% with "themes/"|add:self.theme|add:"/header.html" as header%}
+        {% include header%}
+        {% endwith %}
+
+        <div id="container" class="container">
+            {% block container %}{% endblock %}
+        </div>
+        {% with "themes/"|add:self.theme|add:"/footer.html" as footer%}
+        {% include footer%}
+        {% endwith %}
+        {{self.options.footer_html|safe}}
+    </body>
+
+</html>
+

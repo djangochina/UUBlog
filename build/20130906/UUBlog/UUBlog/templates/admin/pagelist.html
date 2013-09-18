@@ -1,0 +1,42 @@
+{% extends "admin/container.html"%}
+
+{% block title%} 文章管理 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <table class="dataList">
+        <thead>
+             <tr class="dataHeader">
+                <th>标题</th>
+                <th width="40">状态</th>
+                <th width="40">评论</th>
+                 <th width="40">浏览</th>
+                 <th width="120">时间</th>
+                <th width="80">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for pageInfo in pageList%}
+            <tr class="dataItem">
+                <td><a href="{% url 'page'  pid=pageInfo.id%}">{{pageInfo.title}}</a></td>
+                <td>
+                    {% ifequal pageInfo.status 1%}
+                    发布
+                    {% else %}
+                    草稿
+                    {% endifequal %}                        
+                </td>   
+                <td>{{pageInfo.comments}}</td> 
+                <td>{{pageInfo.views}}</td> 
+                <td>{{pageInfo.createtime|date:"Y-m-d H:i:s"}}</td>                     
+                <td><a href="{% url 'admin_page_edit' pid=pageInfo.id%}">编辑</a>&nbsp&nbsp|&nbsp&nbsp<a href="{% url 'admin_page_edit' pid=pageInfo.id%}?action=delete">删除</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,30 @@
+﻿
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="/static/styles/common.css" />
+        <link rel="stylesheet" type="text/css" href="/static/styles/style.css" />
+        {% block styles %}{% endblock %}
+        {% block scripts %}{% endblock %}
+
+    </head>
+
+    <body>
+        {% include 'common/topbar.html'%}
+        <div id="header" class="border">
+            
+        </div>
+
+        <div class="clear">
+        </div>
+        <div id="container">
+            {% block container %}{% endblock %}
+        </div>
+        <div class="clear">
+        </div>
+        {% include 'common/footer.html'%}
+
+    </body>
+</html>

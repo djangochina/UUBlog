@@ -1,0 +1,41 @@
+{% load url from future %}
+<script type="text/javascript" charset="utf-8" src="/static/js/jquery.form.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#widgetForm').submit(function() { 
+            // submit the form 
+            $(this).ajaxSubmit(function(message) {
+                //alert(widgetLayer);
+                layer.close(widgetLayer);
+            }); 
+            // return false to prevent normal browser submit and page navigation 
+            return false; 
+        });
+        
+    });
+
+    function closeLayer() {
+        layer.close(widgetLayer);
+    }
+</script>
+<div id="widget_{{name}}" class="border tbox widgetSetting">
+    <form name="widgetForm" id="widgetForm" method="POST" action="/widget/{{name}}/{{widget.id}}/" >
+        {% csrf_token %}
+        <input name="ok" value="1" type="hidden"/>
+        <div class="rowItem">
+            <label>名称</label>
+            <input name="title" id="title" value="{{title}}" />
+        </div>
+        <div class="rowItem">
+            <label>显示标题</label>
+            <input name="isshowtitle"  value="True" type="checkbox" {% if isshowtitle %}checked="checked"{% endif %}/>
+        </div>
+
+        {% block widgetForm %}{% endblock %}
+        <div class="rowItem" style="text-align: center;">
+            <input type="submit" name="ok" value="--修改--" />
+            <input type="button" name="ok" value="--关闭--" onclick="closeLayer();" />
+
+        </div>
+    </form>
+</div>

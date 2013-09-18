@@ -1,0 +1,9 @@
+{% extends "widgets/basewidget.html" %}
+{% block widgetBody %}
+<ul>
+    {% for articleInfo in widget.datas %}
+    <li><a href="{% url 'blogarticleshow' uid=articleInfo.user_id aid=articleInfo.id%}">{{articleInfo.title}}</a>({{articleInfo.comments}})</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+﻿{% load uublogtags %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="/static/styles/common.css" />
+       
+
+    </head>
+
+    <body>
+        {% for blockInfo in ''|GetBlockValue:"aaaa" %}
+                   <div>{{blockInfo.title}}</div>
+        {% endfor %}
+
+        {{ ''|GetBlockValue:"aaaa" }}
+
+        <form name="form1" method="POST" action="">
+            {% csrf_token %}
+            <input type="hidden" id="aid" name="aid" value="{{aid}}"/>
+            <table>
+                <thead>
+                    <tr>
+                        <th>静态碎片</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for blockInfo in block2List %}
+                    <tr>
+                        <td><input type="checkbox" id="block2_{{blockInfo.id}}" name="block2" value="{{blockInfo.id}}" />{{blockInfo.namecn}}({{blockInfo.name}})</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+          
+            <input type="submit" name="ok" value="--推送--"/>
+        </form>
+    </body>
+</html>

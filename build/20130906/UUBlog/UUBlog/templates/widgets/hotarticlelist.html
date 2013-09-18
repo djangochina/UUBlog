@@ -1,0 +1,10 @@
+{% extends "widgets/basewidget.html" %}
+{% block widgetBody %}
+<ul>
+    {% for post in widget.data%}
+    <li><a href="{% url 'post' pid=post.id%}">{{post.title}}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}
+
+

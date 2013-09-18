@@ -1,0 +1,33 @@
+{% extends self.themeConfig.basepagepath %}
+{% load url from future %}
+
+{% block container %}
+
+{% if self.sidebarFloat == "left"%}
+<div id="sidebar" class="floatL">
+    {% with "themes/"|add:self.theme|add:"/siderbar.html" as sidebarpath%}
+    {% include sidebarpath%}
+    {% endwith %}
+</div>
+{% endif %}
+
+{% if self.sidebarFloat == "left"%}
+<div id="page" class="floatR">
+{% elif self.sidebarFloat == "right" %}
+<div id="page" class="floatL">
+{% else %}
+<div id="page">
+{% endif %}
+    {% block content %}{% endblock %}
+</div>
+
+
+{% if self.sidebarFloat == "right"%}
+<div id="sidebar" class="floatR">
+    {% with "themes/"|add:self.theme|add:"/siderbar.html" as sidebarpath%}
+    {% include sidebarpath%}
+    {% endwith %}
+</div>
+{% endif %}
+
+{% endblock %}

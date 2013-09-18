@@ -1,0 +1,94 @@
+{% extends "basepage.html" %}
+
+{% block title %}登录{% endblock %}
+{% block styles %}
+     <style type="text/css">    
+body { background-color: #1D7300; background-image: url('/static/images/reg_bg_01.jpg'); position: absolute; top: 0; left: 0; height: 100%; width: 100%; z-index: -5; background-position: center 0; background-repeat: no-repeat; background-attachment: fixed; background-size: cover; -webkit-background-size: cover; -o-background-size: cover; zoom: 1; }
+
+         #loginContainer{ float: right;width: 80%;margin-top: 60px;}
+         #login{float: left;
+             font-size: 18px;background: none;
+             color: #333;}
+
+         #login .hd{ height: 80px;margin-left: 150px;}
+         #login .bd{}
+         #login .bd .rowItem{ width: 700px;
+             height: 50px;line-height: 50px;
+             margin: 0 0 20px 0;
+             overflow: hidden;}
+
+         #login .bd .rowItem label{ width: 130px;
+             float: left;
+             text-align: right;
+             padding-right: 15px;
+             font-size: 14px;}
+
+         #login .bd .rowItem input{float: left;
+             border: 1px solid #B5DBDC;
+             width: 367px;
+             height: 45px;
+             line-height: 33px;
+             font-size: 18px;
+             margin-right: 10px;
+         }
+         #login .bd .rowItem div{ float: left;color: red;}
+
+         #login .bd .rowItemOk{ text-align: center;}
+     </style> 
+
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" charset="utf-8" src="/static/scripts/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/scripts/common.js"></script>
+<script type="text/javascript">
+    function CheckForm() {
+        if ($("#username").val().length==0) {
+            $("#username_error").html("请输入用户名");
+            return false;
+        } else {
+            $("#username_error").html("");
+        }
+        
+        if ($("#password").val().length==0) {
+            $("#password_error").html("请输入密码");
+            return false;
+        } else {
+            $("#password_error").html("");
+        }
+    
+        return true;
+
+    }
+</script>
+{% endblock %}
+{% block container %}
+<div id="loginContainer">
+    <div id="login" class="tbox">
+        <div class="hd"><h2>用户登录</h2></div>
+        <div class="bd">
+
+            <form name="form1" method="POST" action="">
+                {% csrf_token %}
+                <div class="rowItem">
+                    <label>用户名</label>
+                    <input name="username" id="username" type="text" size="30" value=""/>
+                    <div id="username_error"></div>
+                    <input id="username_result" type="hidden" value="false"/>
+                </div>
+            
+                <div class="rowItem">
+                    <label>密码</label>
+                    <input name="password" id="password" type="text" size="30" value=""/>
+                    <div id="password_error"></div>
+                    <input id="password_result" type="hidden" value="false"/>
+                </div>
+                <div  class="rowItemOk">
+                    <input type="submit" name="ok" id="ok" value="--登录--" onclick="return CheckForm();"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock%}
+

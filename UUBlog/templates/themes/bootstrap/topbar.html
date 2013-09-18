@@ -1,0 +1,30 @@
+﻿    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li><a href="/"> UUBlog</a></li>
+                        {% for navInfo in view.navs.top.left %}
+                        <li><a href="{{navInfo.url}}" target="{{navInfo.target}}">{{navInfo.name}}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="nav pull-right">
+                        {% for navInfo in view.navs.top.right %}
+                        <li><a href="{{navInfo.url}}" target="{{navInfo.target}}">{{navInfo.name}}</a></li>
+                        {% endfor %}
+
+                    </ul>
+
+                </div>
+               
+            </div>
+                    
+        </div>
+
+      
+    </div>
+
+
+
+<div class="clear">
+</div>

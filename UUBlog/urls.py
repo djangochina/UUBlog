@@ -1,159 +1,140 @@
 #-*- coding:utf-8 -*-
 
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 
 import settings
 from django.contrib import admin
-from UUBlog.apps.blog import blogurls
-from UUBlog.apps.accounts import accountsurls
+from UUBlog.views import view
+
+from UUBlog.admin.views import admincategory,admintag,admintheme,adminview,adminpost,adminpage,adminattachment,adminsetting,adminnav,adminsidebar,adminaccount
+
+
 admin.autodiscover()
 
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+
 
 urlpatterns = patterns('',
-    #url(r'^accounts/login/$',login,name='login'),
-    #url(r'^accounts/logout/$',logout,name='logout'),
-    #url(r'^test/$', 'apps.test.views.test'),
-)
-urlpatterns = patterns('',
-    #url(r'^test/$', 'views.test'),
-)
 
+)
 
 
 urlpatterns += patterns('',
      url(r'^media/(?P<path>.*)','django.views.static.serve',{'document_root': settings.MEDIA_ROOT}),
      url(r'^static/(?P<path>.*)','django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
 )
-
-
-
-#urlpatterns += patterns('UUBlog.views.index',
-#     url(r'^$', 'index', name='index'),
-#)
-
-urlpatterns+=blogurls.urlpatterns
-
-urlpatterns+=accountsurls.urlpatterns
-
-##频道信息
 #urlpatterns += patterns('',
-#     url(r'^channel$', include("UUBlog.apps.blog.urls")),
+#    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+#    url(r'^admin/', include(admin.site.urls)),
 #)
 
-#频道信息
-#urlpatterns += patterns('UUBlog.apps.blog.views.viewchannel',
-#     url(r'^channel/$', 'index',{"cid":1}, name='blogchannel'),
-#     url(r'^channel/(?P<cid>\d+)$', 'index',name='blogchannel'),
+
+
+urlpatterns += patterns('',
+    url(r'^admin/login/$', adminaccount.LoginView.as_view(),name="login"),
+    url(r'^admin/logout/$', adminaccount.LogoutView.as_view(),name="logout"),
+)
+urlpatterns += patterns('',
+    url(r'^admin/$', adminview.IndexView.as_view(),name="admin_index"),
+
+)
+#内容
+urlpatterns += patterns('',
+
+    #文章
+    url(r'^admin/postlist/$', adminpost.PostListView.as_view(),name="admin_post_manager"),
+    url(r'^admin/post/$', adminpost.PostEditView.as_view(),name="admin_post_edit"),
+    url(r'^admin/post/(?P<pid>\d+)/$', adminpost.PostEditView.as_view(),name="admin_post_edit"),
+
+
+    #文章分类
+    url(r'^admin/catlist/$', admincategory.CatManagerView.as_view(),name="admin_cat_manager"),
+    url(r'^admin/cat/$', admincategory.CatEditView.as_view(),name="admin_cat_edit"),
+    url(r'^admin/cat/(?P<cid>\d+)/$', admincategory.CatEditView.as_view(),name="admin_cat_edit"),
+
+    #Tag
+    url(r'^admin/tag/$', admintag.ManagerView.as_view(),name="admin_tag_manager"),
+
+
+    #页面
+    url(r'^admin/pagelist/$', adminpage.PageListView.as_view(),name="admin_page_manager"),
+    url(r'^admin/page/$', adminpage.PageEditView.as_view(),name="admin_page_edit"),
+    url(r'^admin/page/(?P<pid>\d+)/$', adminpage.PageEditView.as_view(),name="admin_page_edit"),
+
+)
+
+#附件
+urlpatterns += patterns('',
+    url(r'^admin/attachmentlist/$', adminattachment.AttachmentManagerView.as_view(),name="admin_attach_manager"),
+    url(r'^admin/attachment/$', adminattachment.AttachmentEditView.as_view(),name="admin_attach_edit"),
+    url(r'^admin/attachment/(?P<aid>\d+)/$', adminattachment.AttachmentEditView.as_view(),name="admin_attach_edit"),
+    url(r'^admin/attachment/upload/$', adminattachment.AttachmentUploadView.as_view(),name="admin_attach_upload"),
+
+)
+
+#外观
+urlpatterns += patterns('',
     
-#)
-##文章管理
-#urlpatterns += patterns('UUBlog.apps.blog.views.viewarticle',
+    url(r'^admin/theme/$', admintheme.ThemeManagerView.as_view(),name="admin_theme_manager"),
+    url(r'^admin/headerstyle/$', admintheme.HeaderStyleView.as_view(),name="admin_header_style"),
+    url(r'^admin/backgroundstyle/$', admintheme.BackgroundStyleView.as_view(),name="admin_background_style"),
+  
 
-#     #文章显示部分
-#     url(r'^(?P<uid>\d+)/$', 'home', name='bloghome'),
-#     url(r'^(?P<uid>\d+)/category/(?P<cid>\d+)$', 'blogpubcategory', name='blogcategory'),
-#     url(r'^(?P<uid>\d+)/show/(?P<aid>\d+)$', 'show', name='blogarticleshow'),
-
-
-#     #文章管理部分
-#     url(r'^(?P<uid>\d+)/pub/article/list/$', 'list',name='blogpubarticlelist'),
-#     url(r'^(?P<uid>\d+)/pub/article/list/draft/$', 'listdraft',name='blogpubarticlelistdraft'),
-#     url(r'^(?P<uid>\d+)/pub/article/list/category/(?P<cid>\d+)$', 'listcategory',name='blogpubarticlelistcategory'),
-#     url(r'^(?P<uid>\d+)/pub/article/add/$', 'add',name='blogpubarticleadd'),
-#     url(r'^(?P<uid>\d+)/pub/article/edit/(?P<aid>\d+)$', 'edit', name='blogpubarticleedit'),
-#     url(r'^(?P<uid>\d+)/pub/article/delete/(?P<aid>\d+)$', 'delete', name='blogpubarticledelete'),
-#)
-
-##博客设置
-#urlpatterns += patterns('UUBlog.apps.blog.views.viewblog',
-
-#    url(r'^(?P<uid>\d+)/pub/setting/$', 'base', name='blogpubsetting'),
-#    url(r'^(?P<uid>\d+)/pub/setting/$', 'domain', name='blogpubsettingdomain'),
-#    url(r'^(?P<uid>\d+)/pub/setting/template/$', 'template', name='blogpubsettingtemplate'),
-#    url(r'^(?P<uid>\d+)/pub/setting/style/$', 'style', name='blogpubsettingstyle'),
-#)
-
-##分类信息
-#urlpatterns += patterns('UUBlog.apps.blog.views.viewcategory',
-   
-#     #分类管理部分
-#     url(r'^(?P<uid>\d+)/pub/category/$', 'index', name='blogpubcategory'),
-#     url(r'^(?P<uid>\d+)/pub/category/edit/(?P<cid>\d*)$', 'edit', name='blogpubcategoryedit'),
-#     url(r'^(?P<uid>\d+)/pub/category/delete/(?P<cid>\d*)$', 'delete', name='blogpubcategorydelete'),
-   
-#)
-
-
-
-##帐户信息
-#urlpatterns += patterns('UUBlog.apps.accounts.views.viewaccounts',
-#    url(r'^accounts/login/$', 'login', name='login'),
-#    url(r'^accounts/logout/$', 'logout', name='logout'),
-#    url(r'^accounts/register/$', 'register', name='register'),
-     
-#    url(r'^(?P<uid>\d+)/accounts/$', 'base', name='accountsbase'),
-#    url(r'^(?P<uid>\d+)/accounts/avatar/$', 'avatar', name='accountsavatar'),
-#    url(r'^(?P<uid>\d+)/accounts/contact/$', 'contact', name='accountscontact'),
-#    url(r'^(?P<uid>\d+)/accounts/info/$', 'info', name='accountsinfo'),
-#    url(r'^(?P<uid>\d+)/accounts/security/$', 'security', name='accountssecurity'),
-     
-#)
-
-##频道信息
-#urlpatterns += patterns('UUBlog.views.channel',
-#     url(r'^channel/$', 'index',{"cid":1}, name='blogchannel'),
+    #菜单
+    url(r'^admin/navlist/position/$', adminnav.NavManagerView.as_view(),{"p":1},name="admin_nav_manager"),
+    url(r'^admin/navlist/position/(?P<p>\d+)/$', adminnav.NavManagerView.as_view(),name="admin_nav_manager"),
+    url(r'^admin/nav/position/(?P<p>\d+)/(?P<nid>\d+)/$', adminnav.NavEditView.as_view(),name="admin_nav_manager"),
     
-#)
+)
 
-##帐户信息
-#urlpatterns += patterns('UUBlog.views.accounts',
-#    url(r'^accounts/login/$', 'login', name='login'),
-#    url(r'^accounts/logout/$', 'logout', name='logout'),
-#    url(r'^accounts/register/$', 'register', name='register'),
-     
-#    url(r'^(?P<uid>\d+)/accounts/$', 'base', name='accountsbase'),
-#    url(r'^(?P<uid>\d+)/accounts/avatar/$', 'avatar', name='accountsavatar'),
-#    url(r'^(?P<uid>\d+)/accounts/contact/$', 'contact', name='accountscontact'),
-#    url(r'^(?P<uid>\d+)/accounts/info/$', 'info', name='accountsinfo'),
-#    url(r'^(?P<uid>\d+)/accounts/security/$', 'security', name='accountssecurity'),
-     
-#)
+#侧边栏及小工具
+urlpatterns += patterns('',
+    
+    url(r'^admin/sidebarlist/$', adminsidebar.SidebarManagerView.as_view(),name="admin_sidebar_manager"),
+    url(r'^admin/sidebar/(?P<sid>\w+)/$', adminsidebar.SidebarEditView.as_view(),name="admin_sidebar_edit"),
+    url(r'^admin/sidebar/$', adminsidebar.SidebarEditView.as_view(),name="admin_sidebar_edit"),
 
-##帐户信息
-#urlpatterns += patterns('UUBlog.views.blog',
+    url(r'^admin/widgetlist/$', adminsidebar.WidgetManagerView.as_view(),name="admin_widget_manager"),
+    url(r'^admin/widgetlist/(?P<sid>.+)/$', adminsidebar.WidgetManagerView.as_view(),name="admin_widget_manager"),
+    url(r'^admin/widget/(?P<sid>.+)/(?P<wid>\d+)/$', adminsidebar.WidgetEditView.as_view(),name="admin_widget_edit"),
 
-#    url(r'^(?P<uid>\d+)/pub/setting/$', 'base', name='settingbase'),
-#    url(r'^(?P<uid>\d+)/pub/setting/template', 'template', name='settingtemplate'),
-#    url(r'^(?P<uid>\d+)/pub/setting/style$', 'style', name='settingstyle'),
-#)
-
-
-#urlpatterns += patterns('UUBlog.views.article',
-
-#     #文章显示部分
-#     url(r'^(?P<uid>\d+)/$', 'home', name='bloghome'),
-#     url(r'^(?P<uid>\d+)/category/(?P<cid>\d+)$', 'blogpubcategory', name='blogcategory'),
-#     url(r'^(?P<uid>\d+)/show/(?P<aid>\d+)$', 'show', name='blogarticleshow'),
-
-
-#     #文章管理部分
-#     url(r'^(?P<uid>\d+)/pub/article/list/$', 'list',name='blogpubarticlelist'),
-#     url(r'^(?P<uid>\d+)/pub/article/list/draft/$', 'listdraft',name='blogpubarticlelistdraft'),
-#     url(r'^(?P<uid>\d+)/pub/article/list/category/(?P<cid>\d+)$', 'listcategory',name='blogpubarticlelistcategory'),
-#     url(r'^(?P<uid>\d+)/pub/article/add/$', 'add',name='blogpubarticleadd'),
-#     url(r'^(?P<uid>\d+)/pub/article/edit/(?P<aid>\d+)$', 'edit', name='blogpubarticleedit'),
-#     url(r'^(?P<uid>\d+)/pub/article/delete/(?P<aid>\d+)$', 'delete', name='blogpubarticledelete'),
-#)
-
-##分类信息
-#urlpatterns += patterns('UUBlog.views.category',
    
-#     #分类管理部分
-#     url(r'^(?P<uid>\d+)/pub/category/$', 'index', name='blogpubcategory'),
-#     url(r'^(?P<uid>\d+)/pub/category/edit/(?P<cid>\d*)$', 'edit', name='blogpubcategoryedit'),
-#     url(r'^(?P<uid>\d+)/pub/category/delete/(?P<cid>\d*)$', 'delete', name='blogpubcategorydelete'),
-   
-#)
+    
+)
+
+
+#博客设置
+urlpatterns += patterns('',
+
+    url(r'^admin/setting/$', adminsetting.BaseView.as_view(), name='admin_setting_base'),
+    url(r'^admin/setting/avatar/$', adminsetting.AvatarView.as_view(), name='admin_setting_avatar'),
+    url(r'^admin/setting/comment/$', adminsetting.CommentView.as_view(), name='admin_setting_comment'),
+    url(r'^admin/setting/content/$', adminsetting.ContentView.as_view(), name='admin_setting_content'),
+    url(r'^admin/setting/attachment/$', adminsetting.AttachmentView.as_view(), name='admin_setting_attach'),
+    url(r'^admin/setting/other/$', adminsetting.OtherView.as_view(), name='admin_setting_other'),
+)
+
+#首页
+urlpatterns += patterns('',
+    url(r'^$', view.IndexView.as_view(), name='index'),
+    url(r'^list/(?P<page>\d+)/$', view.ListView.as_view(), name='list'),
+    url(r'^cat/(?P<cid>\d+)/$', view.ListView.as_view(), name='category'),
+    url(r'^tag/(?P<tid>\d+)/$', view.ListView.as_view(), name='tag'),
+    url(r'^post/(?P<pid>\d+)/$', view.PostView.as_view(), name='post'),
+    url(r'^page/(?P<pid>\d+)/$', view.PageView.as_view(), name='page'),
+    url(r'^search/$', view.SearchView.as_view(), name='search'),
+    url(r'^close/$', view.CloseView.as_view(), name='close'),
+)
+
+from UUBlog.uu.ubaseblog import G
+def AddWidgetUrls():
+    
+    global G
+
+    p=patterns("")
+
+    for key,module in G["widgets"].items():
+        widgetUrl=url(r'^widget/'+key+'/(?P<wid>\d+)/$', module.config["setting"].as_view(), name='widget')
+        p.append(widgetUrl)
+    return p
+
+urlpatterns += AddWidgetUrls()

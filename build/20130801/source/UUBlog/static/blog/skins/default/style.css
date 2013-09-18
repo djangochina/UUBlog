@@ -1,0 +1,75 @@
+
+* { margin: 0px; padding: 0px; }
+body { color: #666; font: 12px/18px "Î¢ÈíÑÅºÚE\8F6F\96C5\9ED1",Arial,sans-serif,"ÐÂËÎÌåB0\5B8B\4F53"; background: #F2F2F2; }
+body{
+background: transparent url(/static/blog/skins/default/images/bg.jpg) no-repeat center top;
+width: 100%;
+clear: both;background-color: #BCD3E5;}
+p, ul, ol, li, form { list-style: none; }
+img { border: none; text-align: center; vertical-align: middle; }
+p { word-wrap: break-word; display: block; }
+a { text-decoration: none; }
+
+            
+            
+.border{border: 1px solid #a9bdce; box-shadow: 0 3px 3px #BCD3E5;}
+
+
+
+#header { width: 990px; margin: 0px auto;  margin-bottom: 10px;margin-top: 40px;border: 0px solid red; }
+#headArea{border: 0px solid red;float: left;}
+#blogTitle{border: 0px solid red;float: left; margin-left: 80px;}
+#blogTitle h1{ height: 30px;line-height: 30px;border: 0px solid red;}
+#blogTitle p{float: left;display: block;font-size: 14px;padding: 10px;color: #979797;border: 0px solid red;}
+
+#blogNavigate{border: 0px solid red;float: left;margin-left: 50px;margin-bottom: 15px;}
+#blogNavigate ul{}
+#blogNavigate ul li{ float: left;float: left;font-size: 14px;overflow: hidden;padding: 0 14px;}
+
+
+#container { width: 990px; margin: 0 auto;}
+#wrap_content { width: 720px; float: right; }
+#wrap_sidebar { width: 250px; float: left; }
+
+#footer { width: 990px; margin: 8px auto; height: 60px; }
+        
+#navigate { }
+
+.articleList { }
+.articleList .article{margin-bottom: 20px; background: white;  overflow: hidden; vertical-align: top;padding: 10px;}
+.articleList .article .artTitle { padding: 5px;line-height: 25px;}
+.articleList .article .artMeta { }
+.articleList .article .artMeta span { float: right; }
+.articleList .article .artCon {line-height: 150%;font-size: 12px; }
+
+.article {margin-bottom: 20px;  background: white; overflow: hidden; vertical-align: top;padding: 20px; }
+.article .artTitle { margin: 10px; }
+.article .artMeta { margin: 5px; }
+.article .artMeta span { float: right; }
+.article .artCon { }
+
+#module_Profile{}
+#module_Search{}
+#module_Tags{}
+#module_Category{}
+#module_Archive{}
+#module_ViewTopArticle{}
+#module_ViewTopComment{}
+#module_NewTopArticle{}
+#module_NewTopComment{}
+#module_FollowBlogList{}
+#module_FollowBlogList .bd li{ float: left;margin-bottom: 5px;}
+#module_BeFollowBlogList{}
+#module_BeFollowBlogList .bd li{ float: left;margin-bottom: 5px;}
+#module_BeVisitBlogList{}
+#module_BeVisitBlogList .bd li{ float: left;margin-bottom: 5px;}
+
+#commentList{}
+#commentList .newComment{}
+#commentList .comment{margin-bottom: 20px;padding: 10px;  background: white; overflow: hidden; vertical-align: top;}
+#commentList .comment .username{ float: left;}
+#commentList .comment .createtime{ float: right;}
+#commentList .comment .content{word-wrap: break-word;word-break: break-all;line-height: 24px;}
+#commentList .comment .meta{}
+#commentList .comment .meta span{ float: right;margin-right: 10px;}
+

@@ -1,0 +1,164 @@
+{% extends "admin/bootstrap/container.html"%}
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#catForm").validate();
+    selectPosition(null);
+        
+    {% if catInfo %}
+    $("#parentId").val({{ catInfo.parent_id}});
+        {% endif %}
+    });
+        
+    function buildCatTree(index,level)
+    {
+        var options=["",""];
+            
+        {{catTree|safe}}
+            
+        var catArray= data[index];
+            
+        /*undefined*/
+        if (catArray==undefined){
+            return options;
+        }
+        
+        level+=1;
+        
+        for(var i=0;i<catArray.length;i++){
+            var catPId=catArray[i][0];
+            var catId=catArray[i][1];
+            var catName=catArray[i][2];
+            var catAlias=catArray[i][3];
+            var catPosts=catArray[i][4];
+            var catSortnum=catArray[i][5];
+            
+        
+            options[0]+="<option value='"+catId+"'>"+PadLeft(catName,level,"-",true)+"</option>";
+        
+            options[1]+="<tr id='cat_"+catId+"' class='dataItem'>";
+        
+            options[1]+="<td><input name=\"item_sortnum_"+catId+"\" id=\"item_sortnum_"+catId+"\" value=\""+catSortnum+"\" size='1'/></td>";
+            options[1]+="<td>"+PadLeft(catName,level,"&nbsp;&nbsp;&nbsp;&nbsp;",true)+"</td>";
+            options[1]+="<td>"+catAlias+"</td>";
+            options[1]+="<td>"+catPosts+"</td>";
+            options[1]+="<td>"+"<a href=\"/admin/cat/"+catId+"/\">编辑</a>&nbsp;|&nbsp;<a href=\"/admin/cat/"+catId+"/?action=delete\">删除</a>"+"</td>";
+            options[1]+="</tr>";
+        
+            var tree=buildCatTree(catId,level);
+            options[0]+=tree[0];
+            options[1]+=tree[1];
+        }
+            
+        return options;
+    }
+            
+    function selectPosition(obj) {
+        var tree=buildCatTree(0,-1);
+        
+        var options="<option value='0'>主分类</option>"+tree[0];
+        
+        $("#parentId").html(options);
+        $("#catList").html(tree[1])
+    }
+
+</script>
+{% endblock %}
+{% block content %}
+<div class="tbox">
+    {% if message%}
+    <b>{{message}}</b>
+    {% endif %}
+    <table>
+        <tr>
+            <td class="editBox">
+                <div id="widget_{{widget.name}}" class="border tbox">
+            
+                    <div class="hd">
+                        <h2>添加分类</h2>
+                    </div>
+                    <div class="bd">
+                        <form name="catForm" id="catForm" method="POST" action="" autocomplete="off">
+                            {% csrf_token %}
+                            <div class="rowItem">
+                                <label>父级</label>
+                                <select  name="parentId" id="parentId" onchange=""></select>
+                            </div>
+
+                            <div class="rowItem">
+                                <label>名称</label>
+                                <input name="name" id="name" class="required"/>
+                            </div>
+                            <div class="rowItem">
+                                <label>别名</label>
+                                <input name="alias" id="alias"  />
+                            </div>
+
+                            <div class="rowItem">
+                                <label>排序</label>
+                                <input name="sortnum" type="text" value="0" class="digits"/>
+                            </div>
+                            <div class="rowItem">
+                                <label>模板</label>
+                                <select name="template">
+                                    {% for key,value in self.themeConfig.cattemplate.items %}
+                                    <option value="{{key}}" {% ifequal self.options.cat_template key%} selected="selected"{% endifequal%}>{{value}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="rowItem">
+                                <label>侧边栏</label>
+                                <select name="sidebar">
+                                    {% for sidebarInfo in self.sidebarList %}
+                                    <option value="{{sidebarInfo.id}}" {% ifequal self.options.cat_sidebar sidebarInfo.id%} selected="selected"{% endifequal%}>{{sidebarInfo.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="rowItem">
+                                <input type="submit" name="ok" value="--添加--"/>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </td>
+            <td>
+                <form name="form1" method="POST" action="" autocomplete="off">
+                    {% csrf_token %}
+
+                    <table class="dataList">
+                        <thead>
+                            <tr class="dataHeader">
+                                <th width="5">排序</th>
+                                <th>名称</th>
+                                <th width="80">别名</th>
+                                <th width="40">文章</th>
+                                <th width="80">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="catList">
+                      
+                        </tbody>
+                        <tfoot>
+                            <tr class="dataFooter">
+                                <td colspan="5"><input type="submit" name="okSort" value="更新排序"/></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+  
+</div>
+
+
+
+
+{% endblock %}
+
+

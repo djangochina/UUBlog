@@ -1,0 +1,27 @@
+{% load url from future %}
+{% load uublogtags %}
+
+{% if pageObject %}
+{% if pageObject.has_previous or pageObject.has_next %}
+<div class="pagination">
+    <ul>
+        {% if pageObject.has_previous %}
+        <li class="previous">
+            <a href="?{% DoQueryString view.currentQueryString page=pageObject.previous_page_number %}">上一页</a>
+        </li>
+        {% endif %}
+        
+        <li class="current">
+            当前页 {{ pageObject.number }} of {{ pageObject.paginator.num_pages }}
+        </li>
+
+        {% if pageObject.has_next %}
+        <li class="next">
+            <a href="?{% DoQueryString view.currentQueryString page=pageObject.next_page_number %}">下一页</a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+
+{% endif %}
+{% endif %}

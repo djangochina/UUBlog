@@ -1,0 +1,10 @@
+{% extends "widgets/basewidget.html" %}
+{% load url from future %}
+
+{% block widgetBody %}
+<div>
+    <form name="searchForm" id="searchForm" method="GET" action="{% url 'search' %}" >
+        <input name="word"/><input type="submit" value="确定"/>
+    </form>
+</div>
+{% endblock %}

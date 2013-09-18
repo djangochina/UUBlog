@@ -1,0 +1,63 @@
+{% extends "accounts/pub/basepage.html"%}
+
+{% block title%} 首页 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <div class="rowItem">
+                <span>用户名</span>
+                {{userInfos.currentuser.username}}
+            </div>
+            <div class="rowItem">
+                <span>QQ</span>
+                <input name="qq" type="text" size="60" value="{{currentUserProfile.qq}}"/>
+            </div>
+            <div class="rowItem">
+                <span>MSN</span>
+                <input name="msn" type="text" size="60" value="{{currentUserProfile.msn}}"/>
+            </div>
+            <div class="rowItem">
+                <span>阿里旺旺</span>
+                <input name="taobao" type="text" size="60" value="{{currentUserProfile.taobao}}"/>
+            </div>
+            <div class="rowItem">
+                <span>Email</span>
+                <input name="email" type="text" size="60" value="{{currentUserProfile.email}}"/>
+            </div>
+            <div class="rowItem">
+                <span>固定电话</span>
+                <input name="taobao" type="text" size="60" value="{{currentUserProfile.phone}}"/>
+            </div>
+            <div class="rowItem">
+                <span>移动电话</span>
+                <input name="email" type="text" size="60" value="{{currentUserProfile.mobile}}"/>
+            </div>
+            <div class="rowItem">
+                <span>联系地址</span>
+                <input name="email" type="text" size="60" value="{{currentUserProfile.address}}"/>
+            </div>
+            <div class="rowItem">
+                <span>邮政编码</span>
+                <input name="email" type="text" size="60" value="{{currentUserProfile.zipcode}}"/>
+            </div>
+            <div class="rowItem">
+                <input type="submit" name="ok" value="--修改--"/>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block sidebar%}
+
+{% include 'accounts/pub/sidebar.html' %}
+
+{% endblock %}

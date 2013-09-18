@@ -1,0 +1,22 @@
+{% load url from future %}
+
+<div id="header">
+    <div class="wrapbox">
+        <div id="blogTitle">
+            <h1><a href="/">
+                    {{self.options.title}}
+                </a></h1>
+            <p>{{self.options.description}}</p>
+        </div>
+        <div class="clear"></div>
+        <div id="blogNav">
+            <ul class='navs_0 sf-menu' id='mainNav'>{{self.navs.main|safe}}</ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="clear">
+</div>
+
+

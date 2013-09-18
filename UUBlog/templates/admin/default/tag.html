@@ -1,0 +1,94 @@
+{% extends "admin/default/container.html"%}
+{% load url from future %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        
+
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <div class="floatL">
+            <form name="form1" method="POST" action="" >
+                {% csrf_token %}
+                <div class="rowItem">
+                    <span>父级</span>
+                    <input name="isnav" type="checkbox" {% ifequal categoryInfo.isnav 1 %} checked="checked" {% endifequal %}/>
+                </div>
+
+                <div class="rowItem">
+                    <span>名称</span>
+                    <input name="name" id="name" value="{{categoryInfo.name}}" />
+                </div>
+                <div class="rowItem">
+                    <span>名称</span>
+                    <input name="alias" id="alias" value="{{categoryInfo.alias}}" />
+                </div>
+
+                <div class="rowItem">
+                    <span>排序</span>
+                    <input name="sortnum" type="text" value="{{categoryInfo.sortnum}}"/>
+                </div>
+                
+                <div class="rowItem">
+                    <input type="submit" name="ok" value="--修改--"/>
+                </div>
+            </form>
+        </div>
+
+       
+        <table width="50%" class="floatR">
+            <th>
+                <tr>
+                    <td>名称</td>
+                    <td>名称</td>
+                    <td width="60">排序</td>
+                    <td width="120">操作</td>
+                </tr>
+            </th>
+            <tbody>
+                
+                {% for categoryInfo in categoryList%}
+                <tr>
+                    <td>{{categoryInfo.name}}</td>
+                    <td>{{categoryInfo.alias}}</td>
+                    <td>{{categoryInfo.sortnum}}</td>
+                    <td><a href="{% url 'admin_category_manager' cid=categoryInfo.id %}">编辑</a>
+                        &nbsp;
+                        <a href="{% url 'admin_category_manager' cid=categoryInfo.id %}">删除</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block sidebar%}
+<div class="tbox">
+    <div class="hd"><h2>文章管理</h2></div>
+    <ul class="bd">
+        <li><a href="{% url 'blogpubarticleadd' uid=userInfos.currentuser.id%}">添加新文章</a></li>
+        <li><a href="{% url 'blogpubarticlelistdraft' uid=userInfos.currentuser.id%}">草稿箱</a></li>
+    </ul>
+</div>
+<div class="tbox">
+    <div class="hd"><h2>分类管理</h2></div>
+    <ul class="bd">
+        <li><a href="{% url 'blogpubcategory' uid=userInfos.currentuser.id%}">编辑分类</a></li>
+        <li><a href="{% url 'blogpubarticlelist' uid=userInfos.currentuser.id %}">所有文章</a></li>
+        <li><a href="{% url 'blogpubarticlelistcategory' uid=userInfos.currentuser.id cid=1%}">未分类</a></li>
+        {% if categoryList %}
+        {% for categoryInfo in categoryList %}
+        <li><a href="{% url 'blogpubarticlelistcategory' uid=userInfos.currentuser.id cid=categoryInfo.id%}">{{categoryInfo.name}}</a></li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}

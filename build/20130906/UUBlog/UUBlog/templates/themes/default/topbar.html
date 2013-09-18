@@ -1,0 +1,24 @@
+﻿<div id="topbar">
+    <div class="wrapbox">
+        <div class=" floatL topNav">
+            <ul>
+                <li><a href="/"> UUBlog</a></li>
+                {% for navInfo in view.navs.top.left %}
+                <li><a href="{{navInfo.url}}" target="{{navInfo.target}}">{{navInfo.name}}</a></li>
+                {% endfor %}
+            </ul>
+                    
+        </div>
+        <div class="floatR topNav">
+            <ul>
+                {% for navInfo in view.navs.top.right %}
+                <li><a href="{{navInfo.url}}" target="{{navInfo.target}}">{{navInfo.name}}</a></li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="clear">
+</div>

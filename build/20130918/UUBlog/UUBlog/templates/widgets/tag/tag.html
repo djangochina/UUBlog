@@ -1,0 +1,12 @@
+{% extends "widgets/basewidget.html" %}
+{% load url from future %}
+
+{% block widgetBody %}
+<ul>
+    {% for post in widget.data%}
+    <li>{{post.title}}</li>
+{% endfor %}
+</ul>
+{% endblock %}
+
+

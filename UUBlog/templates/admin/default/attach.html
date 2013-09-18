@@ -1,0 +1,52 @@
+{% extends "admin/default/container.html"%}
+{% load url from future %}
+
+{% block styles %}
+
+<link rel="stylesheet" type="text/css" href="/static/uploadify/uploadify.css">
+{% endblock %}
+{% block scripts %}
+
+<script type="text/javascript" charset="utf-8" src="/static/uploadify/jquery.uploadify.min.js"></script>
+
+
+<script type="text/javascript">
+$(function() {
+    $("#file_upload_1").uploadify({
+        
+        'swf'           : '/static/uploadify/uploadify.swf',
+        'uploader'      : '{% url 'admin_attach_upload'%}',
+        'cancelImg': '/static/uploadify//cancel.png',
+        'auto'     : false
+       
+    });
+});
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div class="tbox">
+        {% if message%}
+        <b>{{message}}</b>
+    {% endif %}
+    
+   
+
+    
+
+    <table>
+        <tr>
+            <td>
+                       
+                <input id="file_upload_1" name="file_upload_1" type="file" multiple="true">
+                <span id="startUpload"><a href="javascript:$('#file_upload_1').uploadify('upload','*')">开始上传</a></span>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+{% endblock %}
+
+

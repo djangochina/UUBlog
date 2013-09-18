@@ -1,0 +1,46 @@
+{% extends "widgets/basewidget_setting.html" %}
+{% load url from future %}
+
+{% block widgetForm %}
+<div class="rowItem">
+    <label>评论来源</label>
+    <select name="commentsource">
+        <option value="0" {% if params.commentsource == '0'%} selected="selected" {% endif %}>全部</option>
+        <option value="1" {% if params.commentsource == '1'%} selected="selected" {% endif %}>文章</option>
+        <option value="2" {% if params.commentsource == '2'%} selected="selected" {% endif %}>页面</option>
+    </select>
+</div>
+<div class="rowItem">
+    <label>排序类型</label>
+    <select name="orderby">
+        <option value="-createtime" {% if params.orderby == '-createtime'%} selected="selected" {% endif %}>按发布时间倒序排序</option>
+        <option value="-goods" {% if params.orderby == '-goods'%} selected="selected" {% endif %}>按好评倒序排序</option>
+        <option value="-bads" {% if params.orderby == '-bads'%} selected="selected" {% endif %}>按差评倒序排序</option>
+    </select>
+</div>
+<div class="rowItem">
+    <label>时间范围</label>
+    <select name="createtimerange">
+        <option value="0" {% if params.createtimerange == '0'%} selected="selected" {% endif %}>不限制</option>
+        <option value="3600" {% if params.createtimerange == '3600'%} selected="selected" {% endif %}>1小时内</option>
+        <option value="86400" {% if params.createtimerange == '86400'%} selected="selected" {% endif %}>24小时内</option>
+        <option value="604800" {% if params.createtimerange == '604800'%} selected="selected" {% endif %}>7天内</option>
+        <option value="2592000" {% if params.createtimerange == '2592000'%} selected="selected" {% endif %}>1个月内</option>
+    </select>
+</div>
+
+<div class="rowItem">
+    <label>标题长度</label>
+    <input type="text" name="titlelength"  value="{{params.titlelength}}">
+</div>
+<div class="rowItem">
+    <label>内容长度</label>
+    <input type="text" name="contentlength"  value="{{params.contentlength}}">
+</div>
+<div class="rowItem">
+    <label>显示数量</label>
+    <input name="count" type="text" value="{{params.count}}"/>
+</div>
+
+{% endblock %}
+

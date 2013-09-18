@@ -1,0 +1,105 @@
+<div id="module_Archive" class="border tbox">
+    <div class="hd">
+        <h2>仪表盘</h2>
+    </div>
+    <div class="bd">
+        <ul>
+            <li><a href="{% url 'admin_index' %}">首页</a></li>
+           
+        </ul>
+    </div>
+    <div class="ft"></div>
+</div>
+<div id="module_Archive" class="border tbox">
+    <div class="hd">
+        <h2>内容</h2>
+    </div>
+    <div class="bd">
+        <ul>
+            <li><a href="{% url 'admin_post_manager' %}">所有文章</a></li>
+            <li><a href="{% url 'admin_post_edit' %}">新建文章</a></li>
+            <li><a href="{% url 'admin_cat_manager' %}">分类</a></li>
+            <li><a href="{% url 'admin_tag_manager' %}">Tag</a></li>
+
+            <li><a href="{% url 'admin_page_manager' %}">页面管理</a></li>
+            <li><a href="{% url 'admin_page_edit' %}">新建页面</a></li>
+            
+
+        </ul>
+    </div>
+    <div class="ft"></div>
+</div>
+<div id="module_Archive" class="border tbox">
+    <div class="hd">
+        <h2>附件</h2>
+    </div>
+    <div class="bd">
+        <ul>
+            {% for articleInfo in widget.datas %}
+            <li><a href="{% url 'blogarticleshow' uid=articleInfo.user_id aid=articleInfo.id%}">{{articleInfo.title}}</a>({{articleInfo.comments}})</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="ft"></div>
+</div>
+<div id="module_Archive" class="border tbox">
+    <div class="hd">
+        <h2>外观</h2>
+    </div>
+    <div class="bd">
+        <ul>
+            <li><a href="{% url 'admin_theme_manager' %}">主题</a></li>
+            <li><a href="{% url 'admin_widget_manager' %}">小工具</a></li>
+            <li><a href="{% url 'admin_nav_manager' %}">菜单</a></li>
+            <li><a href="{% url 'admin_file_manager' %}">编辑</a></li>
+        </ul>
+    </div>
+    <div class="ft"></div>
+</div>
+<div id="module_Archive" class="border tbox">
+    <div class="hd">
+        <h2>设置</h2>
+    </div>
+    <div class="bd">
+        <ul>
+            <li><a href="{% url 'admin_setting_base' %}">基本</a></li>
+            
+            
+            <li><a href="{% url 'admin_setting_content' %}">内容</a></li>
+            <li><a href="{% url 'admin_setting_comment' %}">评论</a></li>
+
+            <li><a href="{% url 'admin_setting_other' %}">其他</a></li>
+            <li><a href="{% url 'admin_setting_avatar' %}">头像</a></li>
+
+            <li><a href="{% url 'admin_setting_base' %}">主题</a></li>
+        </ul>
+    </div>
+    <div class="ft"></div>
+</div>
+<div class="tbox">
+    <div class="hd"><h2>管理</h2></div>
+    <ul class="bd">
+        
+
+    </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

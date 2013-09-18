@@ -1,0 +1,23 @@
+{% extends "themes/default/basepage.html"%}
+
+{% block container %}
+{% with float=view.options.sidebar_float %}
+
+{% if float == "left"%}
+<div id="sidebar" class="floatL">
+    {% include 'themes/default/siderbar.html'%}
+</div>
+{% endif %}
+
+<div id="mainContent" class={% if float == "left"%}"floatR"{% else %}"floatL" {% endif %}>
+    {% block content %}{% endblock %}
+</div>
+
+{% if float != "left"%}
+<div id="sidebar" class="floatR">
+    {% include 'themes/default/siderbar.html'%}
+</div>
+{% endif %}
+
+{% endwith %}
+{% endblock %}

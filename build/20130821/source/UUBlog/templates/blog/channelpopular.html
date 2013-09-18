@@ -1,0 +1,129 @@
+﻿{% extends 'blog/basepage.html'%}
+{% block styles %}
+<style type="text/css">
+    .channelListPopular{}
+.channelListPopular .channelContainer {}
+.channelListPopular .channelContainer .channelItem{display: inline;
+float: left;
+margin-left: 20px;
+padding: 8px 8px 15px;
+background: white url(http://mat1.gtimg.com/www/mb/res/img/channel/201301/yp_item_s.png) left bottom no-repeat;
+width: 204px;
+-webkit-box-shadow: 0 4px 4px rgba(218,218,218,1);
+box-shadow: 0 4px 4px rgba(218,218,218,1);
+margin-bottom: 15px;}
+.channelListPopular .channelContainer .channelItem .item_hd{line-height: 23px;
+padding-bottom: 5px;}
+.channelListPopular .channelContainer .channelItem .item_bd{height: 134px;
+overflow: hidden;
+font-size: 0;}
+.channelListPopular .channelContainer .channelItem .item_ft{}
+</style>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" charset="utf-8" src="/static/scripts/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+    function ListenChannel() {
+        ajaxurl = "{% url 'blogajaxlistenchannel' %}";
+        postData = {"channelid":$("#channel_id").val()};
+        
+/**
+        $.post(ajaxurl, postData,
+
+            function (data, textStatus){
+
+                // data 可以是 xmlDoc, jsonObj, html, text, 等等.
+                //this; // 这个Ajax请求的选项配置信息，请参考jQuery.get()说到的this
+                alert(data.result);
+
+                }, 
+            "json");
+   **/
+        
+        $.ajax({
+            type: "GET",
+            data: postData,
+            url: ajaxurl,
+            cache: false,
+            dataType: "json",
+            success: function(data, textStatus) {
+                //alert(data);
+                $("#listenstatus").html("已收听");
+                //$("#listenChannel").attr("disabled", "disabled");
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest);
+                $("#message").html(XMLHttpRequest);
+                $('#comment_form form').replaceWith('Your comment was unable to be posted at this time.  We apologise for the inconvenience.');
+            }
+        });
+        
+        return false;
+    }
+</script>
+
+{% endblock %}
+
+{% block container %}
+<div id="wrap_content">
+    <div class="channelListPopular">
+        <div id="channelNavigate" class="border tbox">
+            <dir class="hd">
+                最受欢迎
+                
+            </dir>
+        </div>
+        <div class="channelContainer">
+            
+        
+            {% if channelListPopular %}
+            {% for channelInfo in channelListPopular%}
+            <div class="channelItem">
+                <div class="item_hd">
+                    <div class="left"><a href="{% url 'blogchannel' cid=channelInfo.id%}">{{channelInfo.name}}</a></div>
+                    <div class="right">{{channelInfo.users}}</div>
+                </div>
+                <div class="item_bd">
+                </div>
+                <div class="item_ft"></div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<div id="wrap_sidebar">
+
+    <div id="module_Channel" class="border tbox">
+        <div class="hd">
+            <h2>频道</h2>
+        </div>
+        <div id="channelList" class="bd">
+            <ul>
+                <li><a href="aaa}">我的频道</a></li>
+<li><a href="{% url 'blogchannelpopular'%}">最受欢迎</a></li>
+                {% if channelList %}
+                {% for channelInfo in channelList %}
+                <li><a href="{% url 'blogchannel' cid=channelInfo.id%}">{{channelInfo.name}}</a></li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        <div class="ft"></div>
+    </div>
+    {% if myModules %}
+            {% for module in myModules %}
+                {% with "blog/modules/"|add:module|add:".html" as template%}
+                {% include template %}
+                {% endwith %}
+
+            {% endfor %}
+                
+        {% else %}
+    {% endif %}
+</div>
+
+
+{% endblock %}

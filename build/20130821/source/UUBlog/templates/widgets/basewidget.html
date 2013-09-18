@@ -1,0 +1,15 @@
+
+<div id="widget_{{widget.name}}" class="border tbox">
+    {% if widget.isshowtitle %}
+    <div class="hd">
+        <h2>{{widget.title}}</h2>
+        <span class="more"><a href="/widget/{{widget.name}}/{{widget.id}}/" target="_blank">设置</a></span>
+    </div>
+{% endif %}
+    <div class="bd">
+        {% block widgetBody %}{% endblock %}
+    </div>
+    <div class="ft">
+        {% block widgetFooter %}{% endblock %}
+    </div>
+</div>

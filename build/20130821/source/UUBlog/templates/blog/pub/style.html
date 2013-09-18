@@ -1,0 +1,39 @@
+{% extends "blog/pub/basepage.html"%}
+
+{% block title%} 首页 {% endblock %}
+
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+        <form name="form1" method="POST" action="" >
+            {% csrf_token %}
+            <div class="rowItem">
+                <span>CSS代码</span>
+                <textarea name="css">{{currentBlog.css}}</textarea>
+            </div>
+            <div class="rowItem">
+                <span>页首Html代码</span>
+                <textarea name="headhtml">{{currentBlog.headhtml}}</textarea>
+            </div>
+            <div class="rowItem">
+                <span>页脚Html代码</span>
+                <textarea name="footerhtml">{{currentBlog.footerhtml}}</textarea>
+
+            </div>
+            <div class="rowItem">
+                <input type="submit" name="ok"  value="--修改--"/>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block sidebar%}
+
+{% include 'blog/pub/sidebar.html' %}
+
+{% endblock %}

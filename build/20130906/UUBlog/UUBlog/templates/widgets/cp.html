@@ -1,0 +1,14 @@
+{% extends "widgets/basewidget.html" %}
+{% block widgetBody %}
+
+
+<ul>
+    {% if widget.data.is_superuser %}
+    <li><a href="{% url 'admin_index' %}" target="_blank">管理</a></li>
+    <li><a href="{% url 'logout' %}">退出</a></li>
+    {%else%}
+    <li><a href="{% url 'login' %}" target="_blank">登录</a></li>
+    {% endif %}
+</ul>
+{% endblock %}
+

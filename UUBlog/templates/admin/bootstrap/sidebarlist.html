@@ -1,0 +1,93 @@
+{% extends "admin/bootstrap/container.html"%}
+
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#sidebarForm").validate();
+    });
+</script>
+
+{% endblock %}
+{% block content %}
+<div class="tbox">
+        {% if message%}
+        <b>{{message}}</b>
+        {% endif %}
+    <table >
+        <tr>
+            <td class="editBox">
+                <div id="widget_{{widget.name}}" class="border tbox">
+            
+                    <div class="hd">
+                        <h2>添加侧边栏</h2>
+                    </div>
+                    <div class="bd">
+                        <form name="sidebarForm" id="sidebarForm" method="POST" action="" autocomplete="off">
+                            {% csrf_token %}
+                            <div class="rowItem">
+                                <label>ID</label>
+                                <input name="id" id="id" value="{{catInfo.alias}}"  class="required"/>
+                            </div>
+
+                            <div class="rowItem">
+                                <label>名称</label>
+                                <input name="name" id="name" value="{{catInfo.name}}"  class="required"/>
+                            </div>
+                            
+
+                            <div class="rowItem">
+                                <label>描述</label>
+                                <input name="description" type="text" value="{{catInfo.sortnum}}"/>
+                            </div>
+                
+                            <div class="rowItem">
+                                <input type="submit" name="ok" value="--添加--"/>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </td>
+            <td>
+                <table class="dataList" >
+                    <thead>
+                         <tr class="dataHeader">
+                             <th width="80">ID</th>
+                             <th>名称</th>
+
+                            <th>描述</th>
+                            <th width="120">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="navList">
+                
+                        {% for sidebarInfo in mySidebarList%}
+                        <tr class="dataItem">
+                            <td>{{sidebarInfo.id}}</td>
+                            <td>{{sidebarInfo.name}}</td>
+                            <td>
+                                {{sidebarInfo.description}}
+                            </td>
+                            <td>
+                                <a href="{% url 'admin_widget_manager' sid=sidebarInfo.id%}">小工具</a>&nbsp;|&nbsp;<a href="{% url 'admin_sidebar_edit' sid=sidebarInfo.id%}">编辑</a>&nbsp;|&nbsp;<a href="{% url 'admin_sidebar_edit' sid=sidebarInfo.id%}?action=delete">删除</a>
+
+                            </td>
+                   
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+  
+</div>
+
+
+{% endblock %}
+

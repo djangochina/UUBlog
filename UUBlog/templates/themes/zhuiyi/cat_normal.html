@@ -1,0 +1,34 @@
+{% extends self.themeConfig.containerpath %}
+{% load url from future %}
+
+{% block title%}{{catInfo.name}}{{block.super}}{% endblock %}
+{% block keywords %}{{catInfo.name}},{{block.super}}{% endblock %}
+{% block description %}{{catInfo.name}},{{block.super}}{% endblock %}
+
+{% block content %}
+
+<div class="postList">
+   
+    {% for postInfo in postList%}
+    <div class="border post">
+        <div class="postTitle"><h2><a href="{% url 'post' pid=postInfo.id%}">{{postInfo.title}}</a></h2></div>
+        <div class="postCon">
+            {{postInfo.summary|striptags}}       
+        </div>
+        <div class="postMeta">
+            <span>{{postInfo.username}}&nbsp;&nbsp;┆&nbsp;&nbsp;{{postInfo.createtime|date:self.options.datetimeformat}}
+&nbsp;&nbsp;┆&nbsp;&nbsp;阅读({{postInfo.views}})&nbsp;&nbsp;┆&nbsp;&nbsp;评论({{postInfo.comments}})
+&nbsp;&nbsp;┆&nbsp;&nbsp;支持({{postInfo.goods}})&nbsp;&nbsp;┆&nbsp;&nbsp;反对({{postInfo.bads}})
+               
+            </span>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% with "themes/"|add:self.theme|add:"/pagination.html" as pagination%}
+        {% include pagination%}
+    {% endwith %}
+
+</div>
+
+{% endblock %}
