@@ -1,7 +1,0 @@
-
-name
-title
-attdef：[{"name":"test_name","label":"文本","form":"radio","value":"aaa,bbb,ccc"}]
-dataformat:1—列表数据；2—文本数据；3—Sql数据；4—函数
-datadef	[{"name":"test_linkname","label":"连接名称","form":"text"},{"name":"test_linkurl","label":"连接地址","form":"text"}]
-renderdef

@@ -1,8 +1,0 @@
-{% load uublogtags %}
-
-{% for blogWidget in myWidgetList %}
-
-                        {% with "widgets/"|add:blogWidget.name|add:".html" as template%}
-                        {% include template  with widget=blogWidget only%}
-                        {% endwith %}
-                {% endfor %}
