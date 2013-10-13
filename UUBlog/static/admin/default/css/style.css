@@ -15,7 +15,7 @@ border: 1px solid white;
 /*头和主菜单*/
 #header{border-radius: 3px 3px 0 0;
 border-bottom: solid 1px white;
-background: url(/static/admin/simple/images/header_bg.gif) repeat-x;
+background: url(/static/admin/default/images/header_bg.gif) repeat-x;
 height: 73px;}
 
 #mainMenu{}
@@ -25,7 +25,7 @@ height: 73px;}
 
 /*左侧面板和二级菜单*/
 #leftPanel {float: left;
-background: transparent url(/static/admin/simple/images/submenu_bg.gif) repeat-y;
+background: transparent url(/static/admin/default/images/submenu_bg.gif) repeat-y;
 width: 210px;height: 100%; }
 
 #subMenu{}
