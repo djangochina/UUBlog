@@ -111,8 +111,8 @@
                                     {% if myWidgetInfo.isshowtitle%} 显示 {% else %}隐藏{% endif %}{{myWidgetInfo.sidebar_id}}
                                 </td>
                                 <td>
-                                    <a href="#" onclick="window.open('/widget/{{myWidgetInfo.widget}}/{{myWidgetInfo.id}}/');">编辑</a>&nbsp;|&nbsp;
-                                    <a href="#" onclick="showWidget('/widget/{{myWidgetInfo.widget}}/{{myWidgetInfo.id}}/');">编辑</a>&nbsp;|&nbsp;
+                                    <a href="{% url 'admin_widget_edit' wid=myWidgetInfo.id %}">设置</a>&nbsp;|&nbsp;
+                                    <a href="#" onclick="showWidget('{% url 'admin_widget_edit' wid=myWidgetInfo.id %}');">编辑</a>&nbsp;|&nbsp;
 
                                     <a href="{% url 'admin_widget_edit' sid=myWidgetInfo.sidebar_id wid=myWidgetInfo.id%}?action=delete">删除</a>
                                 </td>

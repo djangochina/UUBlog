@@ -19,10 +19,16 @@
     $(document).ready(function() {
         $("#postForm").validate();
         selectPosition(null);
-        
+
+
         {% if postInfo %}
         $("#catTree").val("{{ postInfo.category_id}}");
-        $("#sidebarfloat").val("{{ postInfo.sidebarfloat}}");
+            {% if postInfo.sidebarfloat == '' %}
+            $("#sidebarfloat").val("{{ self.options.post_sidebar_float}}");
+            {% else %}
+            $("#sidebarfloat").val("{{ postInfo.sidebarfloat}}");
+            {%  endif %}
+
         {% endif %}
     });
         

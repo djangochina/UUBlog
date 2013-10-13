@@ -61,31 +61,33 @@ class PostListView(UBaseAdminView):
 #edit post or create new post
 class PostEditView(UBaseAdminView):
 
-    def GetContext(self, **kwargs):
-        action=self.GetGetData("action","edit")
-        pid= utility.ToInt(utility.GetDicData(kwargs,"pid"),0)
+    def DefaultTemplateName(self):
+        return "post"
 
-        if action=="edit":
-            if pid>0:
-                postInfo=self.GetPost(pid)
+    def GetContext(self, **kwargs):
+        action = self.GetGetData("action", "edit")
+        pid = utility.ToInt(utility.GetDicData(kwargs, "pid"), 0)
+
+        if action == "edit":
+            if pid > 0:
+                postInfo = self.GetPost(pid)
                 if postInfo is None:
-                    self.message="文章不存在"
+                    self.message = "文章不存在"
                     self.SetTemplateName("message")
-                    self.redirectUrl="/admin/postlist/"
-                    self.autoRedirect=False
+                    self.redirectUrl = "/admin/postlist/"
+                    self.autoRedirect = False
                     return locals()
             else:
                 postInfo=Post()
 
-            catTree="var data=Array();"
-            catTree+=self.BuildCatTreeJs(0,-1,-1)
-            self.SetTemplateName("post")
+            catTree = "var data=Array();"
+            catTree += self.BuildCatTreeJs(0, -1, -1)
 
         else:
-            if action=="delete":
+            if action == "delete":
                 Post.objects.filter(id=pid).delete()
-            self.currentQueryString=self.BuildQueryString(self.currentQueryDic,action=None)
-            self.redirectUrl="/admin/postlist/"
+            self.redirectUrl = "/admin/postlist/"
+            self.currentQueryString = self.BuildQueryString(self.currentQueryDic, action=None)
 
         return locals()
 
@@ -93,41 +95,41 @@ class PostEditView(UBaseAdminView):
 
         if self.HasPostData('ok'):
 
-            pid=utility.ToInt(utility.GetDicData(kwargs,"pid"),0)
-            catId=utility.ToInt(self.GetPostData("catTree"),0)
-            oldCatId=None
+            pid = utility.ToInt(utility.GetDicData(kwargs, "pid"), 0)
+            catId = utility.ToInt(self.GetPostData("catTree"), 0)
+            oldCatId = None
 
-            postInfo=self.GetPost(pid)
+            postInfo = self.GetPost(pid)
             if postInfo is None:
-                postInfo=Post()
+                postInfo = Post()
             else:
-                oldCatId=postInfo.category_id
+                oldCatId = postInfo.category_id
             
-            postInfo.category_id=catId
+            postInfo.category_id = catId
             
-            SetPostValues(self.request,postInfo)
+            SetPostValues(self.request, postInfo)
 
             titlepic = self.GetFile("titlepic")
             if titlepic is not None:
-                attachInfo=self.SaveFile(titlepic)
+                attachInfo = self.SaveFile(titlepic)
 
-                postInfo.titlepic=attachInfo.path
+                postInfo.titlepic = attachInfo.path
 
             else:
-                pics=utility.GetImgSrc(postInfo.content)
+                pics = utility.GetImgSrc(postInfo.content)
                 if pics:
-                    postInfo.titlepic=pics[0]
+                    postInfo.titlepic = pics[0]
                         
             postInfo.save()
 
             #更新分类统计信息 不是默认分类并且是发布的文章
-            if catId !=0 and postInfo.status:
-                categoryInfo=Category.objects.get(id=catId)
-                categoryInfo.posts+=1
+            if catId != 0 and postInfo.status:
+                categoryInfo = self.GetCat(catId)
+                categoryInfo.posts += 1
                 categoryInfo.save()
             if oldCatId:
 
-                if oldCatId==catId:
+                if oldCatId == catId:
                     pass
                 else:
 
@@ -139,15 +141,15 @@ class PostEditView(UBaseAdminView):
         return locals()
 
             
-def SetPostValues(request,postInfo):
+def SetPostValues(request, postInfo):
    
     title = pub.GetPostData(request,'title')
-    summary=pub.GetPostData(request,'summary')
+    summary = pub.GetPostData(request,'summary')
     content = pub.GetPostData(request,'content')
 
-    tags=pub.GetPostData(request,'tags')
+    tags = pub.GetPostData(request,'tags')
     status = pub.GetPostData(request,'status')
-    createtime=pub.GetPostData(request,"createtime")
+    createtime = pub.GetPostData(request,"createtime")
 
     cancomment = pub.GetPostData(request,'cancomment')
     istop=pub.GetPostData(request,"istop",False)
@@ -156,11 +158,11 @@ def SetPostValues(request,postInfo):
     sidebar=pub.GetPostData(request,"sidebar","normal")
     sidebarfloat=pub.GetPostData(request,"sidebarfloat","none")
 
-    if summary=="":
-        tempContent=utility.RemoveTags(content)
-        summary=tempContent[0:200] if len(tempContent)>200 else tempContent
+    if summary == "":
+        tempContent = utility.RemoveTags(content)
+        summary = tempContent[0:200] if len(tempContent) > 200 else tempContent
     else:
-        summary=utility.RemoveTags(summary)
+        summary = utility.RemoveTags(summary)
    
 
     postInfo.title = title

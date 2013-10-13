@@ -10,7 +10,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>{% block title %}管理面板-UUBlog{% endblock %}</title>
        
-        <link rel="stylesheet" type="text/css" href="/static/admin/simple/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="/static/admin/default/css/style.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/screen.css" />
        
         {% block styles %}{% endblock %}
@@ -58,6 +58,8 @@
                             <li><a onclick="toggleMenu('menuAttachment');">附件</a></li>
                             <li><a onclick="toggleMenu('menuStyle');">界面</a></li>
                             <li><a onclick="toggleMenu('menuMenu');">菜单</a></li>
+                            <li><a onclick="toggleMenu('menuAccount');">用户</a></li>
+
                             <li><a onclick="toggleMenu('menuSetting');">设置</a></li>
 
                         </ul>
@@ -166,6 +168,21 @@
 
                         </div>
 
+                        <div id="menuAccount" class="border tbox menuBox">
+                            <div class="hd">
+                                <h2>用户</h2>
+                            </div>
+                            <div class="bd">
+                                <ul>
+                                    <li><a href="{% url 'admin_account_security' %}">修改密码</a></li>
+            
+            
+                                    
+                                  
+                                </ul>
+                            </div>
+                            <div class="ft"></div>
+                        </div>
 
 
                         <div id="menuSetting" class="border tbox menuBox">

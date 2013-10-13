@@ -23,7 +23,7 @@ class CustomTextSetting(UBaseWidgetView):
      
         return params
 
-    def GetWidgetData(self,**kwargs):
+    def GetWidgetData(self, **kwargs):
         return self.GetPostData('textContent')
 
 def CustomTextView(uBaseBlog,widget,params,*args,**kwargs):

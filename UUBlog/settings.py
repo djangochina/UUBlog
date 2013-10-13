@@ -1,5 +1,6 @@
 # Django settings for UUBlog project.
 import os
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 

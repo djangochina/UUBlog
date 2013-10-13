@@ -49,7 +49,27 @@
             </div>
 
 
+            <div class="rowItem">
+                <label>首页</label>
+                模板<select name="index_template">
+                      {% for key,value in self.themeConfig.indextemplate.items %}
+                      <option value="{{key}}" {% ifequal self.options.index_template key%} selected="selected"{% endifequal%}>{{value}}</option>
+                      {% endfor %}
+                  </select>
 
+                侧边栏<select name="index_sidebar">
+                       {% for sidebarInfo in self.sidebarList %}
+                       <option value="{{sidebarInfo.id}}" {% ifequal self.options.index_sidebar sidebarInfo.id%} selected="selected"{% endifequal%}>{{sidebarInfo.name}}</option>
+                       {% endfor %}
+                   </select>
+                侧边栏位置
+                <select name="index_sidebar_float" id="index_sidebar_float">
+                    <option value="none" >无</option>
+                    <option value="left" >左</option>
+                    <option value="right" >右</option>
+                </select>
+
+            </div>
             <div class="rowItem">
                 <label>分类</label>
                 模板<select name="cat_template">
@@ -93,6 +113,24 @@
 
             </div>
             <div class="rowItem">
+                <label>搜索</label>
+
+
+                侧边栏<select name="search_sidebar">
+                       {% for sidebarInfo in self.sidebarList %}
+                       <option value="{{sidebarInfo.id}}" {% ifequal self.options.search_sidebar sidebarInfo.id%} selected="selected"{% endifequal%}>{{sidebarInfo.name}}</option>
+                       {% endfor %}
+                   </select>
+                侧边栏位置
+                <select name="search_sidebar_float" id="search_sidebar_float">
+                    <option value="none" >无</option>
+                    <option value="left" >左</option>
+                    <option value="right" >右</option>
+                </select>
+
+            </div>
+
+            <div class="rowItem">
                 <label>文章</label>
                 模板<select name="post_template">
                       {% for key,value in self.themeConfig.posttemplate.items %}
@@ -134,48 +172,8 @@
                 </select>
 
             </div>
-            <div class="rowItem">
-                <label>首页</label>
-                模板<select name="index_template">
-                      {% for key,value in self.themeConfig.indextemplate.items %}
-                      <option value="{{key}}" {% ifequal self.options.index_template key%} selected="selected"{% endifequal%}>{{value}}</option>
-                      {% endfor %}
-                  </select>
 
-                侧边栏<select name="index_sidebar">
-                       {% for sidebarInfo in self.sidebarList %}
-                       <option value="{{sidebarInfo.id}}" {% ifequal self.options.index_sidebar sidebarInfo.id%} selected="selected"{% endifequal%}>{{sidebarInfo.name}}</option>
-                       {% endfor %}
-                   </select>
-                侧边栏位置
-                <select name="index_sidebar_float" id="index_sidebar_float">
-                    <option value="none" >无</option>
-                    <option value="left" >左</option>
-                    <option value="right" >右</option>
-                </select>
 
-            </div>
-            <div class="rowItem">
-                <label>搜索</label>
-                模板<select name="search_template">
-                      {% for key,value in self.themeConfig.searchtemplate.items %}
-                      <option value="{{key}}" {% ifequal self.options.search_template key%} selected="selected"{% endifequal%}>{{value}}</option>
-                      {% endfor %}
-                  </select>
-
-                侧边栏<select name="search_sidebar">
-                       {% for sidebarInfo in self.sidebarList %}
-                       <option value="{{sidebarInfo.id}}" {% ifequal self.options.search_sidebar sidebarInfo.id%} selected="selected"{% endifequal%}>{{sidebarInfo.name}}</option>
-                       {% endfor %}
-                   </select>
-                侧边栏位置
-                <select name="search_sidebar_float" id="search_sidebar_float">
-                    <option value="none" >无</option>
-                    <option value="left" >左</option>
-                    <option value="right" >右</option>
-                </select>
-
-            </div>
 
             <div class="rowItem">
                 <label>提示信息</label>

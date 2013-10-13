@@ -12,31 +12,31 @@ from UUBlog.uu.ubaseadmin import UBaseAdminView
 
 
 class RegisterView(UBaseBlogView):
-    def GetContext(self, **kwargs):
-        uid=int(kwargs.get("uid",0))
+    def DefaultTemplateName(self):
+        return "register"
 
-        self.SetTemplateName("register")
+    def GetContext(self, **kwargs):
+        uid = int(kwargs.get("uid", 0))
+
         return locals()
 
     def PostContext(self, **kwargs):
-        uid=int(kwargs.get("uid",0))
+        uid = int(kwargs.get("uid", 0))
 
         if self.HasPostData("ok"):
-            username=self.GetPostData("username")
-            password=self.GetPostData("password")
-            email=self.GetPostData("email")
+            username = self.GetPostData("username")
+            password = self.GetPostData("password")
+            email = self.GetPostData("email")
 
-            user=User.objects.create_user(username,email,password)
-            user.first_name=username
+            user = User.objects.create_user(username, email, password)
+            user.first_name = username
             user.save()
 
-            profile=UserProfile(user=user)
-            profile.nickname=user.username
+            profile = UserProfile(user=user)
+            profile.nickname = user.username
             profile.save()
 
-           
-
-        self.redirectUrl="/"
+        self.redirectUrl = "/"
 
         return locals()
 
@@ -176,36 +176,47 @@ class ContactView(UBaseAdminView):
 
         return locals()
 
+from django.contrib import messages
 #安全
 class SecurityView(UBaseAdminView):
+    def DefaultTemplateName(self):
+        return "account/security"
+
     def GetContext(self, **kwargs):
-        uid=int(kwargs.get("uid",0))
-
-        self.template_name="accounts/pub/security.html"
-
+        self.message = self.GetCookie("changedpasswordsuccess", None)
         return locals()
+
+    def GetResponse(self, response):
+        return super(SecurityView, self).GetResponse(response)
 
     def PostContext(self, **kwargs):
-        uid=int(kwargs.get("uid",0))
 
         if self.HasPostData("ok"):
-            pass
-            #self.currentUserProfile.qq=self.GetPostData("qq")
-            #self.currentUserProfile.msn=self.GetPostData("msn")
-            #self.currentUserProfile.taobao=self.GetPostData("taobao")
-            #self.currentUserProfile.email=self.GetPostData("email")
-            #self.currentUserProfile.phone=self.GetPostData("phone")
-            #self.currentUserProfile.mobile=self.GetPostData("mobile")
-            #self.currentUserProfile.address=self.GetPostData("address")
-            #self.currentUserProfile.zipcode=self.GetPostData("zipcode")
+            oldpassword = self.GetPostData("oldpassword")
+            newpassword1 = self.GetPostData("newpassword1")
+            newpassword2 = self.GetPostData("newpassword2")
 
-            #self.currentUserProfile.save()
+            user = auth.authenticate(username=self.user.username,password=oldpassword)
+            if user is None:
+                self.message = "旧密码不正确"
+                return locals()
+            else:
+                if newpassword1 == "" or newpassword1 != newpassword2:
+                    self.message = "两次密码不一致"
+                    return locals()
+                else:
+                    user.set_password(newpassword1)
+                    self.reload = True
+                    self.SetCookie("changedpasswordsuccess","修改密码成功")
+                    return locals()
 
         return locals()
 
 
 
-
+    def PostResponse(self, response):
+        response.set_cookie("aaa","bbb")
+        return response
 
 
 def UsersMeta(request,uid):

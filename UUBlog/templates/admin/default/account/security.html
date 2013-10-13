@@ -1,0 +1,44 @@
+{% extends "admin/default/container.html"%}
+{% load url from future %}
+
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        
+        $("#securityForm").validate();
+    
+    });
+</script>
+{% endblock %}
+{% block content %}
+<div class="tbox">
+    <div class="bd">
+
+        {% if self.message %}
+        <b>{{self.message}}</b>
+        {% endif %}
+
+        <form name="securityForm" id="securityForm" method="POST" action="" autocomplete="off" >
+            {% csrf_token %}
+            <div class="rowItem">
+                <label>旧密码</label>
+                <input name="oldpassword" type="password" size="60"/>
+            </div>
+            <div class="rowItem">
+                <label>新密码</label>
+                <input name="newpassword1" type="password" size="60" />
+            </div>
+            
+            <div class="rowItem">
+                <label>确认密码</label>
+                <input name="newpassword2" type="password" size="60" class="required"/>
+            </div>
+            <div class="rowItem">
+                <input type="submit" name="ok" value="--修改--"/>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+

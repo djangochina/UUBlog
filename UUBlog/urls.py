@@ -6,15 +6,12 @@ import settings
 from django.contrib import admin
 from UUBlog.views import view
 
-from UUBlog.admin.views import admincategory,admintag,admintheme,adminview,adminpost,adminpage,adminattachment,adminsetting,adminnav,adminsidebar,adminaccount
+from UUBlog.admin.views import admincategory,admintag,admintheme,adminview,adminpost,adminpage,adminattachment,adminsetting,adminnav,adminsidebar, adminwidget, adminaccount
 
 
 admin.autodiscover()
 
-
-
 urlpatterns = patterns('',
-
 )
 
 
@@ -93,20 +90,29 @@ urlpatterns += patterns('',
     url(r'^admin/sidebar/(?P<sid>\w+)/$', adminsidebar.SidebarEditView.as_view(),name="admin_sidebar_edit"),
     url(r'^admin/sidebar/$', adminsidebar.SidebarEditView.as_view(),name="admin_sidebar_edit"),
 
-    url(r'^admin/widgetlist/$', adminsidebar.WidgetManagerView.as_view(),name="admin_widget_manager"),
-    url(r'^admin/widgetlist/(?P<sid>.+)/$', adminsidebar.WidgetManagerView.as_view(),name="admin_widget_manager"),
-    url(r'^admin/widget/(?P<sid>.+)/(?P<wid>\d+)/$', adminsidebar.WidgetEditView.as_view(),name="admin_widget_edit"),
+    url(r'^admin/widgetlist/$', adminwidget.WidgetManagerView.as_view(),name="admin_widget_manager"),
+    url(r'^admin/widgetlist/(?P<sid>.+)/$', adminwidget.WidgetManagerView.as_view(),name="admin_widget_manager"),
 
-   
+    url(r'^admin/widget/(?P<wid>\d+)/$', adminwidget.WidgetSettingView, name='admin_widget_edit'),
+    #url(r'^admin/widget/*/$', adminwidget.WidgetSettingView, name='admin_widget_edit'),
+    url(r'^admin/widget/(?P<sid>.+)/(?P<wid>\d+)/$', adminwidget.WidgetEditView.as_view(),name="admin_widget_edit"),
+
+)
+urlpatterns += patterns('',
+
+)
+#用户设置
+urlpatterns += patterns('',
+                        
+    url(r'^admin/account/security/$', adminaccount.SecurityView.as_view(), name='admin_account_security'),
     
 )
-
 
 #博客设置
 urlpatterns += patterns('',
 
     url(r'^admin/setting/$', adminsetting.BaseView.as_view(), name='admin_setting_base'),
-    url(r'^admin/setting/avatar/$', adminsetting.AvatarView.as_view(), name='admin_setting_avatar'),
+
     url(r'^admin/setting/comment/$', adminsetting.CommentView.as_view(), name='admin_setting_comment'),
     url(r'^admin/setting/content/$', adminsetting.ContentView.as_view(), name='admin_setting_content'),
     url(r'^admin/setting/attachment/$', adminsetting.AttachmentView.as_view(), name='admin_setting_attach'),
@@ -125,16 +131,3 @@ urlpatterns += patterns('',
     url(r'^close/$', view.CloseView.as_view(), name='close'),
 )
 
-from UUBlog.uu.ubaseblog import G
-def AddWidgetUrls():
-    
-    global G
-
-    p=patterns("")
-
-    for key,module in G["widgets"].items():
-        widgetUrl=url(r'^widget/'+key+'/(?P<wid>\d+)/$', module.config["setting"].as_view(), name='widget')
-        p.append(widgetUrl)
-    return p
-
-urlpatterns += AddWidgetUrls()

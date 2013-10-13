@@ -128,8 +128,8 @@ class MyWidget(UBaseModel):
         db_table=TablePrefix+"mywidget"
         verbose_name = "我的Widget管理"
         verbose_name_plural = "我的Widget管理"
-    def __unicode__(self):
-        return self.title
+    #def __unicode__(self):
+    #    return self.title
     sidebar_id=models.CharField(max_length=80)
     widget=models.CharField(max_length=80)
     title=models.CharField(max_length=80)

@@ -18,17 +18,20 @@
         layer.close(widgetLayer);
     }
 </script>
-<div id="widget_{{name}}" class="border tbox widgetSetting">
-    <form name="widgetForm" id="widgetForm" method="POST" action="/widget/{{name}}/{{widget.id}}/" >
+<div id="widget_{{widget.name}}" class="border tbox widgetSetting">
+<p>
+    {{ widget }}
+</p>
+    <form name="widgetForm" id="widgetForm" method="POST" action="{% url 'admin_widget_edit' wid=widget.id %}" >
         {% csrf_token %}
         <input name="ok" value="1" type="hidden"/>
         <div class="rowItem">
             <label>名称</label>
-            <input name="title" id="title" value="{{title}}" />
+            <input name="title" id="title" value="{{widget.title}}" />
         </div>
         <div class="rowItem">
             <label>显示标题</label>
-            <input name="isshowtitle"  value="True" type="checkbox" {% if isshowtitle %}checked="checked"{% endif %}/>
+            <input name="isshowtitle"  value="True" type="checkbox" {% if widget.isshowtitle %}checked="checked"{% endif %}/>
         </div>
 
         {% block widgetForm %}{% endblock %}

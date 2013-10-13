@@ -10,56 +10,85 @@ class UBaseTemplateView(TemplateView):
     
     def __init__(self, **kwargs):
         super(UBaseTemplateView, self).__init__(**kwargs)
-        self.template_name=""
-        self.redirectUrl=None
-        self.autoRedirect=True
-        self.currentUrl="/"
-        self.currentQueryString=None
-        self.currentFullUrl="/"
-        self.currentQueryDic={}
+        self.template_name = ""
+
+        self.redirectUrl = None
+        self.autoRedirect = True
+
+        self.reload = False     #重新加载当前url
+
+        self.currentUrl = "/"
+        self.currentQueryString = None
+        self.currentFullUrl = "/"
+        self.currentQueryDic = {}
+
         self.message=None
 
+    def dispatch(self, *args, **kwargs):
+
+        #设置重定向url
+        self.redirectUrl = None
+
+        #设置当前url连接信息
+        self.currentUrl = self.request.META["PATH_INFO"]
+        self.currentQueryString = self.request.META["QUERY_STRING"]
+
+        if self.currentQueryString is None or self.currentQueryString == "":
+            self.currentFullUrl = self.currentUrl
+        else:
+            self.currentFullUrl = "%s?%s" % (self.currentUrl, self.currentQueryString)
+        self.currentQueryDic = self.request.GET.copy()
+
+        #设置模板
+        defaultTemplate = self.DefaultTemplateName()
+        self.SetTemplateName(defaultTemplate)
+
+        #处理 get 或 post
+        ret = super(UBaseTemplateView, self).dispatch(*args, **kwargs)
+
+        return ret
 
     def post(self, request, *args, **kwargs):
-        self.redirectUrl=request.path
+
+        self.reload = True
+        context = self.post_context_data(**kwargs)       
         
-        self.post_context_data(**kwargs)
-        #context = self.post_context_data(**kwargs)       
-        
-        if self.redirectUrl is None:
-            self.redirectUrl="/"
-        return HttpResponseRedirect(self.redirectUrl)
+        if self.autoRedirect and self.redirectUrl is not None:
+            if self.currentQueryString is None or self.currentQueryString == "":
+                pass
+            else:
+                self.redirectUrl = self.redirectUrl + "?" + self.currentQueryString
+
+            response = HttpResponseRedirect(self.redirectUrl)
+        elif self.reload:
+            response = HttpResponseRedirect(self.currentFullUrl)
+        else:
+            response = self.render_to_response(context)
+        return self.PostResponse(response)
 
     def post_context_data(self, **kwargs):
-        context={}
+        context = {}
 
-        self.AddVars(context,**kwargs)
+        self.AddVars(context, **kwargs)
 
         return context
 
     def get(self, request, *args, **kwargs):
-        self.redirectUrl=None
-
-        self.currentUrl=self.request.META["PATH_INFO"]
-        self.currentQueryString=self.request.META["QUERY_STRING"]
-        
-        if self.currentQueryString is None or self.currentQueryString=="":
-            self.currentFullUrl=self.currentUrl
-        else:
-            self.currentFullUrl="%s?%s" %(self.currentUrl,self.currentQueryString)
-        self.currentQueryDic=self.request.GET.copy()
 
         context = self.get_context_data(**kwargs)
 
         if self.autoRedirect and self.redirectUrl is not None:
-            if self.currentQueryString is None  or self.currentQueryString=="":
+            if self.currentQueryString is None or self.currentQueryString == "":
                 pass
             else:
-                self.redirectUrl=self.redirectUrl+"?"+self.currentQueryString
+                self.redirectUrl = self.redirectUrl + "?" + self.currentQueryString
 
-            return HttpResponseRedirect(self.redirectUrl)
+            response = HttpResponseRedirect(self.redirectUrl)
+        elif self.reload:
+            response = HttpResponseRedirect(self.currentFullUrl)
         else:
-            return self.render_to_response(context)
+            response = self.render_to_response(context)
+        return self.GetResponse(response)
 
     def get_context_data(self, **kwargs):
         context = super(UBaseTemplateView, self).get_context_data(**kwargs)
@@ -69,47 +98,58 @@ class UBaseTemplateView(TemplateView):
        
         return context
 
-    def PostContext(self,**kwargs):
-        context={}
+    def PostResponse(self, response):
+        return response
+
+    def GetResponse(self, response):
+        return response
+
+
+    def PostContext(self, **kwargs):
+        context = {}
         return context
-    def GetContext(self,**kwargs):
-        context={}
+    def GetContext(self, **kwargs):
+        context = {}
         return context
 
-    def BuildQueryString(self,queryDic=None,**appendQueryString):
+    def BuildQueryString(self, queryDic = None, **appendQueryString):
         
-        if queryDic==None:
-            queryDic=self.currentQueryDic
+        if queryDic is None:
+            queryDic = self.currentQueryDic
 
-        for key,value in appendQueryString.items():
-            if queryDic.has_key(key):
+        for key, value in appendQueryString.items():
+            if key in queryDic:
                 if value is None:
                     del queryDic[key]
                 else:
-                    queryDic[key]=value
+                    queryDic[key] = value
             else:
-                queryDic.setdefault(key,value)
+                queryDic.setdefault(key, value)
 
-        retQueryString=""
-        for key,value in queryDic.items():
-            retQueryString+="%s=%s&" %(key,value)
+        retQueryString = ""
+        for key, value in queryDic.items():
+            retQueryString += "%s=%s&" % (key, value)
         
         return retQueryString.rstrip("&")
 
-    def AddVars(self,context,args={},**kwargs):
+    def AddVars(self, context, args={}, **kwargs):
         if args:
             for key, value in args.items():
-                context[key]=value
+                context[key] = value
 
         if kwargs:
             for key, value in kwargs.items():
-                context[key]=value
-    def SetTemplateName(self,templateName):
+                context[key] = value
+
+    def DefaultTemplateName(self):
+        return None
+
+    def SetTemplateName(self, templateName):
         self.template_name=templateName
                     
-    def CheckTemplateExists(self,templateName=""):
-        if templateName is None or templateName=="":
-            templateName=self.template_name
+    def CheckTemplateExists(self, templateName = ""):
+        if templateName is None or templateName == "":
+            templateName = self.template_name
        
         try:
             from django import template
@@ -119,14 +159,18 @@ class UBaseTemplateView(TemplateView):
             return False
 
     #cookie、session
-    def SetCookie(self,response,key,value):
-        response.set_cookie(key,value)
+    def HasCookie(self, key):
+        return pub.HasCookie(self.request,key)
+       
+
+    def SetCookie(self, response, key, value):
+        pub.SetCookie(response,key,value)
     
-    def GetCookie(self,key,defaultValue=None):
-        return pub.GetCookie(self.request,key,defaultValue)
+    def GetCookie(self, key, defaultValue = None):
+        return pub.GetCookie(self.request, key, defaultValue)
         
     def DelCookie(self,response,key):
-        response.delete_cookie(key,path="/")
+        pub.DelCookie(response,key)
    
     def HasSession(self,key):
         return pub.HasSession(self.request,key)

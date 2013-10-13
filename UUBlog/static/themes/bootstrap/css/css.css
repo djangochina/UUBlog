@@ -1,0 +1,90 @@
+
+       
+
+/*文章列表*/
+.postList { }
+.postList .post{margin-bottom: 10px; background: white;  overflow: hidden; vertical-align: top;padding: 10px;
+                min-height: 20px;
+padding: 19px;
+margin-bottom: 20px;
+background-color: white;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+-webkit-box-shadow: 1px 1px 0px 0px rgb(204, 204, 204);
+-moz-box-shadow: 1px 1px 0px 0px rgb(204, 204, 204);
+box-shadow: 1px 1px 0px 0px rgb(204, 204, 204);
+-moz-box-sizing: border-box;
+overflow: hidden;
+
+}
+.postList .post .postTitle { padding: 5px;line-height: 25px;}
+.postList .post .postTitle h3{font-size: 24px;
+line-height: 40px;}
+.postList .post .postTitlePic { float: left;margin-right: 10px;margin-bottom: -15px; }
+.postList .post .postCon {line-height: 150%;font-size: 12px;text-indent: 2em; }
+.postList .post .postMeta { clear: both;float: right;}
+
+
+
+/*文章页面*/
+.postInfo {margin-bottom: 20px;  background: white; overflow: hidden; vertical-align: top;padding: 20px; }
+.postInfo .postTitle { margin: 10px; }
+.postInfo .postMeta { margin: 5px; }
+.postInfo .postMeta span { float: right; }
+.postInfo .postCon { word-wrap: break-word;word-break: normal;word-break:break-all;}
+
+/*单页面*/
+.pageInfo {margin-bottom: 20px;  background: white; overflow: hidden; vertical-align: top;padding: 20px; }
+.pageInfo .pageTitle { margin: 10px; }
+.pageInfo .pageMeta { margin: 5px; }
+.pageInfo .pageMeta span { float: right; }
+.pageInfo .pageCon { }
+
+
+/*评论列表*/
+#commentList{}
+#commentList .newComment{}
+#commentList .newComment .rowItem{}
+#commentList .newComment .rowItem label{ width: 120px;display: block;}
+#commentList .newComment .rowItem label.error{ float: none;display: none;color: red;}
+#commentList .newComment .rowItem textarea{ width: 500px;height: 80px;}
+#commentList .comment{margin-bottom: 10px;padding: 10px;  background: white; overflow: hidden; vertical-align: top;}
+#commentList .comment .username{ float: left;}
+#commentList .comment .createtime{ float: right;}
+#commentList .comment .content{word-wrap: break-word;word-break: break-all;line-height: 24px;}
+#commentList .comment .meta{}
+#commentList .comment .meta span{ float: right;margin-right: 10px;}
+
+/*分类*/
+.cats_0{}
+.cats_0 .childCats{ margin-left: 8px;}
+
+/*Widget*/
+/*.widget{}
+.widget .hd{height: 26px;line-height: 26px; background-image: url(/static/themes/default/images/widget_hd.png);_background-image: url(/static//themes/default/images/widget_hd.gif);}
+.widget .bd{ background-image: url(/static/themes/default/images/widget_bd.png);_background-image: url(/static//themes/default/images/widget_bd.gif);}
+.widget .ft{ background-image: url(/static/themes/default/images/widget_ft.png);_background-image: url(/static//themes/default/images/widget_ft.gif);}*/
+
+
+
+
+.messageContainer{ border: 1px solid #dedede;padding: 50px;}
+.messageContainer .message{ text-align: center;}
+.messageContainer .operations{margin-top: 20px; text-align: center;height: 20px;line-height: 20px;}
+
+
+
+
+
+.widget_commentlist{}
+.widget_commentlist .bd li{ line-height: normal;border-bottom: 1px solid #dedede;margin-top: 3px;}
+.widget_commentlist p{ padding: 0px;}
+.widget_commentlist span{display: block; text-align: right;clear: both;}
+
+
+
+
+
+
+

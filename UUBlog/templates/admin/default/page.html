@@ -16,10 +16,13 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("#pageForm").validate();
-        
-        $("#sidebarfloat").val("{{ self.options.page_sidebar_float}}");
+
         {% if pageInfo %}
-        $("#sidebarfloat").val("{{ pageInfo.sidebarfloat}}");
+            {% if pageInfo.sidebarfloat == '' %}
+            $("#sidebarfloat").val("{{ self.options.page_sidebar_float}}");
+            {% else %}
+            $("#sidebarfloat").val("{{ pageInfo.sidebarfloat}}");
+            {%  endif %}
         {% endif %}
     });
 </script>

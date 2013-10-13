@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1979204054">
+    <data-source source="LOCAL" name="Django default" uuid="17d9e2a1-0b61-4d14-94ef-f424a42ef6ea">
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql:///UUBlog</jdbc-url>
+      <user-name>root</user-name>
+      <libraries>
+        <library>
+          <url>file://</url>
+        </library>
+      </libraries>
+    </data-source>
+  </component>
+</project>
+

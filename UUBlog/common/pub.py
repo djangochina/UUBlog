@@ -4,15 +4,22 @@ from UUBlog import settings
 
 #cookie
 
-def SetCookie(response,key,value):
-    response.set_cookie(key,value)
+def HasCookie(request, key):
+    if key in request.COOKIES:
+        return True
+    return False
+
+def SetCookie(response, key, value):
+    response.set_cookie(key, value)
     
-def GetCookie(request,key,defaultValue=None):
-    if request.COOKIES.has_key(key):
-        return request.COOKIES[key]
+def GetCookie(request, key, defaultValue = None):
+    if HasCookie(request, key):
+        ret = request.COOKIES[key]
+        return ret
     return defaultValue
-def DelCookie(response,key):
-    response.delete_cookie(key,path="/")
+
+def DelCookie(response, key):
+    response.delete_cookie(key, path="/")
 
 #session
 def HasSession(request,key):
@@ -169,7 +176,10 @@ def GetPagedObject(objectList,currentIndex,pageSize):
     return result
 
 
-
+def RenderToResponse(request,templateName,locals):
+    from django.shortcuts import render_to_response
+    from django.template import RequestContext
+    return render_to_response(templateName,locals,context_instance=RequestContext(request))
 
 
 
