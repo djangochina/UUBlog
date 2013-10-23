@@ -39,7 +39,7 @@ class PostListView(UBaseAdminView):
         pageSize=self.GetOption("admin_pagesize",10)
 
         postList=pub.GetPagedObject(postList,pageIndex,pageSize)
-        pageObject=postList
+        pagedObject=postList
 
         self.SetTemplateName("postlist")
         return locals()

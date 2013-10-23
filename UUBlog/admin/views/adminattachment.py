@@ -22,7 +22,7 @@ class AttachmentManagerView(UBaseAdminView):
         pageSize=self.GetOption("admin_pagesize",10)
 
         attachList=pub.GetPagedObject(attachList,pageIndex,pageSize)
-        pageObject=attachList
+        pagedObject=attachList
 
         self.SetTemplateName("attachlist")
         return locals()

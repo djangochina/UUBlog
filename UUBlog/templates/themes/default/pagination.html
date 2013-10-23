@@ -1,26 +1,24 @@
 {% load url from future %}
 {% load uublogtags %}
 
-{% if pageObject %}
-{% if pageObject.has_previous or pageObject.has_next %}
+{% if pagedObject %}
+{% if pagedObject.has_previous or pagedObject.has_next %}
 <div class="pagination">
-    <ul>
-        {% if pageObject.has_previous %}
-        <li class="previous">
-            <a href="?{% DoQueryString view.currentQueryString page=pageObject.previous_page_number %}">上一页</a>
-        </li>
+        {% if pagedObject.has_previous %}
+        <span>
+            <a href="?{% DoQueryString view.currentQueryString page=pagedObject.previous_page_number %}" >上一页</a>
+        </span>
         {% endif %}
         
-        <li class="current">
-            当前页 {{ pageObject.number }} of {{ pageObject.paginator.num_pages }}
-        </li>
+        <span class="current">
+            当前页 {{ pagedObject.number }} of {{ pagedObject.paginator.num_pages }}
+        </span>
 
-        {% if pageObject.has_next %}
-        <li class="next">
-            <a href="?{% DoQueryString view.currentQueryString page=pageObject.next_page_number %}">下一页</a>
-        </li>
+        {% if pagedObject.has_next %}
+        <span class="next">
+            <a href="?{% DoQueryString view.currentQueryString page=pagedObject.next_page_number %}">下一页</a>
+        </span>
         {% endif %}
-    </ul>
 </div>
 
 {% endif %}

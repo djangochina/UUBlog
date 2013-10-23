@@ -19,10 +19,6 @@ urlpatterns += patterns('',
      url(r'^media/(?P<path>.*)','django.views.static.serve',{'document_root': settings.MEDIA_ROOT}),
      url(r'^static/(?P<path>.*)','django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
 )
-#urlpatterns += patterns('',
-#    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-#    url(r'^admin/', include(admin.site.urls)),
-#)
 
 
 
@@ -94,13 +90,10 @@ urlpatterns += patterns('',
     url(r'^admin/widgetlist/(?P<sid>.+)/$', adminwidget.WidgetManagerView.as_view(),name="admin_widget_manager"),
 
     url(r'^admin/widget/(?P<wid>\d+)/$', adminwidget.WidgetSettingView, name='admin_widget_edit'),
-    #url(r'^admin/widget/*/$', adminwidget.WidgetSettingView, name='admin_widget_edit'),
     url(r'^admin/widget/(?P<sid>.+)/(?P<wid>\d+)/$', adminwidget.WidgetEditView.as_view(),name="admin_widget_edit"),
 
 )
-urlpatterns += patterns('',
 
-)
 #用户设置
 urlpatterns += patterns('',
                         

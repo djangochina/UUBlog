@@ -2,7 +2,7 @@
 
 <div id="commentList" class="commentList">
     <div id="newComment" class="newComment">
-        {% if objInfo.cancomment %}
+        {% if commentObject.cancomment %}
         <script type="text/javascript" charset="utf-8" src="/static/js/jquery.validate.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
@@ -22,7 +22,7 @@
             </div>
             <div class="rowItem">
                 <label>标题：</label>
-                <input name="title" type="text" size="60" value="{{objInfo.title}}" />
+                <input name="title" type="text" size="60" value="{{commentObject.title}}" />
             </div>
 
             <div class="rowItem">

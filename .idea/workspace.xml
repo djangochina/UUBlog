@@ -33,89 +33,40 @@
       <file leaf-file-name="ubasetemplateView.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UUBlog/core/ubasetemplateView.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="45" selection-start="1414" selection-end="1414" vertical-scroll-proportion="0.0" vertical-offset="950" max-vertical-offset="4294">
+            <state line="206" column="41" selection-start="6150" selection-end="6150" vertical-scroll-proportion="0.0" vertical-offset="3363" max-vertical-offset="4256">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UUBlog/urls.py">
+      <file leaf-file-name="pub.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/UUBlog/common/pub.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="117" column="108" selection-start="4628" selection-end="4732" vertical-scroll-proportion="0.0" vertical-offset="2223" max-vertical-offset="2641">
-              <folding />
+            <state line="26" column="0" selection-start="586" selection-end="586" vertical-scroll-proportion="0.8006483" vertical-offset="0" max-vertical-offset="3496">
+              <folding>
+                <element signature="e#22#31#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="adminwidget.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UUBlog/admin/views/adminwidget.py">
+      <file leaf-file-name="ubaseblog.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UUBlog/uu/ubaseblog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="46" selection-start="1400" selection-end="1400" vertical-scroll-proportion="0.0" vertical-offset="969" max-vertical-offset="2489">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="comment.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UUBlog/templates/admin/default/setting/comment.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="9" selection-start="219" selection-end="219" vertical-scroll-proportion="0.0" vertical-offset="228" max-vertical-offset="1273">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="content.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UUBlog/templates/admin/default/setting/content.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="116" column="0" selection-start="5292" selection-end="5292" vertical-scroll-proportion="0.0" vertical-offset="2049" max-vertical-offset="4047">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/UUBlog/templates/themes/default/config.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="77" selection-end="77" vertical-scroll-proportion="-0.08571429" vertical-offset="89" max-vertical-offset="684">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="post.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UUBlog/templates/admin/default/post.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="12" selection-start="608" selection-end="834" vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="6061">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="page.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UUBlog/templates/admin/default/page.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="0" selection-start="480" selection-end="480" vertical-scroll-proportion="0.0" vertical-offset="228" max-vertical-offset="3154">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="widgetlist.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UUBlog/templates/admin/default/widgetlist.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="102" column="32" selection-start="3602" selection-end="3602" vertical-scroll-proportion="0.0" vertical-offset="1824" max-vertical-offset="2793">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="view.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UUBlog/views/view.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="200" column="49" selection-start="6109" selection-end="6109" vertical-scroll-proportion="0.0" vertical-offset="3800" max-vertical-offset="4769">
-              <folding />
+            <state line="385" column="0" selection-start="10947" selection-end="10948" vertical-scroll-proportion="0.0" vertical-offset="5007" max-vertical-offset="5738">
+              <folding>
+                <element signature="e#4194#4770#0" expanded="false" />
+                <element signature="e#4808#4933#0" expanded="false" />
+                <element signature="e#4986#5153#0" expanded="false" />
+                <element signature="e#5215#5781#0" expanded="false" />
+                <element signature="e#5836#6365#0" expanded="false" />
+                <element signature="e#6670#6931#0" expanded="false" />
+                <element signature="e#6972#7101#0" expanded="false" />
+                <element signature="e#7161#7421#0" expanded="false" />
+                <element signature="e#7462#7591#0" expanded="false" />
+                <element signature="e#7654#7941#0" expanded="false" />
+                <element signature="e#7988#8132#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -138,22 +89,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/UUBlog/admin/views/adminpost.py" />
         <option value="$PROJECT_DIR$/UUBlog/admin/views/adminaccount.py" />
-        <option value="$PROJECT_DIR$/UUBlog/common/pub.py" />
         <option value="$PROJECT_DIR$/UUBlog/templates/admin/default/widgetlist.html" />
         <option value="$PROJECT_DIR$/UUBlog/templates/widgets/basewidget_setting.html" />
         <option value="$PROJECT_DIR$/UUBlog/admin/views/adminwidget.py" />
         <option value="$PROJECT_DIR$/UUBlog/uu/ubasewidget.py" />
-        <option value="$PROJECT_DIR$/UUBlog/core/ubasetemplateView.py" />
         <option value="$PROJECT_DIR$/UUBlog/uu/ubaseuser.py" />
         <option value="$PROJECT_DIR$/UUBlog/templates/admin/default/post.html" />
         <option value="$PROJECT_DIR$/UUBlog/templates/admin/default/page.html" />
-        <option value="$PROJECT_DIR$/UUBlog/views/view.py" />
         <option value="$PROJECT_DIR$/UUBlog/admin/views/adminsetting.py" />
         <option value="$PROJECT_DIR$/UUBlog/urls.py" />
         <option value="$PROJECT_DIR$/UUBlog/templates/admin/default/setting/content.html" />
         <option value="$PROJECT_DIR$/UUBlog/templates/themes/default/config.py" />
+        <option value="$PROJECT_DIR$/UUBlog/views/view.py" />
+        <option value="$PROJECT_DIR$/UUBlog/uu/ubaseblog.py" />
+        <option value="$PROJECT_DIR$/UUBlog/core/ubasetemplateView.py" />
+        <option value="$PROJECT_DIR$/UUBlog/common/pub.py" />
       </list>
     </option>
   </component>
@@ -205,6 +156,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -251,90 +203,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="widgets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widgets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="search" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widgets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="postlist" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widgets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="customtext" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -354,198 +222,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="uu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widgets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widgets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="customtext" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="themes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="themes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="default" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="default" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UUBlog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="default" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="setting" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -627,7 +303,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -644,17 +319,17 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="136" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="137" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="809" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="811" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="809" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="140" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="127" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
     <property name="FullScreen" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -779,27 +454,7 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="UUBlog" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
-      <option name="host" value="" />
-      <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
-      <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
-      <option name="useCustomRunCommand" value="false" />
-      <option name="customRunCommand" value="" />
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -825,7 +480,27 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="UUBlog" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -941,14 +616,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="32" width="1296" height="776" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2125" sideWeight="0.42236024" order="0" side_tool="false" content_ui="combo" x="177" y="153" width="255" height="644" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11796875" sideWeight="0.42236024" order="0" side_tool="false" content_ui="combo" x="177" y="153" width="255" height="644" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29037267" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -1002,11 +677,6 @@
         <state line="39" column="34" selection-start="957" selection-end="957" vertical-scroll-proportion="0.39831933" vertical-offset="485" max-vertical-offset="1311" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UUBlog/common/pub.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="4" selection-start="245" selection-end="245" vertical-scroll-proportion="0.31260505" vertical-offset="42" max-vertical-offset="3781" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UUBlog/templates/admin/default/widgetlist.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="102" column="32" selection-start="3602" selection-end="3602" vertical-scroll-proportion="0.0" vertical-offset="1824" max-vertical-offset="2793">
@@ -1014,21 +684,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UUBlog/core/ubasetemplateView.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="45" selection-start="1414" selection-end="1414" vertical-scroll-proportion="0.0" vertical-offset="790" max-vertical-offset="4123">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UUBlog/uu/ubaseuser.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="45" column="34" selection-start="1692" selection-end="1692" vertical-scroll-proportion="0.49243698" vertical-offset="562" max-vertical-offset="1349" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UUBlog/uu/ubaseblog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="279" column="8" selection-start="7394" selection-end="7394" vertical-scroll-proportion="0.33277312" vertical-offset="4932" max-vertical-offset="8037" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UUBlog/admin/views/adminwidget.py">
@@ -1052,13 +710,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UUBlog/views/view.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="200" column="49" selection-start="6109" selection-end="6109" vertical-scroll-proportion="0.0" vertical-offset="3661" max-vertical-offset="4712">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UUBlog/admin/views/adminsetting.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="3" selection-start="635" selection-end="635" vertical-scroll-proportion="0.6067227" vertical-offset="0" max-vertical-offset="3496" />
@@ -1073,7 +724,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/UUBlog/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="117" column="108" selection-start="4628" selection-end="4732" vertical-scroll-proportion="0.0" vertical-offset="1767" max-vertical-offset="2527">
+        <state line="109" column="103" selection-start="4361" selection-end="4465" vertical-scroll-proportion="0.0" vertical-offset="2071" max-vertical-offset="2508">
           <folding />
         </state>
       </provider>
@@ -1087,8 +738,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/UUBlog/templates/themes/default/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="77" selection-end="77" vertical-scroll-proportion="-0.08571429" vertical-offset="89" max-vertical-offset="684">
+        <state line="19" column="4" selection-start="509" selection-end="509" vertical-scroll-proportion="0.0" vertical-offset="89" max-vertical-offset="684">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UUBlog/views/view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="224" column="12" selection-start="7191" selection-end="7191" vertical-scroll-proportion="0.0" vertical-offset="3927" max-vertical-offset="4522">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UUBlog/uu/ubaseblog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="385" column="0" selection-start="10947" selection-end="10948" vertical-scroll-proportion="0.0" vertical-offset="5007" max-vertical-offset="5738">
+          <folding>
+            <element signature="e#4194#4770#0" expanded="false" />
+            <element signature="e#4808#4933#0" expanded="false" />
+            <element signature="e#4986#5153#0" expanded="false" />
+            <element signature="e#5215#5781#0" expanded="false" />
+            <element signature="e#5836#6365#0" expanded="false" />
+            <element signature="e#6670#6931#0" expanded="false" />
+            <element signature="e#6972#7101#0" expanded="false" />
+            <element signature="e#7161#7421#0" expanded="false" />
+            <element signature="e#7462#7591#0" expanded="false" />
+            <element signature="e#7654#7941#0" expanded="false" />
+            <element signature="e#7988#8132#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UUBlog/core/ubasetemplateView.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="206" column="41" selection-start="6150" selection-end="6150" vertical-scroll-proportion="0.0" vertical-offset="3363" max-vertical-offset="4256">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UUBlog/common/pub.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="0" selection-start="586" selection-end="586" vertical-scroll-proportion="0.8006483" vertical-offset="0" max-vertical-offset="3496">
+          <folding>
+            <element signature="e#22#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

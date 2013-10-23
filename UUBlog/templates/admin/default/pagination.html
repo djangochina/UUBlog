@@ -3,9 +3,9 @@
 
 <div class="pagination">
 
-         {% if pageObject.has_previous %}
+         {% if pagedObject.has_previous %}
 
-            <a href="?page={{ pageObject.previous_page_number }}">上一页</a>
+            <a href="?page={{ pagedObject.previous_page_number }}">上一页</a>
 
             {% else %}
 
@@ -15,12 +15,12 @@
 
             <span class="current">
 
-                当前页 {{ pageObject.number }} of {{ pageObject.paginator.num_pages }}
+                当前页 {{ pagedObject.number }} of {{ pagedObject.paginator.num_pages }}
 
             </span>
 
-            {% if pageObject.has_next %}
-    <a href="?{% DoQueryString view.currentQueryString page=pageObject.next_page_number %}">下一页</a>
+            {% if pagedObject.has_next %}
+    <a href="?{% DoQueryString view.currentQueryString page=pagedObject.next_page_number %}">下一页</a>
 
 
             {% else %}

@@ -17,23 +17,26 @@ class UBaseUserView(UBaseBlogView):
         self.navs["top"]["right"] = self.GetNavList(position=2, align=3)
         self.navs["bottom"] = self.GetNavList(position=3)
         
-        self.templateName = "normal"
-        self.sidebar = "normal"
-        self.sidebarFloat = "none"
+        self.templateName = "default"
+        self.sidebar = "default"
+        self.sidebarFloat = "right"
 
     def SetTemplateName(self, templateName):
+        if templateName is None or templateName == "":
+            return
+
         self.template_name = "themes/%s/%s.html" % (self.theme, templateName)
         #isExists=self.CheckTemplateExists()
         #if isExists==False:
         #    self.message=self.template_name
 
         #    dot=templateName.find("_")
-        #    templateName=templateName[0:dot+1]+"normal"
+        #    templateName=templateName[0:dot+1]+"default"
         #    self.template_name="themes/%s/%s.html" %(self.theme,templateName)
 
         #    isExists=self.CheckTemplateExists()
         #    if isExists==False:
-        #        self.message+=self.template_name+"不存在"
+        #        self.message+=self.template_name + "不存在"
         #        templateName="message"
         #        self.template_name="themes/%s/%s.html" %(self.theme,templateName)
 
@@ -47,8 +50,8 @@ class UBaseUserView(UBaseBlogView):
         self.message = messageInfo
         
         self.templateName = "message"
-        self.sidebar = self.GetOption("message_sidebar", "normal")
-        self.sidebarFloat = self.GetOption("message_sidebar_float", "none")
+        self.sidebar = self.GetOption("message_sidebar", "default")
+        self.sidebarFloat = self.GetOption("message_sidebar_float", "right")
 
         self.SetTemplateAndSidebar()
 

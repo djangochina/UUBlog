@@ -12,19 +12,18 @@ class IndexView(UBaseUserView):
         super(IndexView, self).GetContext(**kwargs)
 
         pageIndex = utility.ToInt(self.GetGetData("page"), 1)
-        pageSize = self.GetOption("index_pagesize", 20)
+        pageSize  = utility.ToInt(self.GetOption("index_pagesize"), 20)
 
-        postList = self.GetPostList(status=1)
+        postList = self.GetPostList("-istop","-createtime",status=1)
         postList = pub.GetPagedObject(postList, pageIndex, pageSize)
-        pageObject = postList
+        pagedObject = postList
        
         
-        self.templateName = "index_" + self.GetOption("index_template", "normal")
-        self.sidebar = self.GetOption("index_sidebar", "normal")
-        self.sidebarFloat = self.GetOption("index_sidebar_float", "none")
+        self.templateName = "index_" + self.GetOption("index_template", "default")
+        self.sidebar = self.GetOption("index_sidebar", "default")
+        self.sidebarFloat = self.GetOption("index_sidebar_float", "right")
 
         self.SetTemplateAndSidebar()
-
         return locals()
 
 #列表浏览
@@ -42,12 +41,11 @@ class ListView(UBaseUserView):
                 self.SetMessageTemplate("分类不存在")
                 return locals()
 
-            pageSize = self.GetOption("cat_pagesize", 20)
+            pageSize = utility.ToInt(self.GetOption("cat_pagesize"), 20)
 
             postList = self.GetPostList(status=1, category_id=cid)
 
-            
-            self.templateName = "cat_"+catInfo.template
+            self.templateName = "cat_" + catInfo.template
             self.sidebar = catInfo.sidebar
             self.sidebarFloat = catInfo.sidebarfloat
 
@@ -66,7 +64,7 @@ class ListView(UBaseUserView):
         pageIndex = utility.ToInt(self.GetGetData("page"), 1)
 
         postList = pub.GetPagedObject(postList, pageIndex, pageSize)
-        pageObject = postList
+        pagedObject = postList
 
         self.SetTemplateAndSidebar()
         return locals()
@@ -80,16 +78,15 @@ class SearchView(UBaseUserView):
         word = self.GetGetData("word")
         
         pageIndex = utility.ToInt(self.GetGetData("page"), 1)
-        pageSize = self.GetOption("search_pagesize", 20)
+        pageSize = utility.ToInt(self.GetOption("search_pagesize"), 20)
 
         postList = self.GetPostList(status=1, title__icontains=word)
         postList = pub.GetPagedObject(postList, pageIndex, pageSize)
-        pageObject = postList
-
-        
+        pagedObject = postList
+       
         self.templateName = "search"
-        self.sidebar = self.GetOption("search_sidebar", "normal")
-        self.sidebarFloat = self.GetOption("search_sidebar_float", "none")
+        self.sidebar = self.GetOption("search_sidebar", "default")
+        self.sidebarFloat = self.GetOption("search_sidebar_float", "right")
 
         self.SetTemplateAndSidebar()
         return locals()
@@ -116,20 +113,18 @@ class PostView(UBaseUserView):
             if callable(hook):
                 postInfo = hook(postInfo)
         
-        objInfo = postInfo
+        commentObject = postInfo
         commentList = self.GetCommentList(obj_id=pid)
 
         comment_paging = self.GetOption("comment_paging", "True")
         if comment_paging == "True":
             pageIndex = utility.ToInt(self.GetGetData("page"), 1)
-            pageSize = self.GetOption("comment_pagesize", 20)
+            pageSize  = utility.ToInt(self.GetOption("comment_pagesize"), 20)
         
             commentList = pub.GetPagedObject(commentList, pageIndex, pageSize)
-            pageObject = commentList
-            
-
+            pagedObject = commentList
         
-        self.templateName = "post_"+postInfo.template
+        self.templateName = "post_" + postInfo.template
         self.sidebar = postInfo.sidebar
         self.sidebarFloat = postInfo.sidebarfloat
 
@@ -142,7 +137,6 @@ class PostView(UBaseUserView):
         if self.HasPostData("ok") and pid > 0:
             postInfo = self.GetPost(pid)
             if postInfo is None:
-                
                 return locals()
 
             username = self.GetPostData('username')
@@ -181,20 +175,17 @@ class PageView(UBaseUserView):
         #更新文章浏览量
         pageInfo.views += 1
         pageInfo.save()
-
         
-        objInfo = pageInfo
+        commentObject = pageInfo
         commentList = self.GetCommentList(obj_id=pid)
 
         comment_paging = self.GetOption("comment_paging", "True")
         if comment_paging == "True":
             pageIndex = utility.ToInt(self.GetGetData("page"), 1)
-            pageSize = self.GetOption("comment_pagesize", 20)
+            pageSize  = utility.ToInt(self.GetOption("comment_pagesize"), 20)
         
             commentList = pub.GetPagedObject(commentList, pageIndex, pageSize)
-            pageObject = commentList
-
-
+            pagedObject = commentList
         
         self.templateName = "page_"+pageInfo.template
         self.sidebar = pageInfo.sidebar
@@ -237,7 +228,6 @@ class CloseView(UBaseUserView):
     def GetContext(self, **kwargs):
         super(CloseView, self).GetContext(**kwargs)
 
-        close_info = utility.GetDicData(self.options, "close_info", "")
         self.SetTemplateName("close")
 
         return locals()            

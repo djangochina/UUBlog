@@ -12,13 +12,13 @@
         {% for post in postList%}
     <div class="border post">
         
-        <div class="postTitle"><h2><a href="{% url 'post' pid=post.id%}">{{post.title}}</a></h2></div>
+        <div class="postTitle"><h2><a href="{% url 'post' pid=post.id%}">{% if post.istop == 1%}[置顶]{% endif %}{{post.title}}</a></h2></div>
         <div class="postCon">
             {{post.summary|striptags}}    
         </div>
         <div class="postMeta">
             &nbsp;&nbsp;{{post.createtime|date:self.options.datetimeformat}}&nbsp;&nbsp;
-            ┆&nbsp;&nbsp;阅读({{post.views}})&nbsp;&nbsp;┆&nbsp;&nbsp;评论({{post.comments}})&nbsp;&nbsp;
+            ┆&nbsp;&nbsp;<a href="{% url 'post' pid=post.id%}">阅读({{post.views}})</a>&nbsp;&nbsp;┆&nbsp;&nbsp;评论({{post.comments}})&nbsp;&nbsp;
             ┆&nbsp;&nbsp;支持({{post.goods}})&nbsp;&nbsp;┆&nbsp;&nbsp;反对({{post.bads}})
         </div>
     </div>

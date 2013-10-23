@@ -36,8 +36,10 @@ clear: both;
 
 #container {margin: 0 auto;}
 
-#mainContent { width: 730px;  }
+/*一列*/
 #mainContentFull{ width: 990px;}
+/*左右两列*/
+#mainContent { width: 730px;  }
 #sidebar { width: 250px; }
 
 #footer { margin: 8px auto; height: 60px; }
@@ -65,6 +67,7 @@ clear: both;
 .postInfo .postCon { word-wrap: break-word;word-break: normal;word-break:break-all;}
 .postInfo .postCon .postBody{font-size: 14px;margin-left: 10px;margin-right: 10px;line-height: 180%;overflow: hidden;color: #404040;}
 .postInfo .postCon .postBody p{margin-top: 10px;margin-bottom: 10px;line-height: 180%;color: #404040;}
+.postInfo .postCon .postBody img {  text-align:center;}
 .postInfo .postCon .postOther{}
 
 /*单页面*/

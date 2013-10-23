@@ -15,123 +15,113 @@ class UBaseBlogView(UBaseTemplateView):
     def __init__(self, **kwargs):
         super(UBaseBlogView, self).__init__(**kwargs)
 
-        self.sysTime=GetSysTime()
-        self.options={}
-        self.user=None       
+        self.sysTime = GetSysTime()
+        self.options = {}
+        self.user = None
 
-        self.theme="default"
-        self.themeConfig={}
+        self.theme = "default"
+        self.themeConfig = {}
 
     def InitValue(self):
 
-        self.sysTime=GetSysTime()
-        self.options=self.GetOptions()
-        self.user=self.request.user
+        self.sysTime = GetSysTime()
+        self.options = self.GetOptions()
+        self.user = self.request.user
         
-        self.theme=self.GetOption("theme","default")
-        themeModuleName="%s.%s.%s" %("UUBlog.templates.themes",self.theme,"config")
-        self.themeConfig=importlib.import_module(themeModuleName).config
-
-        
+        self.theme = self.GetOption("theme", "default")
+        themeModuleName = "%s.%s.%s" % ("UUBlog.templates.themes", self.theme, "config")
+        self.themeConfig = importlib.import_module(themeModuleName).config
 
     def post_context_data(self, **kwargs):
-        context= super(UBaseBlogView, self).post_context_data(**kwargs)
+        context = super(UBaseBlogView, self).post_context_data(**kwargs)
        
         self.InitValue()
 
-        myContext=self.PostContext(**kwargs)
-        
-        self.AddVars(context,myContext)
+        myContext = self.PostContext(**kwargs)
+        self.AddVars(context, myContext)
 
         return context
 
-
     def get_context_data(self, **kwargs):
-        context= super(UBaseBlogView, self).get_context_data(**kwargs)
+        context = super(UBaseBlogView, self).get_context_data(**kwargs)
 
         self.InitValue()
 
-        myContext=self.GetContext(**kwargs)
-
-        self.AddVars(context,myContext)
+        myContext = self.GetContext(**kwargs)
+        self.AddVars(context, myContext)
 
         return context
 
-    def GetHookList(self,key):
+    def GetHookList(self, key):
         global G
-        if G["hooks"].has_key(key):
+        if key in G["hooks"]:
             return G["hooks"][key]
         return []
             
     
 
     #模块列表
-    def GetWidgetList(self,sid="normal",isRender=True):
-        if sid is None or sid=="":
-            sid="normal"
+    def GetWidgetList(self, sid="default", isRender=True):
+        if sid is None or sid == "":
+            sid ="default"
 
         #获取博客的widget
-        myWidgetList=MyWidget.objects.order_by("-sortnum").filter(sidebar_id=sid)
+        myWidgetList = MyWidget.objects.order_by("-sortnum").filter(sidebar_id=sid)
             
-        if not isRender :
-            return  myWidgetList
+        if not isRender:
+            return myWidgetList
 
         global G
-        retWidgetList=[]
+        retWidgetList = []
 
         for myWidget in myWidgetList:
-
-            widgetName=myWidget.widget
+            widgetName = myWidget.widget
 
             widgetValue={}
-                
-            widgetValue.setdefault("name",widgetName)
 
-            widgetValue.setdefault("id",myWidget.id)
-            widgetValue.setdefault("title",myWidget.title)
-            widgetValue.setdefault("isshowtitle",myWidget.isshowtitle)
+            widgetValue.setdefault("id", myWidget.id)
+            widgetValue.setdefault("name", widgetName)
+            widgetValue.setdefault("title", myWidget.title)
+            widgetValue.setdefault("isshowtitle", myWidget.isshowtitle)
+            params = utility.Json2Obj(myWidget.params)
+            widgetValue.setdefault("params", params)
 
-            params=utility.Json2Obj(myWidget.params)
-            widgetValue.setdefault("params",params)
+            data = utility.Json2Obj(myWidget.data)
 
-            data=utility.Json2Obj(myWidget.data)
-
-            if G["widgets"].has_key(widgetName):
-
-                widgetModule=G["widgets"][widgetName]
-
-                widgetView=widgetModule.config["view"]
+            if widgetName in G["widgets"]:
+                widgetModule = G["widgets"][widgetName]
+                widgetView = widgetModule.config["view"]
                 if widgetView and callable(widgetView):
-                    data=widgetView(self,myWidget,params)
+                    data = widgetView(self, myWidget, params)
 
-            widgetValue.setdefault("data",data)
+            widgetValue.setdefault("data", data)
 
             retWidgetList.append(widgetValue)
 
         return retWidgetList
 
-    def GetWidget(self,widgetId):
+    def GetWidget(self, widgetId):
         try:
-            widgetInfo= MyWidget.objects.get(id=widgetId)
+            widgetInfo = MyWidget.objects.get(id=widgetId)
         except:
-            widgetInfo=None
+            widgetInfo = None
         return widgetInfo
 
     #导航
-    def GetNavList(self,parentId=-1,position=None,align=None):
-        navList=Navigate.objects.order_by("position","-sortnum")
-        if parentId>-1:
-            navList=navList.filter(parent_id=parentId)
+    def GetNavList(self, parentId=-1, position=None, align=None):
+        navList = Navigate.objects.order_by("position", "-sortnum")
+        if parentId > -1:
+            navList = navList.filter(parent_id=parentId)
         if position:
-            navList=navList.filter(position=position)
+            navList = navList.filter(position=position)
         if align:
-            navList=navList.filter(align=align)
+            navList = navList.filter(align=align)
         return navList
 
-    def BuildNavTreeHtml(self,pId,level=-1,theId=-1):
-        navs=self.GetNavList(pId,1)
+    def BuildNavTreeHtml(self, pId, level=-1, theId=-1):
+        navs = self.GetNavList(pId, 1)
 
-        if navs is None or len(navs)==0:
+        if navs is None or len(navs) == 0:
             return ""
 
         level+=1
@@ -236,11 +226,11 @@ class UBaseBlogView(UBaseTemplateView):
             options+="</ul>"
         return options
 
-    def GetCat(self,catId):
+    def GetCat(self, catId):
         try:
-            catInfo=Category.objects.get(id=catId)
+            catInfo = Category.objects.get(id=catId)
         except:
-            catInfo=None
+            catInfo = None
         return catInfo
 
     #侧边栏
@@ -248,176 +238,176 @@ class UBaseBlogView(UBaseTemplateView):
         return Sidebar.objects.all()
 
     #文章列表
-    def GetPostList(self,*orders,**kwargs):
-        postList=Post.objects.all()
+    def GetPostList(self, *orders, **kwargs):
+        postList = Post.objects.all()
         if kwargs:
-            postList=postList.filter(**kwargs)
+            postList = postList.filter(**kwargs)
         if orders:
-            postList=postList.order_by(*orders)            
+            postList = postList.order_by(*orders)
         else:
-            postList=postList.order_by("-createtime")
+            postList = postList.order_by("-createtime")
 
         return postList
 
-    def GetPost(self,postId):
+    def GetPost(self, postId):
         try:
-            postInfo=Post.objects.get(id=postId)
+            postInfo = Post.objects.get(id=postId)
         except:
-            postInfo=None
+            postInfo = None
         return postInfo
 
     #页面列表
-    def GetPageList(self,*orders,**kwargs):
-        pageList=Page.objects.all()
+    def GetPageList(self, *orders, **kwargs):
+        pageList = Page.objects.all()
         if kwargs:
-            pageList=pageList.filter(**kwargs)
+            pageList = pageList.filter(**kwargs)
         if orders:
-            pageList=pageList.order_by(*orders)          
+            pageList = pageList.order_by(*orders)
         else:
-            pageList=pageList.order_by("-createtime")
+            pageList = pageList.order_by("-createtime")
         return pageList
 
-    def GetPage(self,pageId):
+    def GetPage(self, pageId):
         try:
-            pageInfo=Page.objects.get(id=pageId)
+            pageInfo = Page.objects.get(id=pageId)
         except:
-            pageInfo=None
+            pageInfo = None
         return pageInfo
 
     #评论列表
-    def GetCommentList(self,*orders,**kwargs):
-        commentList=Comment.objects.all()
+    def GetCommentList(self, *orders, **kwargs):
+        commentList = Comment.objects.all()
         if kwargs:
-            commentList=commentList.filter(**kwargs)
+            commentList = commentList.filter(**kwargs)
         if orders:
-            commentList=commentList.order_by(*orders)               
+            commentList = commentList.order_by(*orders)
         else:
-            commentList=commentList.order_by("-createtime")
-
+            commentList = commentList.order_by("-createtime")
         return commentList
 
-    def GetComment(self,commentId):
+    def GetComment(self, commentId):
         try:
-            commentInfo=Comment.objects.get(id=commentId)
+            commentInfo = Comment.objects.get(id=commentId)
         except:
-            commentInfo=None
+            commentInfo = None
         return commentInfo
 
     #获取一个Option的值
-    def GetOption(self,name,default=None):
-        if self.options.has_key(name):
+    def GetOption(self, name, defaultValue=None):
+        if name in self.options:
             return self.options[name]
 
-        optionList=Option.objects.filter(name=name)
+        optionList = Option.objects.filter(name=name)
         if optionList:
-            return optionList[0].value
-        
-        return default
+            ret = optionList[0].value
+            if ret == "" and defaultValue is not None:
+                return defaultValue
+            return ret
+        return defaultValue
 
     #修改或增加（isCreate为True时）一个Option
-    def UpdateOption(self,name,value="",isCreate=True):
-        optionValue=self.GetOption(name)
-        if optionValue and optionValue==value:
+    def UpdateOption(self, name, value="", isCreate=True):
+        optionValue = self.GetOption(name)
+        if optionValue and optionValue == value:
             return
 
-        optionList=Option.objects.filter(name=name)
+        optionList = Option.objects.filter(name=name)
         
         if optionList:
-            optionInfo= optionList[0]
-            optionInfo.value=value
+            optionInfo = optionList[0]
+            optionInfo.value = value
             optionInfo.save()
         elif isCreate:
-            optionInfo=Option()
-            optionInfo.name=name
-            optionInfo.value=value
+            optionInfo = Option()
+            optionInfo.name = name
+            optionInfo.value = value
             optionInfo.save()
 
     #获取所有的Option
     def GetOptions(self):
-        ret={}
-        optionList=Option.objects.all()
+        ret = {}
+        optionList = Option.objects.all()
 
         for optionInfo in optionList:
-            ret.setdefault(optionInfo.name,optionInfo.value)
+            ret.setdefault(optionInfo.name, optionInfo.value)
 
         return ret
          
     #添加访客
-    def AddVisit(self,uid):
+    def AddVisit(self, uid):
         pass
-    def SaveFile(self,uploadFile):
-        currentTime=self.sysTime
+    def SaveFile(self, uploadFile):
+        currentTime = datetime.datetime.now()
 
         #"\\attachment\\201309\\11" 
         #"1704"+guid
-        path="\\%s\\%s\\%s" %("attachment",currentTime.strftime("%Y%m"),currentTime.strftime("%d"))
-        fileName="%s%s" %(currentTime.strftime("%H%M%S"),uuid.uuid1())
+        path = "\\%s\\%s\\%s" % ("attachment", currentTime.strftime("%Y%m"), currentTime.strftime("%d"))
+        fileName = "%s%s" % (currentTime.strftime("%H%M%S"), uuid.uuid1())
 
-        uploadFileInfo=pub.SaveFile(uploadFile,path,fileName)
-        attachInfo=Attachment()
-        attachInfo.path=uploadFileInfo["path"]
-        attachInfo.name=uploadFileInfo["newname"]
-        attachInfo.title=uploadFileInfo["name"]
-        attachInfo.description=uploadFileInfo["name"]
-        attachInfo.extension=uploadFileInfo["ext"]
+        uploadFileInfo = pub.SaveFile(uploadFile, path, fileName)
+        attachInfo = Attachment()
+        attachInfo.path = uploadFileInfo["path"]
+        attachInfo.name = uploadFileInfo["newname"]
+        attachInfo.title = uploadFileInfo["name"]
+        attachInfo.description = uploadFileInfo["name"]
+        attachInfo.extension = uploadFileInfo["ext"]
 
-        filetype=10
+        filetype = 10
         if attachInfo.extension in self.options["filetype_image"]:
-            filetype=1
+            filetype = 1
         elif attachInfo.extension in self.options["filetype_media"]:
-            filetype=2
+            filetype = 2
         elif attachInfo.extension in self.options["filetype_file"]:
-            filetype=3
-
-        attachInfo.filetype=filetype
-        attachInfo.createtime=datetime.datetime.now()
+            filetype = 3
+        attachInfo.filetype = filetype
+        attachInfo.createtime = datetime.datetime.now()
 
         attachInfo.save()
+
         return attachInfo
 
 def GetSysTime():
     return datetime.datetime.now()
 
 
-G={}
+G = {}
 #{"addpost":[func1,func2,func3],}
 
 def LoadWidgets():
-    ret={}
-    dirPaths=os.listdir(settings.WidgetDir)
+    ret = {}
+    dirPaths = os.listdir(settings.WidgetDir)
     for dirPath in dirPaths:
-        if dirPath.find(".")>0:
+        if dirPath.find(".") > 0:
             continue
-        moduleName="%s.%s.%s.%s" %("UUBlog","widgets",dirPath,dirPath)
-        module=importlib.import_module(moduleName)
-        ret.setdefault(dirPath,module)
+        moduleName = "%s.%s.%s.%s" % ("UUBlog", "widgets", dirPath, dirPath)
+        module = importlib.import_module(moduleName)
+        ret.setdefault(dirPath, module)
     return ret
 
-G.setdefault("widgets",LoadWidgets())
+G.setdefault("widgets", LoadWidgets())
 
 
 def LoadPlugins():
-    ret={}
+    ret = {}
     
-    dirPaths=os.listdir(settings.PluginDir)
+    dirPaths = os.listdir(settings.PluginDir)
     for dirPath in dirPaths:
-        if dirPath.find(".")>0:
+        if dirPath.find(".") > 0:
             continue
-        moduleName="%s.%s.%s.%s" %("UUBlog","plugins",dirPath,dirPath)
-        module=importlib.import_module(moduleName)
-        ret.setdefault(dirPath,module)
+        moduleName = "%s.%s.%s.%s" % ("UUBlog", "plugins", dirPath, dirPath)
+        module = importlib.import_module(moduleName)
+        ret.setdefault(dirPath, module)
     return ret
 
 #G.setdefault("plugins",LoadPlugins())
 
 def LoadHooks():
-    
-    ret={}
-    ret.setdefault("addpost",[1,2,3])
-    ret.setdefault("deletepost",[3,4,5])
+    ret = {}
+    ret.setdefault("addpost", [1, 2, 3])
+    ret.setdefault("deletepost", [3, 4, 5])
     return ret
 
-G.setdefault("hooks",LoadHooks())
+G.setdefault("hooks", LoadHooks())
 
 
 
